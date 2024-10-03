@@ -4,7 +4,7 @@ Zoo::Zoo(){
 
 }
 
-void Zoo::addAnimal(Animal animal){
-    //Zoo::animals.append(animal);
+void Zoo::addAnimal(std::shared_ptr<Animal> animal){
+    Zoo::animals[animal->get_id()] = animal;
 }
 

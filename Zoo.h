@@ -2,19 +2,19 @@
 #define ZOO
 
 #include <iostream>
-#include <vector>
+#include <unordered_map> 
+#include <memory> 
 
 #include "Animal.h"
 
 class Zoo{
     private:
-    //std::vector<Animal> animals;
-    //We will use a hashmap of animals
-    //std::hashmap<>;
+    //Hashmap of Animals
+    std::unordered_map<int, std::shared_ptr<Animal>> animals;
     public:
     Zoo();
-    void addAnimal(Animal);
-    Animal * getAnimalByID(int id);
+    void addAnimal(std::shared_ptr<Animal>);
+    std::shared_ptr<Animal> getAnimalByID(int id);
 };
 
 
