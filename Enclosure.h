@@ -5,14 +5,14 @@
 #include <unordered_map> 
 #include <memory> 
 
-class Encolsure{
+class Enclosure{
     private:
     int maxAnimals;
     int id;
     //Hashmap to pointers to Animals
     std::unordered_map<int, std::shared_ptr<Animal>> animals;
     public:
-    Encolsure(int, int);
+    Enclosure(int);
 
 };
 

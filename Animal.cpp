@@ -20,3 +20,7 @@ void Animal::set_age(int age){
 int Animal::get_id(){
     return Animal::id;
 }
+
+bool Animal::timestep(){
+    return false;
+}

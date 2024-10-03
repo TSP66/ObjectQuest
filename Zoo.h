@@ -1,9 +1,9 @@
 #ifndef ZOO_H
-#define ZOO
+#define ZOO_H
 
 #include <iostream>
 #include <unordered_map> 
-#include <memory> 
+#include <memory>  
 
 #include "Animal.h"
 

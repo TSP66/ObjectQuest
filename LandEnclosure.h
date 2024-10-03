@@ -1,13 +1,13 @@
 #ifndef LANDENCOLSURE_H
 #define LANDENCOLSURE_H
 
-#include "Encolsure.h"
+#include "Enclosure.h"
 
-class LandEncolsure: public Encolsure{
+class LandEnclosure: public Enclosure{
     private:
     float area;
     public:
-    LandEncolsure(float, int);
+    LandEnclosure(float, int);
     float get_area();
     void set_area(float);
 };

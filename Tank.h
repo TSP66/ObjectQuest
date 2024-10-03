@@ -1,9 +1,9 @@
 #ifndef TANK_H
 #define TANK_H
 
-#include "Encolsure.h"
+#include "Enclosure.h"
 
-class Tank: public Encolsure{
+class Tank: public Enclosure{
     private:
     float volume;
     public:
