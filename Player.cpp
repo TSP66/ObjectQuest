@@ -16,7 +16,9 @@ void Player::getName(void){
 }
 
 Action Player::getAction(void){
+
     std::cout << "Select your action:\n";
+
     for (int i = 0; i < NUM_ACTIONS; i++){
         std::cout << "    " << i << ": " << Player::ActionNameMap[(Action) i] << "\n";
     }
@@ -27,6 +29,7 @@ Action Player::getAction(void){
     std::cin >> action;
 
     if ((action < 0) || (action >= NUM_ACTIONS)){
+        std::cout << "Invalid action! Try again\n";
         return Player::getAction(); //Try again if value is not within bounds
     }
 
@@ -34,11 +37,12 @@ Action Player::getAction(void){
 }
 
 
-void Player::doAction(Action action){
+bool Player::doAction(Action action){
+    bool result = false;
     switch(action){
 
         case BUILD_ENCLOSURE:
-        //BUILD_ENCLOSURE
+        result = Player::zoo.buildEnclosure(LAND);
         break;
 
         case BUY_ANIMAL:
@@ -70,4 +74,5 @@ void Player::doAction(Action action){
         break;
 
     }
+    return result;
 }

@@ -13,7 +13,8 @@ class Enclosure{
     std::unordered_map<int, std::shared_ptr<Animal>> animals;
     public:
     Enclosure(int);
-
+    int get_id(void);
+    void set_id(int);
 };
 
 #endif

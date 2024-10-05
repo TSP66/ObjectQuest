@@ -1,6 +1,11 @@
 #include "LandEnclosure.h"
 
 
+//Default constructor for debugging purposes
+LandEnclosure::LandEnclosure() : Enclosure(0), area(0) {
+
+}
+
 LandEnclosure::LandEnclosure(float area, int maxAnimals) : Enclosure(maxAnimals), area(area){
 
 }

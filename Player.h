@@ -14,7 +14,7 @@ class Player{
     void intro();
     void getName(void);
     Action getAction(void);
-    void doAction(Action);
+    bool doAction(Action);
     int money;
     Zoo zoo;
 };

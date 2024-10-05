@@ -7,6 +7,7 @@ class Tank: public Enclosure{
     private:
     float volume;
     public:
+    Tank();
     Tank(float, int);
     int get_volume();
     void set_volume(int);
