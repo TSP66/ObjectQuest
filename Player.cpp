@@ -42,7 +42,7 @@ bool Player::doAction(Action action){
     switch(action){
 
         case BUILD_ENCLOSURE:
-        result = Player::zoo.buildEnclosure(LAND);
+        result = Player::zoo.buildEnclosure();
         break;
 
         case BUY_ANIMAL:
