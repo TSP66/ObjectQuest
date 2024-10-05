@@ -13,6 +13,7 @@ int main(void){
 
     player.intro();
     player.getName();
+    player.getAction();
 
     for (int round = 0; round < ROUNDS; round++){
 
