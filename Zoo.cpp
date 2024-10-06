@@ -34,8 +34,7 @@ int Zoo::buyAnimal(){
     int choice = Zoo::displayOptions(Zoo::animalInformation);
     AnimalInformation parameters = Zoo::animalInformation[choice];
 
-    int id = (int) (std::rand()+1.0)*10000;
-    id = abs(id);
+    const int id = abs((int) (std::rand()+1.0)*10000);
 
     switch (parameters.type){
         case LION:
@@ -113,8 +112,7 @@ void Zoo::addEnclosure(EnclosureInformation parameters){
     //std::cout << "What type of new enclosure"
 
     //Generate a new random id; Probably a better way to do this
-    int id = (int) (std::rand()+1.0)*10000;
-    id = abs(id);
+    const int id = abs((int) (std::rand()+1.0)*10000);
 
     switch (parameters.type) {
 
