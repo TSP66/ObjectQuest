@@ -38,7 +38,7 @@ Action Player::getAction(void){
 
 
 bool Player::doAction(Action action){
-    bool result = false;
+    int result;
     switch(action){
 
         case BUILD_ENCLOSURE:
@@ -46,7 +46,7 @@ bool Player::doAction(Action action){
         break;
 
         case BUY_ANIMAL:
-        //BUY_ANIMAL
+        result = Player::zoo.buyAnimal();
         break;
 
         case SELL_ANIMAL:

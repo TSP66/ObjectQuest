@@ -16,6 +16,7 @@ class Enclosure{
     std::unordered_map<int, std::shared_ptr<Animal>> animals;
     public:
     Enclosure(std::string, int);
+    bool addAnimal(int, std::shared_ptr<Animal>);
     int get_id(void);
     void set_id(int);
     std::string get_name(void);

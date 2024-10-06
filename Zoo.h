@@ -12,6 +12,8 @@
 #include "Tank.h"
 #include "EnclosureInformation.h"
 #include "AnimalInformation.h"
+#include "Lion.h"
+#include "Dolphin.h"
 
 #define INDENT "    "
 

@@ -16,3 +16,13 @@ void Enclosure::set_id(int id){
 std::string Enclosure::get_name(void){
     return Enclosure::name;
 }
+
+bool Enclosure::addAnimal(int id, std::shared_ptr<Animal> animal){
+    if (Enclosure::currentAnimals < Enclosure::maxAnimals){
+        Enclosure::currentAnimals++;
+        Enclosure::animals[id] = animal;
+        return true;
+    } else {
+        return false;
+    }
+}

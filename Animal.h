@@ -8,7 +8,7 @@ class Animal{
     float hunger;
     float happiness;
     int cost;
-    const int id;
+    int id;
     public:
     Animal(int id);
     int get_lifespan();

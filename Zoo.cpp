@@ -11,23 +11,53 @@ int Zoo::buyAnimal(){
 
     int choice = Zoo::displayOptions(Zoo::animalInformation);
     AnimalInformation parameters = Zoo::animalInformation[choice];
-    int id = (int) std::rand()*1000000;
+
+    int id = (int) (std::rand()+1.0)*100000;
+
+    switch (parameters.type){
+        case LION:
+        newAnimal = new Lion(id);
+        break;
+        case DOLPHIN:
+        newAnimal= new Dolphin(id);
+        break;
+    }
 
     int numEnclosures = Zoo::enclosureIds.size();
 
     if (numEnclosures < 1){
-        std::cout << "You have no enclosures!";
+        std::cout << "You have no enclosures!\n";
         return 0;
     }
 
-    std::cout << "Okay, which enclosure would you like to put it in: ";
+    std::cout << INDENT << "index: name | id\n";
 
     for (int i = 0; i < numEnclosures; i++){
-        Zoo::enclosures[i]->get_name();
+        int id = Zoo::enclosureIds[i];
+        std::cout << INDENT << i << ": " << Zoo::enclosures[id]->get_name() << " | " << Zoo::enclosures[id]->get_id() << "\n";
     }
 
-    //Zoo::animals[id] = animal;
+    int enclosureChoice = -1;
+
+    std::cout << "Okay, which enclosure would you like to put it in: ";
+    std::cin >> enclosureChoice;
+
+    while ((enclosureChoice < 0) || (enclosureChoice >= numEnclosures)){
+        std::cout << "Invalid input, try again: ";
+        std::cin >> enclosureChoice;
+    }
+
+    //Create shared pointer
+    std::shared_ptr<Animal> newAnimalPtr = std::shared_ptr<Animal>(newAnimal);
+
+    //Add pointer to enclosure object
+    Zoo::enclosures[Zoo::enclosureIds[enclosureChoice]]->addAnimal(id, newAnimalPtr);
+
+    //Add pointer to Zoo object
+    Zoo::animals[id] = newAnimalPtr;
     Zoo::animalIds.push_back(id);
+
+    return parameters.cost;
 }
 
 int Zoo::buildEnclosure(void){
@@ -46,7 +76,7 @@ void Zoo::addEnclosure(EnclosureInformation parameters){
     //std::cout << "What type of new enclosure"
 
     //Generate a new random id; Probably a better way to do this
-    int id = (int) std::rand()*1000000;
+    int id = (int) (std::rand()+1)*10000;
 
     switch (parameters.type) {
 
