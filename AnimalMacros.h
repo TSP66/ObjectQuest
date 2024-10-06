@@ -17,13 +17,12 @@
 #define CAPITALIZE_Tiger TIGER
 #define CAPITALIZE_Dolphin DOLPHIN
 
-#define CAPITALIZE_ANIMAL(animal) CAPITALIZE_##animal
-
 #define PRICE_Lion 30
 #define PRICE_Tiger 50
 #define PRICE_Dolphin 20
 #define PRICE_Otter 20
 
+#define CAPITALIZE_ANIMAL(animal) CAPITALIZE_##animal
 #define PRICE_ANIMAL(animal) PRICE_##animal
 
 

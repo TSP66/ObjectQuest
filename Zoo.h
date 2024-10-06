@@ -18,6 +18,10 @@
 
 #define INDENT "    "
 
+struct Changes{
+    int costChange;
+};
+
 class Zoo{
 
     private:
@@ -51,8 +55,8 @@ class Zoo{
 
 
     //Player actions
-    int buildEnclosure(void);
-    int buyAnimal();
+    Changes buildEnclosure(int);
+    Changes buyAnimal(int);
     template <typename T> int displayOptions(std::vector<T>);
 
 };

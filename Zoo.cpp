@@ -9,30 +9,42 @@ void Zoo::summary(std::string name){
 
     std::cout << "\n" << name << " zoo:\n";
 
+    bool zooEmpty = true;
+
     for (int enclosureId : Zoo::enclosureIds){
 
         std::cout << INDENT << "Enclosure (type: " << Zoo::enclosures[enclosureId]->get_name() 
                             << ", id: " << Zoo::enclosures[enclosureId]->get_id() << "):\n";
         
-        bool empty = true;
+        bool enclosureEmpty = true;
 
         for (auto mapObject : Zoo::enclosures[enclosureId]->animals){
             std::cout << INDENT << INDENT << mapObject.second->get_name() //name
                       << " (age: " << mapObject.second->get_age() << ", id: " << mapObject.first << ")\n";
-            empty = false;
+            enclosureEmpty = false;
         }
-        if (empty)
-             std::cout << INDENT << INDENT << "EMPTY\n";
+        if (enclosureEmpty)
+            std::cout << INDENT << INDENT << "EMPTY\n";
+        
+        zooEmpty = false;
+    }
+    if (zooEmpty) {
+        std::cout << INDENT << "EMPTY\n";
     }
     std::cout << "\n";
 }
 
-int Zoo::buyAnimal(){
+Changes Zoo::buyAnimal(int money){
 
     Animal * newAnimal;
 
     int choice = Zoo::displayOptions(Zoo::animalInformation);
     AnimalInformation parameters = Zoo::animalInformation[choice];
+
+    if (parameters.cost > money){
+        std::cout << "Insufficient Funds!\n";
+        return {0};
+    }
 
     const int id = abs((int) (std::rand()+1.0)*10000);
 
@@ -49,14 +61,14 @@ int Zoo::buyAnimal(){
     if (numEnclosures < 1){
         std::cout << "You have no enclosures!\n";
         delete newAnimal; //Free memory if can't make it
-        return 0;
+        return {0};
     }
 
     bool suitableEnclosures = false;
 
     for (int i = 0; i < numEnclosures; i++){
         int id = Zoo::enclosureIds[i];
-        if (Zoo::enclosures[id]->enclosureType == parameters.enclosureType){
+        if ((Zoo::enclosures[id]->enclosureType == parameters.enclosureType)){
             std::cout << INDENT << i << ": " << Zoo::enclosures[id]->get_name() << " | " << Zoo::enclosures[id]->get_id() << "\n";
             suitableEnclosures = true;
         }
@@ -65,7 +77,7 @@ int Zoo::buyAnimal(){
     if (!suitableEnclosures) {
         std::cout << "You have no suitable enclosures!\n";
         delete newAnimal; //Free memory if can't make it
-        return 0;
+        return {0};
     }
 
     int enclosureChoice = -1;
@@ -85,22 +97,28 @@ int Zoo::buyAnimal(){
     if(!Zoo::enclosures[Zoo::enclosureIds[enclosureChoice]]->addAnimal(id, newAnimalPtr)){
         std::cout << "Enclosure has no space!\n";
         //delete newAnimalPtr; //Free memory if can't make it
-        return 0;
+        return {0};
     }
 
     //Add pointer to Zoo object
     Zoo::animals[id] = newAnimalPtr;
     Zoo::animalIds.push_back(id);
 
-    return parameters.cost;
+    return {parameters.cost};
 }
 
-int Zoo::buildEnclosure(void){
+Changes Zoo::buildEnclosure(int money){
 
     int choice = Zoo::displayOptions(Zoo::enclosureInformation);
     EnclosureInformation parameters = Zoo::enclosureInformation[choice];
+
+    if (parameters.cost > money){
+        std::cout << "Insufficient Funds!\n";
+        return {0};
+    }
+    
     Zoo::addEnclosure(parameters);
-    return parameters.cost;
+    return {parameters.cost};
 
 }
 
