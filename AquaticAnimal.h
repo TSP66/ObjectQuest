@@ -7,7 +7,7 @@ class AquaticAnimal: public Animal{
     private:
     float volumeRequired;
     public:
-    AquaticAnimal(int id);
+    AquaticAnimal(int id, std::string name);
     virtual bool timestep();
 
 };

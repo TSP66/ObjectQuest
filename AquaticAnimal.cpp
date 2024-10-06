@@ -1,6 +1,6 @@
 #include "AquaticAnimal.h"
 
-AquaticAnimal::AquaticAnimal(int id) : Animal(id) {
+AquaticAnimal::AquaticAnimal(int id, std::string name) : Animal(id, name) {
 
 }
 

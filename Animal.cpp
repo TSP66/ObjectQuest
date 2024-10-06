@@ -1,6 +1,6 @@
 #include "Animal.h"
 
-Animal::Animal(int id) : id(id){
+Animal::Animal(int id, std::string name) : id(id), name(name){
 
 }
 
@@ -23,4 +23,8 @@ int Animal::get_id(){
 
 bool Animal::timestep(){
     return false;
+}
+
+std::string Animal::get_name(){
+    return Animal::name;
 }

@@ -17,7 +17,7 @@ int main(void){
     Player player(START_FUNDS);
 
     player.intro();
-    player.getName();
+    //player.getName();
     //Action action = player.getAction();
     //player.doAction(action);
     //player.zoo.displayOptions(player.zoo.enclosureInformation);
@@ -26,6 +26,7 @@ int main(void){
     for (int round = 0; round < ROUNDS; round++){
         Action action = player.getAction();
         player.doAction(action);
+        player.zoo.summary("Test");
     }
 
     return 0;

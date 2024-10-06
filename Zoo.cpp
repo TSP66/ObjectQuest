@@ -3,7 +3,29 @@
 Zoo::Zoo(){
     Zoo::enclosureInformation = Zoo::makeEnclosureInformation();
     Zoo::animalInformation = Zoo::makeAnimalInformation();
-} 
+}
+
+void Zoo::summary(std::string name){
+
+    std::cout << "\n" << name << " zoo:\n";
+
+    for (int enclosureId : Zoo::enclosureIds){
+
+        std::cout << INDENT << "Enclosure (type: " << Zoo::enclosures[enclosureId]->get_name() 
+                            << ", id: " << Zoo::enclosures[enclosureId]->get_id() << "):\n";
+        
+        bool empty = true;
+
+        for (auto mapObject : Zoo::enclosures[enclosureId]->animals){
+            std::cout << INDENT << INDENT << mapObject.second->get_name() //name
+                      << " (age: " << mapObject.second->get_age() << ", id: " << mapObject.first << ")\n";
+            empty = false;
+        }
+        if (empty)
+             std::cout << INDENT << INDENT << "EMPTY\n";
+    }
+    std::cout << "\n";
+}
 
 int Zoo::buyAnimal(){
 
@@ -12,7 +34,8 @@ int Zoo::buyAnimal(){
     int choice = Zoo::displayOptions(Zoo::animalInformation);
     AnimalInformation parameters = Zoo::animalInformation[choice];
 
-    int id = (int) (std::rand()+1.0)*100000;
+    int id = (int) (std::rand()+1.0)*10000;
+    id = abs(id);
 
     switch (parameters.type){
         case LION:
@@ -27,14 +50,24 @@ int Zoo::buyAnimal(){
 
     if (numEnclosures < 1){
         std::cout << "You have no enclosures!\n";
+        delete newAnimal; //Free memory if can't make it
         return 0;
     }
 
-    std::cout << INDENT << "index: name | id\n";
+    bool suitableEnclosures = false;
 
     for (int i = 0; i < numEnclosures; i++){
         int id = Zoo::enclosureIds[i];
-        std::cout << INDENT << i << ": " << Zoo::enclosures[id]->get_name() << " | " << Zoo::enclosures[id]->get_id() << "\n";
+        if (Zoo::enclosures[id]->enclosureType == parameters.enclosureType){
+            std::cout << INDENT << i << ": " << Zoo::enclosures[id]->get_name() << " | " << Zoo::enclosures[id]->get_id() << "\n";
+            suitableEnclosures = true;
+        }
+    }
+
+    if (!suitableEnclosures) {
+        std::cout << "You have no suitable enclosures!\n";
+        delete newAnimal; //Free memory if can't make it
+        return 0;
     }
 
     int enclosureChoice = -1;
@@ -48,10 +81,14 @@ int Zoo::buyAnimal(){
     }
 
     //Create shared pointer
-    std::shared_ptr<Animal> newAnimalPtr = std::shared_ptr<Animal>(newAnimal);
+    std::shared_ptr<Animal> newAnimalPtr = std::shared_ptr<Animal>(std::move(newAnimal));
 
     //Add pointer to enclosure object
-    Zoo::enclosures[Zoo::enclosureIds[enclosureChoice]]->addAnimal(id, newAnimalPtr);
+    if(!Zoo::enclosures[Zoo::enclosureIds[enclosureChoice]]->addAnimal(id, newAnimalPtr)){
+        std::cout << "Enclosure has no space!\n";
+        //delete newAnimalPtr; //Free memory if can't make it
+        return 0;
+    }
 
     //Add pointer to Zoo object
     Zoo::animals[id] = newAnimalPtr;
@@ -76,7 +113,8 @@ void Zoo::addEnclosure(EnclosureInformation parameters){
     //std::cout << "What type of new enclosure"
 
     //Generate a new random id; Probably a better way to do this
-    int id = (int) (std::rand()+1)*10000;
+    int id = (int) (std::rand()+1.0)*10000;
+    id = abs(id);
 
     switch (parameters.type) {
 

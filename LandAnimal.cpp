@@ -1,6 +1,6 @@
 #include "LandAnimal.h"
 
-LandAnimal::LandAnimal(int id) : Animal(id) {
+LandAnimal::LandAnimal(int id, std::string name) : Animal(id, name) {
     
 }
 

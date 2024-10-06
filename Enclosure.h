@@ -2,9 +2,11 @@
 #define ENCOLSURE_H
 
 #include "Animal.h"
+#include "EnclosureInformation.h"
 #include <unordered_map> 
 #include <memory> 
 #include <string>
+#include <vector>
 
 class Enclosure{
     private:
@@ -13,9 +15,10 @@ class Enclosure{
     int currentAnimals;
     //Hashmap to pointers to Animals
     std::string name;
-    std::unordered_map<int, std::shared_ptr<Animal>> animals;
     public:
-    Enclosure(std::string, int);
+    std::unordered_map<int, std::shared_ptr<Animal>> animals;
+    EnclosureType enclosureType;
+    Enclosure(std::string, int, EnclosureType);
     bool addAnimal(int, std::shared_ptr<Animal>);
     int get_id(void);
     void set_id(int);

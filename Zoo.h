@@ -33,13 +33,15 @@ class Zoo{
     std::vector<EnclosureInformation> makeEnclosureInformation();
     std::vector<AnimalInformation> makeAnimalInformation();
 
-    public:
-
     //Vectors of Possible Animals & Enclosures to purchase - should be private
     std::vector<EnclosureInformation> enclosureInformation;
     std::vector<AnimalInformation> animalInformation;
 
+    public:
+
     Zoo();
+
+    void summary(std::string);
 
     void addAnimal(std::shared_ptr<Animal>);
     void addEnclosure(EnclosureInformation enclosureType);

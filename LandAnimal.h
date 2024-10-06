@@ -8,7 +8,7 @@ class LandAnimal: public Animal{
     float thirst;
     float minEnsolureSize;
     public:
-    LandAnimal(int id);
+    LandAnimal(int id, std::string name);
     virtual bool timestep();
 };
 
