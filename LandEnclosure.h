@@ -6,6 +6,7 @@
 class LandEnclosure: public Enclosure{
     private:
     float area;
+    
     public:
     LandEnclosure();
     LandEnclosure(float, int);

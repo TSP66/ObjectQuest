@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "LandEnclosure.h"
 
+//#define DEBUG
+
 #define START_FUNDS 10000
 #define ROUNDS 20
 
@@ -14,6 +16,7 @@ int main(void){
     player.intro();
     player.getName();
     player.getAction();
+    player.zoo.displayOptions(player.zoo.enclosureInformation);
 
     for (int round = 0; round < ROUNDS; round++){
 
