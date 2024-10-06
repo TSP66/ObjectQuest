@@ -37,12 +37,11 @@ int Zoo::buyAnimal(){
     const int id = abs((int) (std::rand()+1.0)*10000);
 
     switch (parameters.type){
-        case LION:
-        newAnimal = new Lion(id);
-        break;
-        case DOLPHIN:
-        newAnimal= new Dolphin(id);
-        break;
+        #define XX(NAME) case CAPITALIZE_ANIMAL(NAME): \
+        newAnimal = new NAME(id); \
+        break; 
+        ANIMAL_LIST(XX)
+        #undef XX
     }
 
     int numEnclosures = Zoo::enclosureIds.size();
@@ -167,8 +166,12 @@ std::vector<EnclosureInformation> Zoo::makeEnclosureInformation(){
 
 std::vector<AnimalInformation> Zoo::makeAnimalInformation(){
     std::vector<AnimalInformation> animalInformation{
-        AnimalInformation("Lion", 30, LION, LAND),
-        AnimalInformation("Dolphin", 10, DOLPHIN, AQUATIC),
+        #define XX(NAME) AnimalInformation(#NAME, PRICE_ANIMAL(NAME), CAPITALIZE_ANIMAL(NAME), LAND),
+        LAND_ANIMAL_LIST(XX)
+        #undef XX
+        #define XX(NAME) AnimalInformation(#NAME, PRICE_ANIMAL(NAME), CAPITALIZE_ANIMAL(NAME), AQUATIC),
+        AQUATIC_ANIMAL_LIST(XX)
+        #undef XX
     };
     return animalInformation;
 }

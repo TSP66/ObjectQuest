@@ -12,8 +12,9 @@
 #include "Tank.h"
 #include "EnclosureInformation.h"
 #include "AnimalInformation.h"
-#include "Lion.h"
-#include "Dolphin.h"
+//#include "Lion.h"
+//#include "Dolphin.h"
+#include "AnimalMacros.h"
 
 #define INDENT "    "
 
@@ -56,3 +57,4 @@ class Zoo{
 
 };
 #endif
+

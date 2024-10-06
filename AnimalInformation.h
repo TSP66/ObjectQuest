@@ -3,11 +3,8 @@
 
 #include "Information.h"
 #include "EnclosureInformation.h"
+#include "AnimalMacros.h"
 
-enum Animals{
-    LION,
-    DOLPHIN,
-};
 
 class AnimalInformation: public Information{
     public:

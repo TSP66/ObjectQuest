@@ -12,13 +12,15 @@ class LandAnimal: public Animal{
     virtual bool timestep();
 };
 
-#define LANDANIMAL(NAME) \
+//Macro to make creating lots of animals easy
+#define LAND_ANIMAL(NAME) \
     class NAME: public LandAnimal{ \
         public: \
         NAME(int id) : LandAnimal(id, #NAME) {} \
-        bool timestep(){} \
+        bool timestep(){return true;} \
     };
 
-LANDANIMAL(Tiger)
+//LANDANIMAL(Tiger)
+//LANDANIMAL(Elephant)
 
 #endif

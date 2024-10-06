@@ -13,11 +13,11 @@ class AquaticAnimal: public Animal{
 };
 
 
-#define AQUATIC_ANIAML(NAME) \
+#define AQUATIC_ANIMAL(NAME) \
     class NAME: public AquaticAnimal{ \
         public: \
         NAME(int id) : AquaticAnimal(id, #NAME) {} \
-        bool timestep() {} \
+        bool timestep() {return true;} \
     };
 
 #endif

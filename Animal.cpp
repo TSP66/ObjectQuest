@@ -1,7 +1,7 @@
 #include "Animal.h"
 
 Animal::Animal(int id, std::string name) : id(id), name(name){
-
+    Animal::cost = 50;
 }
 
 int Animal::get_lifespan(){
