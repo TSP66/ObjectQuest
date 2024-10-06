@@ -20,6 +20,9 @@ class Zoo{
     private:
 
     //Hashmap of Animals & Enclosures (maps id to pointer of object)
+    std::vector<int> animalIds;
+    std::vector<int> enclosureIds;
+
     std::unordered_map<int, std::shared_ptr<Animal>> animals;
     std::unordered_map<int, std::unique_ptr<Enclosure>> enclosures;
 
@@ -37,12 +40,14 @@ class Zoo{
     Zoo();
 
     void addAnimal(std::shared_ptr<Animal>);
-    void addEnclosure(EnclosureType enclosureType);
+    void addEnclosure(EnclosureInformation enclosureType);
+
     std::shared_ptr<Animal> getAnimalByID(int id);
 
 
     //Player actions
-    bool buildEnclosure(void);
+    int buildEnclosure(void);
+    int buyAnimal();
     template <typename T> int displayOptions(std::vector<T>);
 
 };

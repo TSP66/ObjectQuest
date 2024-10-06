@@ -5,15 +5,41 @@ Zoo::Zoo(){
     Zoo::animalInformation = Zoo::makeAnimalInformation();
 } 
 
-void Zoo::addAnimal(std::shared_ptr<Animal> animal){
-    Zoo::animals[animal->get_id()] = animal;
+int Zoo::buyAnimal(){
+
+    Animal * newAnimal;
+
+    int choice = Zoo::displayOptions(Zoo::animalInformation);
+    AnimalInformation parameters = Zoo::animalInformation[choice];
+    int id = (int) std::rand()*1000000;
+
+    int numEnclosures = Zoo::enclosureIds.size();
+
+    if (numEnclosures < 1){
+        std::cout << "You have no enclosures!";
+        return 0;
+    }
+
+    std::cout << "Okay, which enclosure would you like to put it in: ";
+
+    for (int i = 0; i < numEnclosures; i++){
+        Zoo::enclosures[i]->get_name();
+    }
+
+    //Zoo::animals[id] = animal;
+    Zoo::animalIds.push_back(id);
 }
 
-bool Zoo::buildEnclosure(void){
-    
+int Zoo::buildEnclosure(void){
+
+    int choice = Zoo::displayOptions(Zoo::enclosureInformation);
+    EnclosureInformation parameters = Zoo::enclosureInformation[choice];
+    Zoo::addEnclosure(parameters);
+    return parameters.cost;
+
 }
 
-void Zoo::addEnclosure(EnclosureType enclosureType){
+void Zoo::addEnclosure(EnclosureInformation parameters){
 
     Enclosure * newEnclosure;
 
@@ -22,14 +48,14 @@ void Zoo::addEnclosure(EnclosureType enclosureType){
     //Generate a new random id; Probably a better way to do this
     int id = (int) std::rand()*1000000;
 
-    switch (enclosureType) {
+    switch (parameters.type) {
 
         case LAND:
-        newEnclosure = new LandEnclosure();
+        newEnclosure = new LandEnclosure(parameters.name, parameters.area, 5);
         break;
 
         case AQUATIC:
-        newEnclosure = new Tank();
+        newEnclosure = new Tank(parameters.name, parameters.volume, 5);
         break;
     }
 
@@ -39,17 +65,24 @@ void Zoo::addEnclosure(EnclosureType enclosureType){
 
     Zoo::enclosures[id] = std::move(newEnclosureUP);
 
+    Zoo::enclosureIds.push_back(id);
+
     //return true; //Successfully created new Ensclosure
 
 }
 
 template <typename T> int Zoo::displayOptions(std::vector<T> options){
     int option = -1;
-    for (int i = 0; i < (int) options.size(); i++) {
-        std::cout << INDENT << i << ": " << options[i].name << " $" << options[i].cost << "\n";
+    int numberOptions = (int) options.size();
+    for (int i = 0; i < numberOptions; i++) {
+        std::cout << INDENT << i << ": " << options[i].name << " | $" << options[i].cost << "\n";
     }
     std::cout << "Your choice: ";
     std::cin >> option;
+    if ((option < 0) || (option >= numberOptions)){
+        std::cout << "Invalid Option\n";
+        Zoo::displayOptions(options);
+    }
     return option;
 }
 
@@ -68,8 +101,8 @@ std::vector<EnclosureInformation> Zoo::makeEnclosureInformation(){
 
 std::vector<AnimalInformation> Zoo::makeAnimalInformation(){
     std::vector<AnimalInformation> animalInformation{
-        AnimalInformation("Lion", 30, LION),
-        AnimalInformation("Dolphin", 10, DOLPHIN),
+        AnimalInformation("Lion", 30, LION, LAND),
+        AnimalInformation("Dolphin", 10, DOLPHIN, AQUATIC),
     };
     return animalInformation;
 }

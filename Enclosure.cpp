@@ -1,8 +1,8 @@
 #include "Enclosure.h"
 
 
-Enclosure::Enclosure(int maxAnimal) : maxAnimals(maxAnimals) {
-
+Enclosure::Enclosure(std::string name, int maxAnimal) : maxAnimals(maxAnimals), name(name){
+    Enclosure::currentAnimals = 0;
 }
 
 int Enclosure::get_id(void){
@@ -11,4 +11,8 @@ int Enclosure::get_id(void){
 
 void Enclosure::set_id(int id){
     Enclosure::id = id;
+}
+
+std::string Enclosure::get_name(void){
+    return Enclosure::name;
 }

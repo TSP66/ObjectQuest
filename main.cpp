@@ -15,8 +15,10 @@ int main(void){
 
     player.intro();
     player.getName();
-    player.getAction();
-    player.zoo.displayOptions(player.zoo.enclosureInformation);
+    Action action = player.getAction();
+    player.doAction(action);
+    //player.zoo.displayOptions(player.zoo.enclosureInformation);
+    //player.zoo.displayOptions(player.zoo.animalInformation);
 
     for (int round = 0; round < ROUNDS; round++){
 

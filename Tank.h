@@ -8,7 +8,7 @@ class Tank: public Enclosure{
     float volume;
     public:
     Tank();
-    Tank(float, int);
+    Tank(std::string, float, int);
     int get_volume();
     void set_volume(int);
 };
