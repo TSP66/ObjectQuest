@@ -4,16 +4,16 @@ Animal::Animal(int id, std::string name) : id(id), name(name){
     Animal::cost = 50;
 }
 
-int Animal::get_lifespan(){
+float Animal::get_lifespan(){
     return Animal::lifespan;
 }
-void Animal::set_lifespan(int lifespan){
+void Animal::set_lifespan(float lifespan){
     Animal::lifespan = lifespan;
 }
-int Animal::get_age(){
+float Animal::get_age(){
     return Animal::age;
 }
-void Animal::set_age(int age){
+void Animal::set_age(float age){
     Animal::age = age;
 }
 
@@ -27,4 +27,8 @@ bool Animal::timestep(){
 
 std::string Animal::get_name(){
     return Animal::name;
+}
+
+int Animal::get_cost(){
+    return Animal::cost;
 }

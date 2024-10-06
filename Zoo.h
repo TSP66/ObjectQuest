@@ -5,6 +5,7 @@
 #include <unordered_map> 
 #include <memory>
 #include <random>  
+#include <math.h>
 
 #include "Animal.h"
 #include "Enclosure.h"
@@ -12,14 +13,17 @@
 #include "Tank.h"
 #include "EnclosureInformation.h"
 #include "AnimalInformation.h"
-//#include "Lion.h"
-//#include "Dolphin.h"
 #include "AnimalMacros.h"
 
 #define INDENT "    "
 
 struct Changes{
     int costChange;
+};
+
+struct DailySales{
+    int visitors;
+    int revenue;
 };
 
 class Zoo{
@@ -42,17 +46,20 @@ class Zoo{
     std::vector<EnclosureInformation> enclosureInformation;
     std::vector<AnimalInformation> animalInformation;
 
+    int ticketPrice;
+
     public:
 
     Zoo();
 
-    void summary(std::string);
+    void summary(std::string, int, int,  DailySales);
 
     void addAnimal(std::shared_ptr<Animal>);
     void addEnclosure(EnclosureInformation enclosureType);
 
     std::shared_ptr<Animal> getAnimalByID(int id);
 
+    DailySales getRevenue();
 
     //Player actions
     Changes buildEnclosure(int);

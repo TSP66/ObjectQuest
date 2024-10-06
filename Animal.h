@@ -5,8 +5,8 @@
 
 class Animal{
     private:
-    int lifespan;
-    int age;
+    float lifespan;
+    float age;
     float hunger;
     float happiness;
     int cost;
@@ -14,11 +14,12 @@ class Animal{
     std::string name;
     public:
     Animal(int id, std::string name);
-    int get_lifespan();
-    void set_lifespan(int);
-    int get_age();
+    int get_cost();
+    float get_lifespan();
+    void set_lifespan(float);
+    float get_age();
     std::string get_name();
-    void set_age(int);
+    void set_age(float);
     virtual bool timestep();
     int get_id();
     virtual ~Animal() {}

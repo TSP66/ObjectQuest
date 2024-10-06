@@ -3,11 +3,13 @@
 Zoo::Zoo(){
     Zoo::enclosureInformation = Zoo::makeEnclosureInformation();
     Zoo::animalInformation = Zoo::makeAnimalInformation();
+    Zoo::ticketPrice = 1;
 }
 
-void Zoo::summary(std::string name){
+void Zoo::summary(std::string name, int money, int day, DailySales dailySales){
 
-    std::cout << "\n" << name << " zoo:\n";
+    std::cout << "\n" << name << " zoo (Day: " << day << ", Funds: $" << money << ", Visitors: " 
+                      << dailySales.visitors << ", Sales: $" << dailySales.revenue <<")\n";
 
     bool zooEmpty = true;
 
@@ -32,6 +34,28 @@ void Zoo::summary(std::string name){
         std::cout << INDENT << "EMPTY\n";
     }
     std::cout << "\n";
+}
+
+DailySales Zoo::getRevenue(){
+
+    double zooScore = 0;
+    for (auto mapObject : Zoo::animals){
+
+        double animalScore = pow((double) mapObject.second->get_cost()/15.0, 2.0); //Exotic Animals are more expensive but also more popular
+
+        if (mapObject.second->get_age() < 1){
+            animalScore *= 2.5; //People love baby animals
+        }
+
+        zooScore += animalScore;
+    }
+
+    double expodent = 1.0 / (1.0 + pow(1.005, zooScore));
+
+    int visitors = (int) 1000.0 * exp(-expodent * (double) Zoo::ticketPrice) * (log10(zooScore+10.0)-1.0);
+
+    return {visitors, visitors * Zoo::ticketPrice};
+
 }
 
 Changes Zoo::buyAnimal(int money){
@@ -68,7 +92,7 @@ Changes Zoo::buyAnimal(int money){
 
     for (int i = 0; i < numEnclosures; i++){
         int id = Zoo::enclosureIds[i];
-        if ((Zoo::enclosures[id]->enclosureType == parameters.enclosureType)){
+        if (Zoo::enclosures[id]->enclosureType == parameters.enclosureType){
             std::cout << INDENT << i << ": " << Zoo::enclosures[id]->get_name() << " | " << Zoo::enclosures[id]->get_id() << "\n";
             suitableEnclosures = true;
         }
@@ -116,7 +140,7 @@ Changes Zoo::buildEnclosure(int money){
         std::cout << "Insufficient Funds!\n";
         return {0};
     }
-    
+
     Zoo::addEnclosure(parameters);
     return {parameters.cost};
 
