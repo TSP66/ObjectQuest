@@ -8,16 +8,15 @@ class LandAnimal: public Animal{
     float thirst;
     float minEnsolureSize;
     public:
-    LandAnimal(int id, std::string name);
-    virtual bool timestep();
+    LandAnimal(int id, std::string name, int);
+    bool timestep();
 };
 
 //Macro to make creating lots of animals easy
 #define LAND_ANIMAL(NAME) \
     class NAME: public LandAnimal{ \
         public: \
-        NAME(int id) : LandAnimal(id, #NAME) {} \
-        bool timestep(){return true;} \
+        NAME(int id) : LandAnimal(id, #NAME, LIFESPAN_ANIMAL(NAME)) {} \
     };
 
 //LANDANIMAL(Tiger)

@@ -7,8 +7,8 @@ class AquaticAnimal: public Animal{
     private:
     float volumeRequired;
     public:
-    AquaticAnimal(int id, std::string name);
-    virtual bool timestep();
+    AquaticAnimal(int id, std::string name, int);
+    bool timestep();
 
 };
 
@@ -16,8 +16,7 @@ class AquaticAnimal: public Animal{
 #define AQUATIC_ANIMAL(NAME) \
     class NAME: public AquaticAnimal{ \
         public: \
-        NAME(int id) : AquaticAnimal(id, #NAME) {} \
-        bool timestep() {return true;} \
+        NAME(int id) : AquaticAnimal(id, #NAME, LIFESPAN_ANIMAL(NAME)) {} \
     };
 
 #endif

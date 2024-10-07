@@ -3,17 +3,25 @@
 
 #include <string>
 
+enum Sex{
+    MALE,
+    FEMALE,
+};
+
 class Animal{
     private:
     float lifespan;
-    float age;
-    float hunger;
-    float happiness;
     int cost;
     int id;
     std::string name;
+    protected:
+    float age;
+    float hunger;
+    float happiness;
+    Sex sex; //Sex 
     public:
-    Animal(int id, std::string name);
+    int enclosureID;
+    Animal(int id, std::string name, int);
     int get_cost();
     float get_lifespan();
     void set_lifespan(float);

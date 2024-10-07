@@ -26,3 +26,9 @@ bool Enclosure::addAnimal(int id, std::shared_ptr<Animal> animal){
         return false;
     }
 }
+
+bool Enclosure::removeAnimal(int id){
+    Enclosure::animals.erase(id);
+    Enclosure::currentAnimals--;
+    return true; //Sucessfully remove it - need to do better checking in the future
+}

@@ -1,7 +1,9 @@
 #include "Animal.h"
 
-Animal::Animal(int id, std::string name) : id(id), name(name){
+Animal::Animal(int id, std::string name, int lifespan) : id(id), name(name), lifespan(lifespan){
     Animal::cost = 50;
+    Animal::happiness = 100.0;
+    Animal::sex = (Sex) (rand() > RAND_MAX/2);
 }
 
 float Animal::get_lifespan(){

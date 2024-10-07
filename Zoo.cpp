@@ -22,7 +22,7 @@ void Zoo::summary(std::string name, int money, int day, DailySales dailySales){
 
         for (auto mapObject : Zoo::enclosures[enclosureId]->animals){
             std::cout << INDENT << INDENT << mapObject.second->get_name() //name
-                      << " (age: " << mapObject.second->get_age() << ", id: " << mapObject.first << ")\n";
+                      << " (age: " << (int) mapObject.second->get_age() << ", id: " << mapObject.first << ")\n";
             enclosureEmpty = false;
         }
         if (enclosureEmpty)
@@ -41,9 +41,9 @@ DailySales Zoo::getRevenue(){
     double zooScore = 0;
     for (auto mapObject : Zoo::animals){
 
-        double animalScore = pow((double) mapObject.second->get_cost()/15.0, 2.0); //Exotic Animals are more expensive but also more popular
+        double animalScore = pow((double) mapObject.second->get_cost()/25.0, 2.0); //Exotic Animals are more expensive but also more popular
 
-        if (mapObject.second->get_age() < 1){
+        if (mapObject.second->get_age() < 1.0){
             animalScore *= 2.5; //People love baby animals
         }
 
@@ -52,7 +52,9 @@ DailySales Zoo::getRevenue(){
 
     double expodent = 1.0 / (1.0 + pow(1.005, zooScore));
 
-    int visitors = (int) 1000.0 * exp(-expodent * (double) Zoo::ticketPrice) * (log10(zooScore+10.0)-1.0);
+    double weather_factor = ((double) rand())/((double) RAND_MAX);
+
+    int visitors = (int) (250.0 + 750.0 * weather_factor) * exp(-expodent * (double) Zoo::ticketPrice) * (log10(zooScore+10.0)-1.0);
 
     return {visitors, visitors * Zoo::ticketPrice};
 
@@ -88,17 +90,18 @@ Changes Zoo::buyAnimal(int money){
         return {0};
     }
 
-    bool suitableEnclosures = false;
+    std::vector<int> suitableEnclosures;
+
 
     for (int i = 0; i < numEnclosures; i++){
         int id = Zoo::enclosureIds[i];
         if (Zoo::enclosures[id]->enclosureType == parameters.enclosureType){
             std::cout << INDENT << i << ": " << Zoo::enclosures[id]->get_name() << " | " << Zoo::enclosures[id]->get_id() << "\n";
-            suitableEnclosures = true;
+            suitableEnclosures.push_back(i);
         }
     }
 
-    if (!suitableEnclosures) {
+    if (suitableEnclosures.size() == 0) {
         std::cout << "You have no suitable enclosures!\n";
         delete newAnimal; //Free memory if can't make it
         return {0};
@@ -109,7 +112,7 @@ Changes Zoo::buyAnimal(int money){
     std::cout << "Okay, which enclosure would you like to put it in: ";
     std::cin >> enclosureChoice;
 
-    while ((enclosureChoice < 0) || (enclosureChoice >= numEnclosures)){
+    while (std::find(suitableEnclosures.begin(), suitableEnclosures.end(), enclosureChoice) == suitableEnclosures.end()){
         std::cout << "Invalid input, try again: ";
         std::cin >> enclosureChoice;
     }
@@ -125,6 +128,7 @@ Changes Zoo::buyAnimal(int money){
     }
 
     //Add pointer to Zoo object
+    newAnimalPtr->enclosureID = Zoo::enclosureIds[enclosureChoice];
     Zoo::animals[id] = newAnimalPtr;
     Zoo::animalIds.push_back(id);
 
@@ -220,3 +224,47 @@ std::vector<AnimalInformation> Zoo::makeAnimalInformation(){
 
 template int Zoo::displayOptions<EnclosureInformation>(std::vector<EnclosureInformation>);
 template int Zoo::displayOptions<AnimalInformation>(std::vector<AnimalInformation>);
+
+Changes Zoo::setTicketPrice(){
+    std::cout << "Your current ticket price is $" << Zoo::ticketPrice << ", changing it will cost $100\nNew price (ENTER to keep old): ";
+    int newTicketPrice = Zoo::ticketPrice;
+    std::cin >> newTicketPrice;
+    while (newTicketPrice >= 0){
+        std::cout << "Invalid ticket price, enter again: ";
+        std::cin >> newTicketPrice;
+    }
+    if (newTicketPrice == Zoo::ticketPrice)
+        return {0};
+    else {
+        Zoo::ticketPrice = newTicketPrice;
+        return {100};
+    }
+
+}
+
+void Zoo::ageAnimals(){
+
+    std::vector<int> deleteIds;
+
+    for (auto mapObject : Zoo::animals){
+        int Id = mapObject.first;
+        if(mapObject.second->timestep()){
+            std::cout << "A " << mapObject.second->get_name() << " has died (Age: " << mapObject.second->get_age() << ")\n";
+            deleteIds.push_back(Id);
+        }
+    }
+
+    for (int id : deleteIds){
+
+        //Delete the id of the dead animal from the ID vector
+        auto it = std::find(deleteIds.begin(), deleteIds.end(), id);
+        if (it != deleteIds.end()) {
+            deleteIds.erase(it);
+        }
+
+        //Delete the animal from the Zoo and its Enclosure
+        int enclosureID = Zoo::animals.at(id)->enclosureID; //Get ID of enclosure
+        Zoo::animals.erase(id); //From Zoo
+        Zoo::enclosures.at(enclosureID)->removeAnimal(id); //From Enclosure
+    }
+}

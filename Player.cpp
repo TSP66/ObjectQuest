@@ -66,10 +66,12 @@ bool Player::doAction(Action action){
         break;
 
         case SET_TICKET_PRICE:
+        result = Player::zoo.setTicketPrice();
         //SET_TICKET_PRICE
         break;
 
         case NUM_ACTIONS:
+        result = {0}; //Just to keep the compiler happy
         //INVALID Option
         break;
 

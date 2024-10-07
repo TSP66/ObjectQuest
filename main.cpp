@@ -30,6 +30,7 @@ int main(void){
         player.doAction(action);
         DailySales dailySales = player.zoo.getRevenue();
         player.money += dailySales.revenue;
+        player.zoo.ageAnimals();
         player.zoo.summary("Test",player.money,day,dailySales);
     }
 

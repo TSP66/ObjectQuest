@@ -20,6 +20,7 @@ class Enclosure{
     EnclosureType enclosureType;
     Enclosure(std::string, int, EnclosureType);
     bool addAnimal(int, std::shared_ptr<Animal>);
+    bool removeAnimal(int);
     int get_id(void);
     void set_id(int);
     std::string get_name(void);

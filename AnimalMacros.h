@@ -22,9 +22,14 @@
 #define PRICE_Dolphin 20
 #define PRICE_Otter 20
 
+#define LIFESPAN_Lion 10.0
+#define LIFESPAN_Tiger 5.0
+#define LIFESPAN_Dolphin 7.0
+#define LIFESPAN_Otter 2.0
+
 #define CAPITALIZE_ANIMAL(animal) CAPITALIZE_##animal
 #define PRICE_ANIMAL(animal) PRICE_##animal
-
+#define LIFESPAN_ANIMAL(animal) LIFESPAN_##animal
 
 #define XX(NAME) LAND_ANIMAL(NAME) 
 LAND_ANIMAL_LIST(XX)

@@ -60,11 +60,13 @@ class Zoo{
     std::shared_ptr<Animal> getAnimalByID(int id);
 
     DailySales getRevenue();
+    void ageAnimals(void);
 
     //Player actions
     Changes buildEnclosure(int);
     Changes buyAnimal(int);
     template <typename T> int displayOptions(std::vector<T>);
+    Changes setTicketPrice();
 
 };
 #endif
