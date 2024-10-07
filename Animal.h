@@ -8,6 +8,13 @@ enum Sex{
     FEMALE,
 };
 
+enum Death{
+    NONE,
+    STARVATION,
+    ILLNESS,
+    OLD_AGE,
+};
+
 class Animal{
     private:
     float lifespan;
@@ -28,16 +35,18 @@ class Animal{
     float get_age();
     std::string get_name();
     void set_age(float);
-    virtual bool timestep();
+    virtual Death timestep();
     int get_id();
     Sex get_sex();
     float get_hunger(void);
     float get_happiness(void);
     void set_happiness(float);
     void set_hunger(float);
+    void set_cost(int);
     virtual ~Animal() {}
 };
 
 std::string sexToString(Sex);
+std::string deathToString(Death);
 
 #endif

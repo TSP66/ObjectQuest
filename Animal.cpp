@@ -1,6 +1,6 @@
 #include "Animal.h"
 
-Animal::Animal(int id, std::string name, int lifespan) : id(id), name(name), lifespan(lifespan){
+Animal::Animal(int id, std::string name, int lifespan) : lifespan(lifespan), id(id), name(name){
     Animal::cost = 50;
     Animal::happiness = 100.0;
     Animal::sex = (Sex) (rand() > RAND_MAX/2);
@@ -23,8 +23,8 @@ int Animal::get_id(){
     return Animal::id;
 }
 
-bool Animal::timestep(){
-    return false;
+Death Animal::timestep(){
+    return NONE;
 }
 
 std::string Animal::get_name(){
@@ -48,6 +48,19 @@ std::string sexToString(Sex sex){
     }
 }
 
+std::string deathToString(Death death){
+    switch (death){
+        case ILLNESS:
+        return "Illness";
+        case OLD_AGE:
+        return "Old age";
+        case STARVATION:
+        return "Starvation";
+        case NONE:
+        return "Did not die!";
+    }
+}
+
 float Animal::get_hunger(void){
     return Animal::hunger;
 }
@@ -61,4 +74,8 @@ void Animal::set_happiness(float happiness){
 
 void Animal::set_hunger(float hunger){
     Animal::hunger = hunger;
+}
+
+void Animal::set_cost(int cost){
+    Animal::cost = cost;
 }

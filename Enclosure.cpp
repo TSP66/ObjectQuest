@@ -1,7 +1,7 @@
 #include "Enclosure.h"
 
 
-Enclosure::Enclosure(std::string name, int maxAnimal, EnclosureType enclosureType) : maxAnimals(maxAnimals), name(name), enclosureType(enclosureType){
+Enclosure::Enclosure(std::string name, int maxAnimals, EnclosureType enclosureType) : maxAnimals(maxAnimals), name(name), enclosureType(enclosureType){
     Enclosure::currentAnimals = 0;
 }
 
@@ -18,7 +18,7 @@ std::string Enclosure::get_name(void){
 }
 
 bool Enclosure::addAnimal(int id, std::shared_ptr<Animal> animal){
-    if (Enclosure::currentAnimals >= Enclosure::maxAnimals){
+    if (Enclosure::currentAnimals <= Enclosure::maxAnimals){
         Enclosure::currentAnimals++;
         Enclosure::animals[id] = animal;
         return true;

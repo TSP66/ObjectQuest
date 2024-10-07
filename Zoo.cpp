@@ -132,6 +132,7 @@ Changes Zoo::buyAnimal(int money){
 
     //Add pointer to Zoo object
     newAnimalPtr->enclosureID = Zoo::enclosureIds[enclosureChoice];
+    newAnimalPtr->set_cost(parameters.cost);
     Zoo::animals[id] = newAnimalPtr;
     Zoo::animalIds.push_back(id);
 
@@ -165,11 +166,11 @@ void Zoo::addEnclosure(EnclosureInformation parameters){
     switch (parameters.type) {
 
         case LAND:
-        newEnclosure = new LandEnclosure(parameters.name, parameters.area, 5);
+        newEnclosure = new LandEnclosure(parameters.name, parameters.area, parameters.maxAnimals);
         break;
 
         case AQUATIC:
-        newEnclosure = new Tank(parameters.name, parameters.volume, 5);
+        newEnclosure = new Tank(parameters.name, parameters.volume, parameters.maxAnimals);
         break;
     }
 
@@ -203,12 +204,12 @@ template <typename T> int Zoo::displayOptions(std::vector<T> options){
 
 std::vector<EnclosureInformation> Zoo::makeEnclosureInformation(){
     std::vector<EnclosureInformation> enclosureInformation{
-        EnclosureInformation("Big Enclosure", 5000, LAND, 0, 100),
-        EnclosureInformation("Medium Enclosure", 2000, LAND, 0, 30),
-        EnclosureInformation("Small Enclosure", 1000, LAND, 0, 10),
-        EnclosureInformation("Big Tank", 5000, AQUATIC, 10, 0),
-        EnclosureInformation("Medium Tank", 2000, AQUATIC, 3, 0),
-        EnclosureInformation("Small Tank", 1000, AQUATIC, 1, 0),
+        EnclosureInformation("Big Enclosure", 5000, LAND, 0, 100, 10),
+        EnclosureInformation("Medium Enclosure", 2000, LAND, 0, 30, 3),
+        EnclosureInformation("Small Enclosure", 1000, LAND, 0, 10, 2),
+        EnclosureInformation("Big Tank", 5000, AQUATIC, 10, 0, 10),
+        EnclosureInformation("Medium Tank", 2000, AQUATIC, 3, 0, 3),
+        EnclosureInformation("Small Tank", 1000, AQUATIC, 1, 0, 2),
     };
     return enclosureInformation;
 }
@@ -245,31 +246,39 @@ Changes Zoo::setTicketPrice(){
 
 }
 
+void Zoo::deleteAnimal(int id){
+    //Delete the id of the dead animal from the ID vector
+
+    auto it = std::find(Zoo::animalIds.begin(), Zoo::animalIds.end(), id);
+
+    if (it != Zoo::animalIds.end()) {
+        Zoo::animalIds.erase(it);
+    }
+    //Delete the animal from the Zoo and its Enclosure
+    int enclosureID = Zoo::animals.at(id)->enclosureID; //Get ID of enclosure
+
+    Zoo::animals.erase(id); //From Zoo
+    Zoo::enclosures.at(enclosureID)->removeAnimal(id); //From Enclosure
+
+}
+
 void Zoo::ageAnimals(){
 
     std::vector<int> deleteIds;
 
     for (auto mapObject : Zoo::animals){
         int Id = mapObject.first;
-        if(mapObject.second->timestep()){
+        Death death = mapObject.second->timestep();
+        if(death != NONE){
             std::cout << "A " << mapObject.second->get_name() << " has died (Age: " << (int) round(mapObject.second->get_age()) 
+                      << ", cause: " << deathToString(death)
                       << ", id: " << Id << ")\n";
             deleteIds.push_back(Id);
         }
     }
 
     for (int id : deleteIds){
-
-        //Delete the id of the dead animal from the ID vector
-        auto it = std::find(Zoo::animalIds.begin(), Zoo::animalIds.end(), id);
-        if (it != Zoo::animalIds.end()) {
-            Zoo::animalIds.erase(it);
-        }
-
-        //Delete the animal from the Zoo and its Enclosure
-        int enclosureID = Zoo::animals.at(id)->enclosureID; //Get ID of enclosure
-        Zoo::animals.erase(id); //From Zoo
-        Zoo::enclosures.at(enclosureID)->removeAnimal(id); //From Enclosure
+        deleteAnimal(id);
     }
 }
 
@@ -282,7 +291,7 @@ Changes Zoo::feedAnimal(int money){
         int Id = Zoo::animalIds[i];
     
         std::cout << INDENT << i << ": " << Zoo::animals[Id]->get_name() //name
-                      << " (cost to feed: $" << (int) round(Zoo::animals[Id]->get_hunger()/10.0 * Zoo::animals[Id]->get_cost()/10.0)
+                      << " (cost to feed: $" << (int) round(Zoo::animals[Id]->get_hunger()/3.0 * Zoo::animals[Id]->get_cost()/10.0)
                       << ", hunger: " << Zoo::animals[Id]->get_hunger() 
                       << ", happiness: " << Zoo::animals[Id]->get_happiness()
                       << ", id: " << Id << ")\n";
@@ -310,4 +319,35 @@ Changes Zoo::feedAnimal(int money){
 
     return {cost};
 
+}
+
+Changes Zoo::sellAnimal(void){
+
+    std::cout << "Which Animal would you like to sell:\n";
+
+    int numAnimals = Zoo::animalIds.size();
+
+    for (int i = 0; i < numAnimals; i++){
+        int Id = Zoo::animalIds[i];
+    
+        std::cout << INDENT << i << ": " << Zoo::animals[Id]->get_name() //name
+                      << " (value: $" << (int) std::max(1.0, Zoo::animals[Id]->get_cost() - 3.0 * Zoo::animals[Id]->get_age())
+                      << ", id: " << Id << ")\n";
+    }
+
+    std::cout << "Choice: ";
+    int choice;
+    std::cin >> choice;
+
+    while ((choice < 0) || (choice >= numAnimals)){
+        std::cout << "Invalid, please select one of the above animals: ";
+        std::cin >> choice;
+    }
+
+    int Id = Zoo::animalIds[choice];
+    int value = (int) std::max(1.0, Zoo::animals[Id]->get_cost() - 3.0 * Zoo::animals[Id]->get_age());
+
+    Zoo::deleteAnimal(Id);
+
+    return {-value}; //Negative as the user get to keep the value
 }

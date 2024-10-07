@@ -9,7 +9,7 @@ class LandAnimal: public Animal{
     float minEnsolureSize;
     public:
     LandAnimal(int id, std::string name, int);
-    bool timestep();
+    Death timestep();
 };
 
 //Macro to make creating lots of animals easy

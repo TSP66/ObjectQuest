@@ -61,6 +61,7 @@ class Zoo{
 
     DailySales getRevenue();
     void ageAnimals(void);
+    void deleteAnimal(int);
 
     //Player actions
     Changes buildEnclosure(int);
@@ -68,6 +69,7 @@ class Zoo{
     Changes feedAnimal(int);
     template <typename T> int displayOptions(std::vector<T>);
     Changes setTicketPrice();
+    Changes sellAnimal(void);
 
 };
 #endif

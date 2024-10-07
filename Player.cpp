@@ -50,6 +50,7 @@ bool Player::doAction(Action action){
         break;
 
         case SELL_ANIMAL:
+        result = Player::zoo.sellAnimal();
         //SELL_ANIMAL
         break;
 

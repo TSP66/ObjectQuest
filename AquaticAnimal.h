@@ -8,7 +8,7 @@ class AquaticAnimal: public Animal{
     float volumeRequired;
     public:
     AquaticAnimal(int id, std::string name, int);
-    bool timestep();
+    Death timestep();
 
 };
 
