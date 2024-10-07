@@ -34,3 +34,31 @@ std::string Animal::get_name(){
 int Animal::get_cost(){
     return Animal::cost;
 }
+
+Sex Animal::get_sex(){
+    return Animal::sex;
+}
+
+std::string sexToString(Sex sex){
+    switch (sex){
+        case MALE:
+        return "Male";
+        case FEMALE:
+        return "Female";
+    }
+}
+
+float Animal::get_hunger(void){
+    return Animal::hunger;
+}
+float Animal::get_happiness(void){
+    return Animal::happiness;
+}
+
+void Animal::set_happiness(float happiness){
+    Animal::happiness = happiness;
+}
+
+void Animal::set_hunger(float hunger){
+    Animal::hunger = hunger;
+}

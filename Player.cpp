@@ -62,6 +62,7 @@ bool Player::doAction(Action action){
         break;
 
         case FEED_ANIMAL:
+        result = Player::zoo.feedAnimal(Player::money);
         //FEED_ANIMAL
         break;
 

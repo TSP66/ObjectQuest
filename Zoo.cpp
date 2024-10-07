@@ -22,7 +22,10 @@ void Zoo::summary(std::string name, int money, int day, DailySales dailySales){
 
         for (auto mapObject : Zoo::enclosures[enclosureId]->animals){
             std::cout << INDENT << INDENT << mapObject.second->get_name() //name
-                      << " (age: " << (int) mapObject.second->get_age() << ", id: " << mapObject.first << ")\n";
+                      << " (age: " << (int) round(mapObject.second->get_age()) 
+                      << ", sex: " << sexToString(mapObject.second->get_sex())
+                      << ", id: " << mapObject.first << ")\n";
+
             enclosureEmpty = false;
         }
         if (enclosureEmpty)
@@ -229,7 +232,7 @@ Changes Zoo::setTicketPrice(){
     std::cout << "Your current ticket price is $" << Zoo::ticketPrice << ", changing it will cost $100\nNew price (ENTER to keep old): ";
     int newTicketPrice = Zoo::ticketPrice;
     std::cin >> newTicketPrice;
-    while (newTicketPrice >= 0){
+    while (newTicketPrice <= 0){
         std::cout << "Invalid ticket price, enter again: ";
         std::cin >> newTicketPrice;
     }
@@ -249,7 +252,8 @@ void Zoo::ageAnimals(){
     for (auto mapObject : Zoo::animals){
         int Id = mapObject.first;
         if(mapObject.second->timestep()){
-            std::cout << "A " << mapObject.second->get_name() << " has died (Age: " << mapObject.second->get_age() << ")\n";
+            std::cout << "A " << mapObject.second->get_name() << " has died (Age: " << (int) round(mapObject.second->get_age()) 
+                      << ", id: " << Id << ")\n";
             deleteIds.push_back(Id);
         }
     }
@@ -257,9 +261,9 @@ void Zoo::ageAnimals(){
     for (int id : deleteIds){
 
         //Delete the id of the dead animal from the ID vector
-        auto it = std::find(deleteIds.begin(), deleteIds.end(), id);
-        if (it != deleteIds.end()) {
-            deleteIds.erase(it);
+        auto it = std::find(Zoo::animalIds.begin(), Zoo::animalIds.end(), id);
+        if (it != Zoo::animalIds.end()) {
+            Zoo::animalIds.erase(it);
         }
 
         //Delete the animal from the Zoo and its Enclosure
@@ -267,4 +271,43 @@ void Zoo::ageAnimals(){
         Zoo::animals.erase(id); //From Zoo
         Zoo::enclosures.at(enclosureID)->removeAnimal(id); //From Enclosure
     }
+}
+
+Changes Zoo::feedAnimal(int money){
+
+    std::cout << "Which Animal would you like to feed:\n";
+    int numAnimals = Zoo::animalIds.size();
+
+    for (int i = 0; i < numAnimals; i++){
+        int Id = Zoo::animalIds[i];
+    
+        std::cout << INDENT << i << ": " << Zoo::animals[Id]->get_name() //name
+                      << " (cost to feed: $" << (int) round(Zoo::animals[Id]->get_hunger()/10.0 * Zoo::animals[Id]->get_cost()/10.0)
+                      << ", hunger: " << Zoo::animals[Id]->get_hunger() 
+                      << ", happiness: " << Zoo::animals[Id]->get_happiness()
+                      << ", id: " << Id << ")\n";
+    }
+
+    std::cout << "Choice: ";
+    int choice;
+    std::cin >> choice;
+
+    while ((choice < 0) || (choice >= numAnimals)){
+        std::cout << "Invalid, please select one of the above animals: ";
+        std::cin >> choice;
+    }
+
+    int Id = Zoo::animalIds[choice];
+    int cost = (int) round(Zoo::animals[Id]->get_hunger()/10.0 * Zoo::animals[Id]->get_cost()/10.0);
+
+    if (cost > money){
+        std::cout << "Insufficient funds!\n";
+        return {0};
+    }
+    
+    Zoo::animals[Id]->set_happiness(Zoo::animals[Id]->get_happiness() + 100.0); //Increase happiness by 100
+    Zoo::animals[Id]->set_hunger(0); //Set hunger to zero
+
+    return {cost};
+
 }

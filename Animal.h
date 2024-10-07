@@ -30,7 +30,14 @@ class Animal{
     void set_age(float);
     virtual bool timestep();
     int get_id();
+    Sex get_sex();
+    float get_hunger(void);
+    float get_happiness(void);
+    void set_happiness(float);
+    void set_hunger(float);
     virtual ~Animal() {}
 };
+
+std::string sexToString(Sex);
 
 #endif

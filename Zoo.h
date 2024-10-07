@@ -65,6 +65,7 @@ class Zoo{
     //Player actions
     Changes buildEnclosure(int);
     Changes buyAnimal(int);
+    Changes feedAnimal(int);
     template <typename T> int displayOptions(std::vector<T>);
     Changes setTicketPrice();
 
