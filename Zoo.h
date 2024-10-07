@@ -6,6 +6,7 @@
 #include <memory>
 #include <random>  
 #include <math.h>
+#include <algorithm>
 
 #include "Animal.h"
 #include "Enclosure.h"

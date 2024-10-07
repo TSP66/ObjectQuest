@@ -24,7 +24,9 @@ void Zoo::summary(std::string name, int money, int day, DailySales dailySales){
             std::cout << INDENT << INDENT << mapObject.second->get_name() //name
                       << " (age: " << (int) round(mapObject.second->get_age()) 
                       << ", sex: " << sexToString(mapObject.second->get_sex())
+                      << ", happiness: " <<mapObject.second->get_happiness()
                       << ", id: " << mapObject.first << ")\n";
+    
 
             enclosureEmpty = false;
         }
