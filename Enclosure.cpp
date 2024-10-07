@@ -32,3 +32,10 @@ bool Enclosure::removeAnimal(int id){
     Enclosure::currentAnimals--;
     return true; //Sucessfully remove it - need to do better checking in the future
 }
+
+int Enclosure::get_currentAnimals(void){
+    return Enclosure::currentAnimals;
+}
+int Enclosure::get_maxAnimals(void){
+    return Enclosure::maxAnimals;
+}

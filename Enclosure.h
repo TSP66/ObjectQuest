@@ -23,6 +23,8 @@ class Enclosure{
     bool removeAnimal(int);
     int get_id(void);
     void set_id(int);
+    int get_currentAnimals(void);
+    int get_maxAnimals(void);
     std::string get_name(void);
 };
 

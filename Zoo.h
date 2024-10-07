@@ -15,6 +15,7 @@
 #include "EnclosureInformation.h"
 #include "AnimalInformation.h"
 #include "AnimalMacros.h"
+#include "Colours.h"
 
 #define INDENT "    "
 
@@ -72,6 +73,7 @@ class Zoo{
     Changes setTicketPrice();
     Changes sellAnimal(void);
     Changes moveAnimal();
+    Changes breadAnimals(int);
 
 };
 #endif

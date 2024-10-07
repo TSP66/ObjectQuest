@@ -1,6 +1,9 @@
 #ifndef ANIMAL_MACROS_H
 #define ANIMAL_MACROS_H
 
+#include <iostream>
+#include <string>
+
 #include "AquaticAnimal.h"
 #include "LandAnimal.h"
 
@@ -56,5 +59,9 @@ enum Animals{
     ANIMAL_LIST(XX)
     #undef XX
 };
+
+Animals mapStringToAnimal(std::string animal);
+
+int animalToPrice(Animals animal);
 
 #endif

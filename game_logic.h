@@ -28,7 +28,8 @@ inline std::unordered_map<Action, std::string> getActionNameMap(void){
         {MOVE_ANIMAL, "Move Animal"},
         {BREED_ANIMAL, "Breed Animal"},
         {FEED_ANIMAL, "Feed Animal"},
-        {SET_TICKET_PRICE, "Set ticket price"}
+        {SET_TICKET_PRICE, "Set ticket price"},
+        {NUM_ACTIONS, "Do nothing"},
         
     };
 

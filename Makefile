@@ -20,6 +20,7 @@ SRCS = main.cpp \
        AnimalInformation.cpp \
        EnclosureInformation.cpp \
        AquaticAnimal.cpp \
+       AnimalMacros.cpp \
 
 # Header files
 HDRS = Player.h \
