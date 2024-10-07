@@ -55,11 +55,13 @@ bool Player::doAction(Action action){
         break;
 
         case MOVE_ANIMAL:
+        result = Player::zoo.moveAnimal();
         //MOVE_ANIMAL
         break;
 
         case BREED_ANIMAL:
         //BREED_ANIMAL
+        result = {0};
         break;
 
         case FEED_ANIMAL:
@@ -78,5 +80,6 @@ bool Player::doAction(Action action){
         break;
 
     }
+    Player::money -= result.costChange;
     return true;
 }

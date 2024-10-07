@@ -18,7 +18,7 @@ std::string Enclosure::get_name(void){
 }
 
 bool Enclosure::addAnimal(int id, std::shared_ptr<Animal> animal){
-    if (Enclosure::currentAnimals <= Enclosure::maxAnimals){
+    if (Enclosure::currentAnimals < Enclosure::maxAnimals){
         Enclosure::currentAnimals++;
         Enclosure::animals[id] = animal;
         return true;

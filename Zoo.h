@@ -71,6 +71,7 @@ class Zoo{
     template <typename T> int displayOptions(std::vector<T>);
     Changes setTicketPrice();
     Changes sellAnimal(void);
+    Changes moveAnimal();
 
 };
 #endif

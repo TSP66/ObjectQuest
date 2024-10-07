@@ -7,7 +7,7 @@
 
 //#define DEBUG
 
-#define START_FUNDS 10000
+#define START_FUNDS 2000
 #define ROUNDS 20000
 
 int main(void){

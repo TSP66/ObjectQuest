@@ -353,3 +353,67 @@ Changes Zoo::sellAnimal(void){
 
     return {-value}; //Negative as the user get to keep the value
 }
+
+Changes Zoo::moveAnimal(void){
+
+    std::cout << "Which Animal would you like to move:\n";
+
+    int numAnimals = Zoo::animalIds.size();
+
+    for (int i = 0; i < numAnimals; i++){
+        int Id = Zoo::animalIds[i];
+    
+        std::cout << INDENT << i << ": " << Zoo::animals[Id]->get_name() //name
+                      << " (sex: " << sexToString(Zoo::animals[Id]->get_sex())
+                      << ", age: " << (int) round(Zoo::animals[Id]->get_age())
+                      << ", id: " << Id << ")\n";
+    }
+
+    std::cout << "Choice: ";
+    int choice;
+    std::cin >> choice;
+
+    while ((choice < 0) || (choice >= numAnimals)){
+        std::cout << "Invalid, please select one of the above animals: ";
+        std::cin >> choice;
+    }
+
+    int animalId = Zoo::animalIds[choice];
+    int oldEnclosureId = Zoo::animals.at(animalId)->enclosureID;
+
+    std::vector<int> suitableEnclosures;
+
+    for (int i = 0; i < Zoo::enclosureIds.size(); i++){
+        int id = Zoo::enclosureIds[i];
+        if (Zoo::enclosures[id]->enclosureType == Zoo::enclosures[oldEnclosureId]->enclosureType){
+            std::cout << INDENT << i << ": " << Zoo::enclosures[id]->get_name() << " | " << Zoo::enclosures[id]->get_id() << "\n";
+            suitableEnclosures.push_back(i);
+        }
+    }
+
+    if (suitableEnclosures.size() <= 1) {
+        std::cout << "You have no other suitable enclosures!\n";
+        return {0};
+    }
+
+    int enclosureChoice = -1;
+
+    std::cout << "Okay, which enclosure would you like to put it in: ";
+    std::cin >> enclosureChoice;
+
+    while (std::find(suitableEnclosures.begin(), suitableEnclosures.end(), enclosureChoice) == suitableEnclosures.end()){
+        std::cout << "Invalid input, try again: ";
+        std::cin >> enclosureChoice;
+    }
+
+    if(!Zoo::enclosures[Zoo::enclosureIds[enclosureChoice]]->addAnimal(animalId, Zoo::animals.at(animalId))){
+        std::cout << "Enclosure has no space!\n";
+        //delete newAnimalPtr; //Free memory if can't make it
+        return {0};
+    }
+
+    Zoo::animals.at(animalId)->enclosureID = Zoo::enclosureIds[enclosureChoice];
+    Zoo::enclosures.at(oldEnclosureId)->removeAnimal(animalId);
+    
+    return {0};
+}
