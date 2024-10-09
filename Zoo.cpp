@@ -230,7 +230,6 @@ std::vector<AnimalInformation> Zoo::makeAnimalInformation(){
 
 template int Zoo::displayOptions<EnclosureInformation>(std::vector<EnclosureInformation>);
 template int Zoo::displayOptions<AnimalInformation>(std::vector<AnimalInformation>);
-template int Zoo::displayOptions<UtilitiesInformation>(std::vector<UtilitiesInformation>);
 
 Changes Zoo::setTicketPrice(){
     std::cout << "Your current ticket price is $" << Zoo::ticketPrice << ", changing it will cost $100\nNew price (ENTER to keep old): ";
@@ -486,16 +485,9 @@ Changes Zoo::breadAnimals(int money){
         return {0};
     }
 
-    bool success_rate = rand()>RAND_MAX/2;
-    if (success_rate){
-    std::cout << GREEN << "All conditions meet.... Attempting to breed animals...\nSuccess!\n" << RESET;
-    }
 
-    else {
-    std::cout << RED << "All conditions meet.... Attempting to breed animals...\nBreeding attempt failed!\n" << RESET;
-    return{0};
-    }
-    
+    std::cout << GREEN << "All conditions meet.... Attempting to breed animals...\nSuccess!\n" << RESET;
+
     Animal * newAnimal;
 
     int id = rand();
@@ -522,16 +514,11 @@ Changes Zoo::breadAnimals(int money){
     return {10};
 }
 
-Changes Zoo :: buildUtilities(int){
-    std::cout << "Which utility do you wish to purchase" << "\n" ;\
-    int choice = displayOptions(makeUtilitiesInformation());
-}
+Changes Zoo::goToBank(int money){
+    std::cout << "Welcome to the bank! ";
+    if (Zoo::bank.getNLoans() > 0){
 
-std::vector<UtilitiesInformation> Zoo :: makeUtilitiesInformation(){
-    std::vector<UtilitiesInformation> enclosureInformation{
-        UtilitiesInformation("Toilet", 100, 1000, TOILET),
-        UtilitiesInformation("Fountain", 50, 500, FOUNTAIN),
-        UtilitiesInformation("Gift Shop", 400, 3000, GIFTSHOP),
-    };
-    return enclosureInformation;
+    } else {
+
+    }
 }

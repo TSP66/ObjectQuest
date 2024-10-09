@@ -13,6 +13,7 @@ enum Action{
     BREED_ANIMAL,
     FEED_ANIMAL,
     SET_TICKET_PRICE,
+    GO_TO_BANK,
     NUM_ACTIONS, // LEAVE THIS LAST
 };
 
@@ -29,6 +30,7 @@ inline std::unordered_map<Action, std::string> getActionNameMap(void){
         {BREED_ANIMAL, "Breed Animal"},
         {FEED_ANIMAL, "Feed Animal"},
         {SET_TICKET_PRICE, "Set ticket price"},
+        {GO_TO_BANK, "Go to bank"},
         {NUM_ACTIONS, "Do nothing"},
         
     };

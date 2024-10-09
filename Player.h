@@ -4,6 +4,7 @@
 #include <string>
 #include "Zoo.h"
 #include "game_logic.h"
+#include "Bank.h"
 
 class Player{
     private:
@@ -15,8 +16,10 @@ class Player{
     void getName(void);
     Action getAction(void);
     bool doAction(Action);
+    void chargeInterest(bool);
     int money;
     Zoo zoo;
+    bool checkBankruptcy();
 };
 
 

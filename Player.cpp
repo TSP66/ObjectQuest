@@ -3,6 +3,7 @@
 Player::Player(int money) : money(money){
     Player::zoo = Zoo();
     Player::ActionNameMap = getActionNameMap();
+    Player::zoo.bank.addLoan({money,0.02});
 }
 
 void Player::intro(){
@@ -74,6 +75,10 @@ bool Player::doAction(Action action){
         //SET_TICKET_PRICE
         break;
 
+        case GO_TO_BANK:
+        result = {0}; // result = Player::zoo.goToBank(Player::money)
+        break;
+
         case NUM_ACTIONS:
         result = {0}; //Just to keep the compiler happy
         //INVALID Option
@@ -82,4 +87,16 @@ bool Player::doAction(Action action){
     }
     Player::money -= result.costChange;
     return true;
+}
+
+void Player::chargeInterest(bool display){
+    int payment = Player::zoo.bank.getMinPayments();
+    Player::money -= Player::zoo.bank.getMinPayments();
+    if (display){
+        std::cout << "You were charged " << RED << "$" << payment << RESET << " on your loan!\n";
+    }
+}
+
+bool Player::checkBankruptcy(){
+    return Player::money < 0;
 }
