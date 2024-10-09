@@ -3,6 +3,7 @@
 Zoo::Zoo(){
     Zoo::enclosureInformation = Zoo::makeEnclosureInformation();
     Zoo::animalInformation = Zoo::makeAnimalInformation();
+    Zoo::utilitiesInformation = Zoo::makeUtilitiesInformation();
     Zoo::ticketPrice = 1;
 }
 
@@ -216,6 +217,15 @@ std::vector<EnclosureInformation> Zoo::makeEnclosureInformation(){
     return enclosureInformation;
 }
 
+std::vector<UtilitiesInformation> Zoo::makeUtilitiesInformation(){
+    std::vector<UtilitiesInformation> enclosureInformation{
+        UtilitiesInformation("Toilet", 100, 1000, TOILET),
+        UtilitiesInformation("Fountain", 50, 600, FOUNTAIN),
+        UtilitiesInformation("Gift Shop", 400, 3000, GIFTSHOP),
+    };
+    return enclosureInformation;
+}
+
 std::vector<AnimalInformation> Zoo::makeAnimalInformation(){
     std::vector<AnimalInformation> animalInformation{
         #define XX(NAME) AnimalInformation(#NAME, PRICE_ANIMAL(NAME), CAPITALIZE_ANIMAL(NAME), LAND),
@@ -230,6 +240,7 @@ std::vector<AnimalInformation> Zoo::makeAnimalInformation(){
 
 template int Zoo::displayOptions<EnclosureInformation>(std::vector<EnclosureInformation>);
 template int Zoo::displayOptions<AnimalInformation>(std::vector<AnimalInformation>);
+template int Zoo::displayOptions<UtilitiesInformation>(std::vector<UtilitiesInformation>);
 
 Changes Zoo::setTicketPrice(){
     std::cout << "Your current ticket price is $" << Zoo::ticketPrice << ", changing it will cost $100\nNew price (ENTER to keep old): ";
@@ -513,6 +524,12 @@ Changes Zoo::breadAnimals(int money){
 
     return {10};
 }
+
+ Changes Zoo::buildUtilities(int money){
+    std::cout << "What Utility do you want to build: \n";
+    Zoo::displayOptions(Zoo::utilitiesInformation);
+    return {0};
+ }
 
 Changes Zoo::goToBank(int money){
     std::cout << "Welcome to the bank! ";

@@ -51,6 +51,7 @@ class Zoo{
     std::vector<EnclosureInformation> enclosureInformation;
     std::vector<AnimalInformation> animalInformation;
     std::vector<Utilities> UtilitiesVector;
+    std::vector<UtilitiesInformation> utilitiesInformation;
     std::vector<UtilitiesInformation> makeUtilitiesInformation();
 
     int ticketPrice;
