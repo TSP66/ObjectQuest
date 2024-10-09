@@ -14,9 +14,7 @@ class UtilitiesInformation: public Information {
     public:
     UtilitiesInformation(std::string, int, int, UtilityType);
     UtilityType type;
-    int cost;
     int revenue;
-    std::string name;
 };
 
 
