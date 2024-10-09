@@ -518,5 +518,7 @@ Changes Zoo::goToBank(int money){
     std::cout << "Welcome to the bank! ";
     if (Zoo::bank.getNLoans() > 0){
 
+    } else {
+
     }
 }
