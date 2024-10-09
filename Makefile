@@ -1,5 +1,5 @@
 # Compiler
-CXX = clang++
+CXX = g++
 
 # Compiler flags
 CXXFLAGS = -Wall -std=c++17
@@ -21,6 +21,8 @@ SRCS = main.cpp \
        EnclosureInformation.cpp \
        AquaticAnimal.cpp \
        AnimalMacros.cpp \
+       Utilities.cpp \
+       UtilitiesInformation.cpp \
        Bank.cpp \
 
 # Header files
@@ -37,6 +39,8 @@ HDRS = Player.h \
        AnimalInformation.h \
        EnclosureInformation.h \
        AnimalMacros.h \
+       Utilities.h \
+       UtilitiesInformation.h \
        Bank.h \
        
 

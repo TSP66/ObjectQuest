@@ -19,7 +19,14 @@ int main(void){
 
     player.intro();
 
-    int week = 0;
+    //player.zoo.buildUtilities(0);
+    int week;
+    int day;
+    //player.getName();
+    //Action action = player.getAction();
+    //player.doAction(action);
+    //player.zoo.displayOptions(player.zoo.enclosureInformation);
+    //player.zoo.displayOptions(player.zoo.animalInformation);
 
     for (week = 0; week < TURNS; week++){
         for (int day = 0; day < ROUNDS_PER_TURN; day++){
