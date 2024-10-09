@@ -18,6 +18,8 @@ int main(void){
 
     player.intro();
 
+    player.zoo.buildUtilities(0);
+
     int day = 0;
     //player.getName();
     //Action action = player.getAction();

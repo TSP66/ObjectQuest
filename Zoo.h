@@ -16,6 +16,8 @@
 #include "AnimalInformation.h"
 #include "AnimalMacros.h"
 #include "Colours.h"
+#include "Utilities.h"
+#include "UtilitiesInformation.h"
 
 #define INDENT "    "
 
@@ -47,6 +49,8 @@ class Zoo{
     //Vectors of Possible Animals & Enclosures to purchase - should be private
     std::vector<EnclosureInformation> enclosureInformation;
     std::vector<AnimalInformation> animalInformation;
+    std::vector<Utilities> UtilitiesVector;
+    std::vector<UtilitiesInformation> makeUtilitiesInformation();
 
     int ticketPrice;
 
@@ -67,6 +71,7 @@ class Zoo{
 
     //Player actions
     Changes buildEnclosure(int);
+    Changes buildUtilities(int);
     Changes buyAnimal(int);
     Changes feedAnimal(int);
     template <typename T> int displayOptions(std::vector<T>);
@@ -74,6 +79,7 @@ class Zoo{
     Changes sellAnimal(void);
     Changes moveAnimal();
     Changes breadAnimals(int);
+    
 
 };
 #endif
