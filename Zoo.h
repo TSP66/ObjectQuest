@@ -16,6 +16,7 @@
 #include "AnimalInformation.h"
 #include "AnimalMacros.h"
 #include "Colours.h"
+#include "Bank.h"
 
 #define INDENT "    "
 
@@ -52,6 +53,8 @@ class Zoo{
 
     public:
 
+    Bank bank;
+
     Zoo();
 
     void summary(std::string, int, int,  DailySales);
@@ -74,6 +77,7 @@ class Zoo{
     Changes sellAnimal(void);
     Changes moveAnimal();
     Changes breadAnimals(int);
+    Changes goToBank(int);
 
 };
 #endif

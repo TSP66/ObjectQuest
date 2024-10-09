@@ -513,3 +513,10 @@ Changes Zoo::breadAnimals(int money){
 
     return {10};
 }
+
+Changes Zoo::goToBank(int money){
+    std::cout << "Welcome to the bank! ";
+    if (Zoo::bank.getNLoans() > 0){
+
+    }
+}
