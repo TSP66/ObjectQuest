@@ -1,5 +1,7 @@
 #include "Input.h"
 
+#define TESTING_RETURN_VALUE 0
+
 static bool rawModeOn = false;
 
 void setRawMode(bool enable) {
@@ -30,6 +32,8 @@ int optionSelector(std::vector <std::string> choices){
 }
 
 int optionSelector(std::vector <std::string> choices, std::string topMessage, bool topMessageOn) {
+
+    #ifndef TESTING
 
     //clearScreen();
 
@@ -72,7 +76,14 @@ int optionSelector(std::vector <std::string> choices, std::string topMessage, bo
         clearScreen();
 
     }
-    
+
     clearScreen();
+
     return selected;
-} 
+
+    #else
+
+    return TESTING_RETURN_VALUE;
+
+    #endif
+}
