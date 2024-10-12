@@ -73,6 +73,10 @@ void ZooTests::test_animal_functions(){
     // std::cout<<std::endl;
 
     ZooTests::test_buyAnimal();
+    std::cout<<std::endl;
+
+    ZooTests::test_deleteAnimal();
+    std::cout<<std::endl;
     
 }
 
@@ -85,30 +89,7 @@ void ZooTests::test_AnimalInformation(){
     if (testAnimal.enclosureType == LAND && testAnimal.cost == 30 && testAnimal.type == LION ){
         std::cout<<"AnimalInformation class working correctly"<<std::endl;
     }
-    // need test more annimal attributes
 }
-
-
-
-
-
-// void ZooTests::test_addAnimal(){
-//     std::cout<<"testing addAnimal function"<<std::endl;
-//     int originalNum = animalIds.size();
-//     std::cout<<"original number of animals: "<<originalNum<<std::endl;
-//     AnimalInformation testAnimal2("testanimal",0,LAND,10);
-
-
-//     Zoo::addAnimal("Lion",PRICE_ANIMAL(Lion),CAPITALIZE_ANIMAL(Lion),LAND);
-    
-//     int newNum = animalIds.size();
-//     std::cout<<"new number of animals: "<<newNum<<std::endl;
-//     if (newNum != originalNum + 1){
-//         std::cout<<"addAnimals function is not working"<<std::endl;
-//     } else {
-//         std::cout<<"addAnimals function is working"<<std::endl;
-//     }
-// }
 
 void ZooTests::test_buyAnimal(){
 
@@ -119,12 +100,37 @@ void ZooTests::test_buyAnimal(){
     std::cout<<resultWithoutFunds.returnMessage<<std::endl;
 
     std::cout<<"testing with funds"<<std::endl;
-    Changes resultWithFunds = Zoo::Zoo::buyAnimal(999999);
+    Changes resultWithFunds = Zoo::buyAnimal(999999);
     std::cout<<resultWithFunds.returnMessage<<std::endl;
 
     std::cout<<"testing without enclosure"<<std::endl;
     enclosureIds.clear();
-    Changes resultWithoutEnclosures = Zoo::Zoo::buyAnimal(999999);
+    Changes resultWithoutEnclosures = Zoo::buyAnimal(999999);
     std::cout<<resultWithoutEnclosures.returnMessage<<std::endl;
-    
+
+    std::cout<<"testing with wrong enclosure"<<std::endl;
+    EnclosureInformation testEnclosure4("testenclosure4",0,AQUATIC,10);
+    Zoo::addEnclosure(testEnclosure4);
+    Changes resultWithWrongEnclosure = Zoo::buyAnimal(999999);
+    std::cout<<resultWithWrongEnclosure.returnMessage<<std::endl;
+}
+
+void ZooTests::test_deleteAnimal(){
+    EnclosureInformation testEnclosure3("testenclosure3",0,LAND,10);
+    Zoo::addEnclosure(testEnclosure3);
+    animalIds.clear();
+    Changes _test = Zoo::buyAnimal(999999);
+
+    int newAnimalId = Zoo::animalIds[0];
+
+    int originalNum = animalIds.size();
+
+    deleteAnimal(newAnimalId);
+    int newNum = animalIds.size();
+
+    if ((originalNum != 1) || (newNum != 0)){
+        std::cout<<"deleteAnimal function is not working"<<std::endl;
+    } else {
+        std::cout<<"deleteAnimal function is working"<<std::endl;
+    }
 }
