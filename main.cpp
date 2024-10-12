@@ -4,6 +4,7 @@
 #include "game_logic.h"
 #include "Player.h"
 #include "LandEnclosure.h"
+#include "Input.h"
 
 //#define DEBUG
 
@@ -12,6 +13,9 @@
 #define TURNS 100
 
 int main(void){
+
+    setRawMode(true);
+    clearScreen();
 
     srand((unsigned)time(NULL));
 

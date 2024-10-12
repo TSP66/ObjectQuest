@@ -19,11 +19,15 @@
 #include "Utilities.h"
 #include "UtilitiesInformation.h"
 #include "Bank.h"
+#include "Input.h"
 
 #define INDENT "    "
 
 struct Changes{
     int costChange;
+    bool isReturnMessage;
+    std::string returnMessage;
+    std::string colour;
 };
 
 struct DailySales{

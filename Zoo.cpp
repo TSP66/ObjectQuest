@@ -76,8 +76,7 @@ Changes Zoo::buyAnimal(int money){
     AnimalInformation parameters = Zoo::animalInformation[choice];
 
     if (parameters.cost > money){
-        std::cout << RED << "Insufficient Funds!\n" << RESET;
-        return {0};
+        return {0, true, std::string("Insufficient Funds!"), RED};
     }
 
     const int id = abs((int) (std::rand()+1.0)*10000);
@@ -93,46 +92,44 @@ Changes Zoo::buyAnimal(int money){
     int numEnclosures = Zoo::enclosureIds.size();
 
     if (numEnclosures < 1){
-        std::cout << RED << "You have no enclosures!\n" << RESET;
+        //std::cout << RED << "You have no enclosures!\n" << RESET;
         delete newAnimal; //Free memory if can't make it
-        return {0};
+        return {0, true, std::string("You have no enclosures!"), RED};
     }
 
     std::vector<int> suitableEnclosures;
-
+    std::vector<std::string> enclosureNames;
 
     for (int i = 0; i < numEnclosures; i++){
         int id = Zoo::enclosureIds[i];
         if (Zoo::enclosures[id]->enclosureType == parameters.enclosureType){
-            std::cout << INDENT << i << ": " << MAGENTA << Zoo::enclosures[id]->get_name() << RESET <<" | " << Zoo::enclosures[id]->get_id() << "\n";
+            //std::cout << INDENT << i << ": " << MAGENTA << Zoo::enclosures[id]->get_name() << RESET <<" | " << Zoo::enclosures[id]->get_id() << "\n";
+            enclosureNames.push_back(Zoo::enclosures[id]->get_name() + " | " + std::to_string(Zoo::enclosures[id]->get_id()));
             suitableEnclosures.push_back(i);
         }
     }
 
     if (suitableEnclosures.size() == 0) {
-        std::cout << RED << "You have no suitable enclosures!\n" << RESET;
+        //std::cout << RED << "You have no suitable enclosures!\n" << RESET;
         delete newAnimal; //Free memory if can't make it
-        return {0};
+        return {0, true, std::string("You have no suitable enclosures!"), RED};
     }
 
-    int enclosureChoice = -1;
+    //int enclosureChoice = -1;
 
-    std::cout << "Okay, which enclosure would you like to put it in: ";
-    std::cin >> enclosureChoice;
+    //std::cout << "Okay, which enclosure would you like to put it in: ";
+    //std::cin >> enclosureChoice;
 
-    while (std::find(suitableEnclosures.begin(), suitableEnclosures.end(), enclosureChoice) == suitableEnclosures.end()){
-        std::cout << "Invalid input, try again: ";
-        std::cin >> enclosureChoice;
-    }
+    int enclosureChoice = optionSelector(enclosureNames, std::string("Okay, which enclosure would you like to put it in: "), true);
 
     //Create shared pointer
     std::shared_ptr<Animal> newAnimalPtr = std::shared_ptr<Animal>(std::move(newAnimal));
 
     //Add pointer to enclosure object
     if(!Zoo::enclosures[Zoo::enclosureIds[enclosureChoice]]->addAnimal(id, newAnimalPtr)){
-        std::cout << RED << "Enclosure has no space!\n" << RESET;
+        //std::cout << RED << "Enclosure has no space!\n" << RESET;
         //delete newAnimalPtr; //Free memory if can't make it
-        return {0};
+        return {0, true, std::string("Enclosure has no space!"), RED};
     }
 
     //Add pointer to Zoo object
@@ -141,7 +138,7 @@ Changes Zoo::buyAnimal(int money){
     Zoo::animals[id] = newAnimalPtr;
     Zoo::animalIds.push_back(id);
 
-    return {parameters.cost};
+    return {parameters.cost, true, std::string("Successfully added animal to enclosure!"), GREEN};
 }
 
 Changes Zoo::buildEnclosure(int money){
@@ -150,12 +147,12 @@ Changes Zoo::buildEnclosure(int money){
     EnclosureInformation parameters = Zoo::enclosureInformation[choice];
 
     if (parameters.cost > money){
-        std::cout << RED << "Insufficient Funds!\n" << RESET;
-        return {0};
+        //std::cout << RED << "Insufficient Funds!\n" << RESET;
+        return {0, true, std::string("Insufficient Funds!"), RED};
     }
 
     Zoo::addEnclosure(parameters);
-    return {parameters.cost};
+    return {parameters.cost, true, std::string("Successfully added enclosure!"), GREEN};
 
 }
 
@@ -194,16 +191,13 @@ void Zoo::addEnclosure(EnclosureInformation parameters){
 template <typename T> int Zoo::displayOptions(std::vector<T> options){
     int option = -1;
     int numberOptions = (int) options.size();
+    std::vector <std::string> choices;
+
     for (int i = 0; i < numberOptions; i++) {
-        std::cout << INDENT << i << ": " << options[i].name << " | $" << options[i].cost << "\n";
+        choices.push_back(options[i].name + " | $" + std::to_string(options[i].cost));
     }
-    std::cout << "Your choice: ";
-    std::cin >> option;
-    if ((option < 0) || (option >= numberOptions)){
-        std::cout << "Invalid Option\n";
-        Zoo::displayOptions(options);
-    }
-    return option;
+    
+    return optionSelector(choices);
 }
 
 
@@ -242,7 +236,7 @@ std::vector<AnimalInformation> Zoo::makeAnimalInformation(){
 
 template int Zoo::displayOptions<EnclosureInformation>(std::vector<EnclosureInformation>);
 template int Zoo::displayOptions<AnimalInformation>(std::vector<AnimalInformation>);
-template int Zoo::displayOptions<UtilitiesInformation>(std::vector<UtilitiesInformation>);
+//template int Zoo::displayOptions<UtilitiesInformation>(std::vector<UtilitiesInformation>);
 
 Changes Zoo::setTicketPrice(){
     std::cout << "Your current ticket price is $" << Zoo::ticketPrice << ", changing it will cost $100\nNew price (ENTER to keep old): ";
@@ -253,10 +247,10 @@ Changes Zoo::setTicketPrice(){
         std::cin >> newTicketPrice;
     }
     if (newTicketPrice == Zoo::ticketPrice)
-        return {0};
+        return {0, true, std::string("No change in ticket price!"), GREEN};
     else {
         Zoo::ticketPrice = newTicketPrice;
-        return {100};
+        return {100, true, std::string("Successfully changed ticket price!"), GREEN};
     }
 
 }
@@ -302,37 +296,40 @@ Changes Zoo::feedAnimal(int money){
     std::cout << "Which Animal would you like to feed:\n";
     int numAnimals = Zoo::animalIds.size();
 
+    std::vector<std::string> animalsToFeed;
+
     for (int i = 0; i < numAnimals; i++){
         int Id = Zoo::animalIds[i];
+
+        animalsToFeed.push_back(Zoo::animals[Id]->get_name() 
+                                + "(cost to feed: $" + std::to_string(round(Zoo::animals[Id]->get_hunger()/3.0 * Zoo::animals[Id]->get_cost()/10.0)) 
+                                + ", hunger: " + std::to_string(Zoo::animals[Id]->get_hunger()) 
+                                + ", happiness: " + std::to_string(Zoo::animals[Id]->get_happiness())
+                                + ", id: " + std::to_string(Id));
     
+        /*
         std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET //name
                       << " (cost to feed: $" << (int) round(Zoo::animals[Id]->get_hunger()/3.0 * Zoo::animals[Id]->get_cost()/10.0)
                       << ", hunger: " << Zoo::animals[Id]->get_hunger() 
                       << ", happiness: " << Zoo::animals[Id]->get_happiness()
                       << ", id: " << Id << ")\n";
+        */
     }
 
-    std::cout << "Choice: ";
-    int choice;
-    std::cin >> choice;
-
-    while ((choice < 0) || (choice >= numAnimals)){
-        std::cout << RED << "Invalid, please select one of the above animals: " << RESET;
-        std::cin >> choice;
-    }
+    int choice = optionSelector(animalsToFeed, std::string("Which Animal would you like to feed: "), true);
 
     int Id = Zoo::animalIds[choice];
     int cost = (int) round(Zoo::animals[Id]->get_hunger()/10.0 * Zoo::animals[Id]->get_cost()/10.0);
 
     if (cost > money){
-        std::cout << RED << "Insufficient funds!\n" << RESET;
-        return {0};
+        //std::cout << RED << "Insufficient funds!\n" << RESET;
+        return {0, true, std::string("Insufficient funds!"), RED};
     }
     
     Zoo::animals[Id]->set_happiness(Zoo::animals[Id]->get_happiness() + 100.0); //Increase happiness by 100
     Zoo::animals[Id]->set_hunger(0); //Set hunger to zero
 
-    return {cost};
+    return {cost, true, std::string("Successfully fed animal!"), GREEN};
 
 }
 

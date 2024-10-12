@@ -17,23 +17,42 @@ void setRawMode(bool enable) {
 }
 
 void clearScreen() {
+    if (!rawModeOn){
+        setRawMode(true);  // Enable raw input mode
+    }
     std::cout << "\033[2J\033[H";  // ANSI escape code to clear the screen
 }
 
-int options(std::string *choices, int num_choices) {
+int optionSelector(std::vector <std::string> choices){
+
+    return optionSelector(choices, std::string(""), false);
     
+}
+
+int optionSelector(std::vector <std::string> choices, std::string topMessage, bool topMessageOn) {
+
+    //clearScreen();
+
     int selected = 0;
+    const int numChoices = choices.size();
 
     if (!rawModeOn){
         setRawMode(true);  // Enable raw input mode
     }
 
     while (true) {
-        for (int i = 0; i < num_choices; ++i) {
-            std::cout << "  " << choices[i] << std::endl;
+
+        if (topMessageOn){
+            std::cout << topMessage << std::endl;
         }
 
-        std::cout << "> ";
+        for (int i = 0; i < numChoices; ++i) {
+            if (i == selected) {
+                std::cout << SELECTOR << choices[i] << std::endl; // Highlight current choice
+            } else {
+                std::cout << INDENT << choices[i] << std::endl;
+            }
+        }
 
         char c = getchar();
 
@@ -41,17 +60,18 @@ int options(std::string *choices, int num_choices) {
             getchar(); // skip the '[' character
             switch(getchar()) { // the third character is the actual key code
                 case 'A':
-                    selected = (selected - 1 + num_choices) % num_choices; // Up arrow
+                    selected = (selected - 1 + numChoices) % numChoices; // Up arrow
                     break;
                 case 'B':
-                    selected = (selected + 1) % num_choices; // Down arrow
+                    selected = (selected + 1) % numChoices; // Down arrow
                     break;
             }
         } else if (c == '\n') {
             break;
         }
+        clearScreen();
+
     }
-    setRawMode(false); 
 
     return selected;
 } 

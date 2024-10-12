@@ -18,21 +18,19 @@ void Player::getName(void){
 
 Action Player::getAction(void){
 
-    std::cout << "Select your action:\n";
+    std::vector<std::string> actions = std::vector<std::string>{
+        "Build an Enclosure",
+        "Buy an Animal",
+        "Sell an Animal",
+        "Move an Animal",
+        "Breed an Animal",
+        "Feed an Animal",
+        "Set Ticket Price",
+        "Go to the Bank",
+        "Invalid Option"
+    };
 
-    for (int i = 0; i <= NUM_ACTIONS; i++){
-        std::cout << "    " << i << ": " << Player::ActionNameMap[(Action) i] << "\n";
-    }
-    std::cout << "Action: ";
-    //Print stuff to ask player for action
-    //Return an action enum
-    int action;
-    std::cin >> action;
-
-    if ((action < 0) || (action > NUM_ACTIONS)){
-        std::cout << "Invalid action! Try again\n";
-        return Player::getAction(); //Try again if value is not within bounds
-    }
+    int action = optionSelector(actions);
 
     return (Action) action;
 }
