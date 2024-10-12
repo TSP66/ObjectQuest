@@ -4,13 +4,9 @@
 #include "Enclosure.h"
 
 class Tank: public Enclosure{
-    private:
-    float volume;
     public:
     Tank();
-    Tank(std::string, float, int);
-    int get_volume();
-    void set_volume(int);
+    Tank(std::string, int);
 };
 
 #endif

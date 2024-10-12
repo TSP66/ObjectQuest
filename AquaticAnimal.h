@@ -4,8 +4,6 @@
 #include "Animal.h"
 
 class AquaticAnimal: public Animal{
-    private:
-    float volumeRequired;
     public:
     AquaticAnimal(int id, std::string name, int);
     Death timestep();

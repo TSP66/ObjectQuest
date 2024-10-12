@@ -1,9 +1,21 @@
 #include "Player.h"
 
 Player::Player(int money) : money(money){
+
     Player::zoo = Zoo();
     Player::ActionNameMap = getActionNameMap();
     Player::zoo.bank.addLoan({money,0.02});
+
+    Player::actions = std::vector<std::string>{
+        "Build an Enclosure",
+        "Buy an Animal",
+        "Sell an Animal",
+        "Move an Animal",
+        "Breed an Animal",
+        "Feed an Animal",
+        "Set Ticket Price",
+        "Go to the Bank",
+    };
 }
 
 void Player::intro(){
@@ -18,18 +30,7 @@ void Player::getName(void){
 
 Action Player::getAction(std::string message){
 
-    std::vector<std::string> actions = std::vector<std::string>{
-        "Build an Enclosure",
-        "Buy an Animal",
-        "Sell an Animal",
-        "Move an Animal",
-        "Breed an Animal",
-        "Feed an Animal",
-        "Set Ticket Price",
-        "Go to the Bank",
-    };
-
-    int action = optionSelector(actions, message, true);
+    int action = optionSelector(Player::actions, message, true);
 
     return (Action) action;
 }

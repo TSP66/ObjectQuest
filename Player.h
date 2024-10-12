@@ -10,6 +10,7 @@ class Player{
     private:
     std::string name;
     std::unordered_map<Action, std::string> ActionNameMap;
+    std::vector<std::string> actions;
     public:
     Player(int);
     void intro();

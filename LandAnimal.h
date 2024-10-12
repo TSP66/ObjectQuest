@@ -4,9 +4,6 @@
 #include "Animal.h"
 
 class LandAnimal: public Animal{
-    private:
-    float thirst;
-    float minEnsolureSize;
     public:
     LandAnimal(int id, std::string name, int);
     Death timestep();

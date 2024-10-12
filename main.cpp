@@ -23,20 +23,11 @@ int main(void){
 
     player.intro();
 
-    //player.zoo.buildUtilities(0);
-    int week;
-    int day;
-    //player.getName();
-    //Action action = player.getAction();
-    //player.doAction(action);
-    //player.zoo.displayOptions(player.zoo.enclosureInformation);
-    //player.zoo.displayOptions(player.zoo.animalInformation);
-
     std::string message = "";
 
     DailySales dailySales = {0,0};
 
-    for (week = 0; week < TURNS; week++){
+    for (int week = 0; week < TURNS; week++){
         for (int day = 0; day < ROUNDS_PER_TURN; day++){
 
             message += player.zoo.summary("Test",player.money,week*ROUNDS_PER_TURN+day+1,dailySales);

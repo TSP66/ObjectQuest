@@ -188,11 +188,11 @@ void Zoo::addEnclosure(EnclosureInformation parameters){
     switch (parameters.type) {
 
         case LAND:
-        newEnclosure = new LandEnclosure(parameters.name, parameters.area, parameters.maxAnimals);
+        newEnclosure = new LandEnclosure(parameters.name, parameters.maxAnimals);
         break;
 
         case AQUATIC:
-        newEnclosure = new Tank(parameters.name, parameters.volume, parameters.maxAnimals);
+        newEnclosure = new Tank(parameters.name, parameters.maxAnimals);
         break;
     }
 
@@ -209,7 +209,7 @@ void Zoo::addEnclosure(EnclosureInformation parameters){
 }
 
 template <typename T> int Zoo::displayOptions(std::vector<T> options){
-    int option = -1;
+
     int numberOptions = (int) options.size();
     std::vector <std::string> choices;
 
@@ -223,12 +223,12 @@ template <typename T> int Zoo::displayOptions(std::vector<T> options){
 
 std::vector<EnclosureInformation> Zoo::makeEnclosureInformation(){
     std::vector<EnclosureInformation> enclosureInformation{
-        EnclosureInformation("Big Enclosure", 5000, LAND, 0, 100, 10),
-        EnclosureInformation("Medium Enclosure", 2000, LAND, 0, 30, 3),
-        EnclosureInformation("Small Enclosure", 1000, LAND, 0, 10, 2),
-        EnclosureInformation("Big Tank", 5000, AQUATIC, 10, 0, 10),
-        EnclosureInformation("Medium Tank", 2000, AQUATIC, 3, 0, 3),
-        EnclosureInformation("Small Tank", 1000, AQUATIC, 1, 0, 2),
+        EnclosureInformation("Big Enclosure", 5000, LAND, 10),
+        EnclosureInformation("Medium Enclosure", 2000, LAND, 3),
+        EnclosureInformation("Small Enclosure", 1000, LAND, 2),
+        EnclosureInformation("Big Tank", 5000, AQUATIC, 10),
+        EnclosureInformation("Medium Tank", 2000, AQUATIC, 3),
+        EnclosureInformation("Small Tank", 1000, AQUATIC, 2),
     };
     return enclosureInformation;
 }
@@ -552,4 +552,5 @@ Changes Zoo::goToBank(int money){
     } else {
 
     }
+    return {0, true, std::string("Successfully went to the bank!"), GREEN};
 }

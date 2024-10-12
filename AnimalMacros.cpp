@@ -11,8 +11,9 @@ Animals mapStringToAnimal(std::string animal){
 
 int animalToPrice(Animals animal){
     switch (animal){
-        #define XX(NAME) case NAME: \
+        #define XX(NAME) case CAPITALIZE_ANIMAL(NAME): \
             return PRICE_ANIMAL(NAME);
+        ANIMAL_LIST(XX)
         #undef XX
     }
 }

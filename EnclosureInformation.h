@@ -10,10 +10,8 @@ enum EnclosureType{
 
 class EnclosureInformation: public Information {
     public:
-    EnclosureInformation(std::string, int, EnclosureType, float, float, int);
+    EnclosureInformation(std::string, int, EnclosureType, int);
     EnclosureType type;
-    float area;
-    float volume;
     int maxAnimals;
 };
 
