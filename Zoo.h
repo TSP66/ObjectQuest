@@ -58,6 +58,10 @@ class Zoo{
 
     int ticketPrice;
 
+    std::vector<std::string> ticketPriceChoices;
+
+    int ticketPriceFromOption(int);
+
     public:
 
     Bank bank;

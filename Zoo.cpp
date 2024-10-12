@@ -15,7 +15,19 @@ Zoo::Zoo(){
     Zoo::animalInformation = Zoo::makeAnimalInformation();
     Zoo::utilitiesInformation = Zoo::makeUtilitiesInformation();
     Zoo::ticketPrice = 1;
+
+    Zoo::ticketPriceChoices = {
+        "$1",
+        "$2",
+        "$5",
+        "$10",
+        "$20",
+        "$50",
+        "$100",
+    };
+
 }
+
 
 std::string Zoo::summary(std::string name, int money, int day, DailySales dailySales){
 
@@ -266,14 +278,19 @@ template int Zoo::displayOptions<EnclosureInformation>(std::vector<EnclosureInfo
 template int Zoo::displayOptions<AnimalInformation>(std::vector<AnimalInformation>);
 //template int Zoo::displayOptions<UtilitiesInformation>(std::vector<UtilitiesInformation>);
 
+int Zoo::ticketPriceFromOption(int option){
+    return atoi(Zoo::ticketPriceChoices[option].substr(1, Zoo::ticketPriceChoices.size()-1).c_str());
+}
+
 Changes Zoo::setTicketPrice(){
+
     std::cout << "Your current ticket price is $" << Zoo::ticketPrice << ", changing it will cost $100\nNew price (ENTER to keep old): ";
-    int newTicketPrice = Zoo::ticketPrice;
-    std::cin >> newTicketPrice;
-    while (newTicketPrice <= 0){
-        std::cout << "Invalid ticket price, enter again: ";
-        std::cin >> newTicketPrice;
-    }
+
+
+    int choice = optionSelector(Zoo::ticketPriceChoices, std::string("Enter a new ticket price: "), true);
+
+    int newTicketPrice = ticketPriceFromOption(choice);
+
     if (newTicketPrice == Zoo::ticketPrice)
         return {0, true, std::string("No change in ticket price!"), GREEN};
     else {
@@ -326,8 +343,13 @@ std::string Zoo::ageAnimals(){
 
 Changes Zoo::feedAnimal(int money){
 
-    std::cout << "Which Animal would you like to feed:\n";
     int numAnimals = Zoo::animalIds.size();
+
+    if (numAnimals == 0){
+        return {0, true, std::string("You have no animals!"), RED};
+    }
+
+    std::cout << "Which Animal would you like to feed:\n";
 
     std::vector<std::string> animalsToFeed;
 
@@ -371,6 +393,11 @@ Changes Zoo::sellAnimal(void){
     //std::cout << "Which Animal would you like to sell:\n";
 
     int numAnimals = Zoo::animalIds.size();
+
+    if (numAnimals == 0){
+        return {0, true, std::string("You have no animals!"), RED};
+    }
+
     std::vector<std::string> animalsToSell;
 
     for (int i = 0; i < numAnimals; i++){
@@ -399,9 +426,15 @@ Changes Zoo::sellAnimal(void){
 
 Changes Zoo::moveAnimal(void){
 
+    int numAnimals = Zoo::animalIds.size();
+
+    if (numAnimals == 0){
+        return {0, true, std::string("You have no animals!"), RED};
+    }
+
+
     std::cout << "Which Animal would you like to move:\n";
 
-    int numAnimals = Zoo::animalIds.size();
     std::vector<std::string> animalsToMove;
 
     for (int i = 0; i < numAnimals; i++){
@@ -458,14 +491,16 @@ Changes Zoo::moveAnimal(void){
 
 Changes Zoo::breadAnimals(int money){
 
+    int numAnimals = Zoo::animalIds.size();
+
+    if (numAnimals < 2){
+        return {0, true, std::string("You have less than two animals!"), RED};
+    }
+
     if (money < 10) {
         //std::cout << RED << "Insufficient funds to breed!\n" << RESET;
         return {0, true, std::string("Insufficient funds to breed!"), RED};
     } 
-
-    std::cout << "Which Animals would you like to breed (cost $10):\n";
-
-    int numAnimals = Zoo::animalIds.size();
 
     std::vector<std::string> animalsToBreed;
 
