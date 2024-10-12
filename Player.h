@@ -14,9 +14,9 @@ class Player{
     Player(int);
     void intro();
     void getName(void);
-    Action getAction(void);
-    bool doAction(Action);
-    void chargeInterest(bool);
+    Action getAction(std::string message);
+    std::string doAction(Action);
+    std::string chargeInterest(bool);
     int money;
     Zoo zoo;
     bool checkBankruptcy();

@@ -21,8 +21,6 @@
 #include "Bank.h"
 #include "Input.h"
 
-#define INDENT "    "
-
 struct Changes{
     int costChange;
     bool isReturnMessage;
@@ -66,7 +64,7 @@ class Zoo{
 
     Zoo();
 
-    void summary(std::string, int, int,  DailySales);
+    std::string summary(std::string, int, int,  DailySales);
 
     void addAnimal(std::shared_ptr<Animal>);
     void addEnclosure(EnclosureInformation enclosureType);
@@ -74,7 +72,7 @@ class Zoo{
     std::shared_ptr<Animal> getAnimalByID(int id);
 
     DailySales getRevenue();
-    void ageAnimals(void);
+    std::string ageAnimals(void);
     void deleteAnimal(int);
 
     //Player actions

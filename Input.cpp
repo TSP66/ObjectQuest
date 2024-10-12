@@ -26,7 +26,7 @@ void clearScreen() {
 int optionSelector(std::vector <std::string> choices){
 
     return optionSelector(choices, std::string(""), false);
-    
+
 }
 
 int optionSelector(std::vector <std::string> choices, std::string topMessage, bool topMessageOn) {
@@ -72,6 +72,7 @@ int optionSelector(std::vector <std::string> choices, std::string topMessage, bo
         clearScreen();
 
     }
-
+    
+    clearScreen();
     return selected;
 } 

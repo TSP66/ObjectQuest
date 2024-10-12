@@ -16,7 +16,7 @@ void Player::getName(void){
     std::cin >> Player::name;
 }
 
-Action Player::getAction(void){
+Action Player::getAction(std::string message){
 
     std::vector<std::string> actions = std::vector<std::string>{
         "Build an Enclosure",
@@ -27,16 +27,15 @@ Action Player::getAction(void){
         "Feed an Animal",
         "Set Ticket Price",
         "Go to the Bank",
-        "Invalid Option"
     };
 
-    int action = optionSelector(actions);
+    int action = optionSelector(actions, message, true);
 
     return (Action) action;
 }
 
 
-bool Player::doAction(Action action){
+std::string Player::doAction(Action action){
     Changes result;
     switch(action){
 
@@ -83,16 +82,23 @@ bool Player::doAction(Action action){
         break;
 
     }
+
     Player::money -= result.costChange;
-    return true;
+
+    if (result.isReturnMessage){
+        return result.colour + result.returnMessage + RESET;
+    }
+
+    return "";
 }
 
-void Player::chargeInterest(bool display){
+std::string Player::chargeInterest(bool display){
     int payment = Player::zoo.bank.getMinPayments();
     Player::money -= Player::zoo.bank.getMinPayments();
     if (display){
-        std::cout << "You were charged " << RED << "$" << payment << RESET << " on your loan!\n";
+        return  "You were charged " + RED + "$" + std::to_string(payment) + RESET + " on your loan!\n";
     }
+    return "";
 }
 
 bool Player::checkBankruptcy(){

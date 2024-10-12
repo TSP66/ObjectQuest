@@ -9,39 +9,59 @@ Zoo::Zoo(){
     Zoo::ticketPrice = 1;
 }
 
-void Zoo::summary(std::string name, int money, int day, DailySales dailySales){
+std::string Zoo::summary(std::string name, int money, int day, DailySales dailySales){
 
+    std::string message = "\n" + GREEN + name +" zoo" + RESET + " (Day: " + std::to_string(day) + ", Funds: $" + std::to_string(money) + ", Visitors: "
+                      + std::to_string(dailySales.visitors) + ", Sales: $" + std::to_string(dailySales.revenue) +")\n";
+
+    /*
     std::cout << "\n" << GREEN << name <<" zoo" << RESET << " (Day: " << day << ", Funds: $" << money << ", Visitors: " 
                       << dailySales.visitors << ", Sales: $" << dailySales.revenue <<")\n";
-                      
+    */
+
     bool zooEmpty = true;
 
     for (int enclosureId : Zoo::enclosureIds){
 
-        std::cout << INDENT << MAGENTA << "Enclosure" << RESET <<" (type: " << Zoo::enclosures[enclosureId]->get_name() 
-                            << ", id: " << Zoo::enclosures[enclosureId]->get_id() << "):\n";
+        message += INDENT + MAGENTA + "Enclosure" + RESET +" (type: " + Zoo::enclosures[enclosureId]->get_name()
+                            + ", id: " + std::to_string(Zoo::enclosures[enclosureId]->get_id()) + "):\n";
+
+        //std::cout << INDENT << MAGENTA << "Enclosure" << RESET <<" (type: " << Zoo::enclosures[enclosureId]->get_name() 
+        //                    << ", id: " << Zoo::enclosures[enclosureId]->get_id() << "):\n";
         
         bool enclosureEmpty = true;
 
         for (auto mapObject : Zoo::enclosures[enclosureId]->animals){
+
+            message += INDENT + INDENT + CYAN + mapObject.second->get_name() + RESET //name
+                      + " (age: " + std::to_string((int) round(mapObject.second->get_age())) 
+                      + ", sex: " + sexToString(mapObject.second->get_sex())
+                      + ", happiness: " + std::to_string(mapObject.second->get_happiness())
+                      + ", id: " + std::to_string(mapObject.first) + ")\n";
+
+            /*          
             std::cout << INDENT << INDENT << CYAN << mapObject.second->get_name() << RESET //name
                       << " (age: " << (int) round(mapObject.second->get_age()) 
                       << ", sex: " << sexToString(mapObject.second->get_sex())
                       << ", happiness: " << mapObject.second->get_happiness()
                       << ", id: " << mapObject.first << ")\n";
-    
+            */
 
             enclosureEmpty = false;
         }
         if (enclosureEmpty)
-            std::cout << INDENT << INDENT << RED << "EMPTY\n" << RESET;
+            //std::cout << INDENT << INDENT << RED << "EMPTY\n" << RESET;
+            message += INDENT + INDENT + RED + "EMPTY\n" + RESET;
         
         zooEmpty = false;
     }
     if (zooEmpty) {
-        std::cout << INDENT << RED << "EMPTY\n" << RESET;
+        //std::cout << INDENT << RED << "EMPTY\n" << RESET;
+        message += INDENT + INDENT + RED + "EMPTY\n" + RESET;
     }
-    std::cout << "\n";
+    //std::cout << "\n";
+    message += "\n";
+    return message;
 }
 
 DailySales Zoo::getRevenue(){
@@ -271,17 +291,20 @@ void Zoo::deleteAnimal(int id){
 
 }
 
-void Zoo::ageAnimals(){
+std::string Zoo::ageAnimals(){
 
     std::vector<int> deleteIds;
+
+    std::string message = "";
 
     for (auto mapObject : Zoo::animals){
         int Id = mapObject.first;
         Death death = mapObject.second->timestep();
         if(death != NONE){
-            std::cout << RED << "† A " << mapObject.second->get_name() << RESET << " has died (Age: " << (int) round(mapObject.second->get_age()) 
-                      << ", cause: " << deathToString(death)
-                      << ", id: " << Id << ")\n";
+            message += RED + "† A " + mapObject.second->get_name() + RESET + " has died (Age: " + std::to_string((int) round(mapObject.second->get_age())) 
+                      + ", cause: " + deathToString(death)
+                      + ", id: " + std::to_string(Id) + ")\n";
+
             deleteIds.push_back(Id);
         }
     }
@@ -289,6 +312,8 @@ void Zoo::ageAnimals(){
     for (int id : deleteIds){
         deleteAnimal(id);
     }
+
+    return message;
 }
 
 Changes Zoo::feedAnimal(int money){
@@ -335,26 +360,26 @@ Changes Zoo::feedAnimal(int money){
 
 Changes Zoo::sellAnimal(void){
 
-    std::cout << "Which Animal would you like to sell:\n";
+    //std::cout << "Which Animal would you like to sell:\n";
 
     int numAnimals = Zoo::animalIds.size();
+    std::vector<std::string> animalsToSell;
 
     for (int i = 0; i < numAnimals; i++){
         int Id = Zoo::animalIds[i];
+
+        animalsToSell.push_back(Zoo::animals[Id]->get_name() 
+                                + "(value: $" + std::to_string(std::max(1.0, Zoo::animals[Id]->get_cost() - 3.0 * Zoo::animals[Id]->get_age()))
+                                + ", id: " + std::to_string(Id));
     
+        /*
         std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET//name
                       << " (value: $" << (int) std::max(1.0, Zoo::animals[Id]->get_cost() - 3.0 * Zoo::animals[Id]->get_age())
                       << ", id: " << Id << ")\n";
+        */
     }
 
-    std::cout << "Choice: ";
-    int choice;
-    std::cin >> choice;
-
-    while ((choice < 0) || (choice >= numAnimals)){
-        std::cout << "Invalid, please select one of the above animals: ";
-        std::cin >> choice;
-    }
+    int choice = optionSelector(animalsToSell, std::string("Which Animal would you like to sell: "), true);
 
     int Id = Zoo::animalIds[choice];
     int value = (int) std::max(1.0, Zoo::animals[Id]->get_cost() - 3.0 * Zoo::animals[Id]->get_age());
@@ -369,134 +394,124 @@ Changes Zoo::moveAnimal(void){
     std::cout << "Which Animal would you like to move:\n";
 
     int numAnimals = Zoo::animalIds.size();
+    std::vector<std::string> animalsToMove;
 
     for (int i = 0; i < numAnimals; i++){
         int Id = Zoo::animalIds[i];
+
+        animalsToMove.push_back(Zoo::animals[Id]->get_name() 
+                                + "(sex: " + sexToString(Zoo::animals[Id]->get_sex())
+                                + ", age: " + std::to_string(round(Zoo::animals[Id]->get_age()))
+                                + ", id: " + std::to_string(Id));
     
+        /*
         std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET//name
                       << " (sex: " << sexToString(Zoo::animals[Id]->get_sex())
                       << ", age: " << (int) round(Zoo::animals[Id]->get_age())
                       << ", id: " << Id << ")\n";
+        */
     }
 
-    std::cout << "Choice: ";
-    int choice;
-    std::cin >> choice;
-
-    while ((choice < 0) || (choice >= numAnimals)){
-        std::cout << "Invalid, please select one of the above animals: ";
-        std::cin >> choice;
-    }
+    int choice = optionSelector(animalsToMove, std::string("Which Animal would you like to move: "), true);
 
     int animalId = Zoo::animalIds[choice];
     int oldEnclosureId = Zoo::animals.at(animalId)->enclosureID;
 
     std::vector<int> suitableEnclosures;
+    std::vector<std::string> suitableEnclosuresNames;
 
     for (int i = 0; i < Zoo::enclosureIds.size(); i++){
         int id = Zoo::enclosureIds[i];
         if (Zoo::enclosures[id]->enclosureType == Zoo::enclosures[oldEnclosureId]->enclosureType){
-            std::cout << INDENT << i << ": " << MAGENTA << Zoo::enclosures[id]->get_name() << RESET << " | " << Zoo::enclosures[id]->get_id() << "\n";
+            suitableEnclosuresNames.push_back(Zoo::enclosures[id]->get_name() + " | " + std::to_string(Zoo::enclosures[id]->get_id()));
+            //std::cout << INDENT << i << ": " << MAGENTA << Zoo::enclosures[id]->get_name() << RESET << " | " << Zoo::enclosures[id]->get_id() << "\n";
             suitableEnclosures.push_back(i);
         }
     }
 
     if (suitableEnclosures.size() <= 1) {
-        std::cout << RED << "You have no other suitable enclosures!\n" << RESET;
-        return {0};
+        //std::cout << RED << "You have no other suitable enclosures!\n" << RESET;
+        return {0, true, std::string("You have no other suitable enclosures!"), RED};
     }
 
-    int enclosureChoice = -1;
-
-    std::cout << "Okay, which enclosure would you like to put it in: ";
-    std::cin >> enclosureChoice;
-
-    while (std::find(suitableEnclosures.begin(), suitableEnclosures.end(), enclosureChoice) == suitableEnclosures.end()){
-        std::cout << RED << "Invalid input, try again: " << RESET;
-        std::cin >> enclosureChoice;
-    }
+    int enclosureChoice = suitableEnclosures[optionSelector(suitableEnclosuresNames, std::string("Okay, which enclosure would you like to put it in: "), true)];
 
     if(!Zoo::enclosures[Zoo::enclosureIds[enclosureChoice]]->addAnimal(animalId, Zoo::animals.at(animalId))){
-        std::cout << RED << "Enclosure has no space!\n" << RESET;
+        //std::cout << RED << "Enclosure has no space!\n" << RESET;
         //delete newAnimalPtr; //Free memory if can't make it
-        return {0};
+        return {0, true, std::string("Enclosure has no space!"), RED};
     }
 
     Zoo::animals.at(animalId)->enclosureID = Zoo::enclosureIds[enclosureChoice];
     Zoo::enclosures.at(oldEnclosureId)->removeAnimal(animalId);
 
-    return {0};
+    return {0, true, std::string("Successfully moved animal!"), GREEN};
 }
 
 Changes Zoo::breadAnimals(int money){
 
     if (money < 10) {
-        std::cout << RED << "Insufficient funds to breed!\n" << RESET;
+        //std::cout << RED << "Insufficient funds to breed!\n" << RESET;
+        return {0, true, std::string("Insufficient funds to breed!"), RED};
     } 
 
     std::cout << "Which Animals would you like to breed (cost $10):\n";
 
     int numAnimals = Zoo::animalIds.size();
 
+    std::vector<std::string> animalsToBreed;
+
     for (int i = 0; i < numAnimals; i++){
         int Id = Zoo::animalIds[i];
-    
+
+        animalsToBreed.push_back(Zoo::animals[Id]->get_name() 
+                                + "(sex: " + sexToString(Zoo::animals[Id]->get_sex())
+                                + ", age: " + std::to_string(round(Zoo::animals[Id]->get_age()))                                
+                                + ", id: " + std::to_string(Id));
+        /*
         std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET //name
                       << " (sex: " << sexToString(Zoo::animals[Id]->get_sex())
                       << ", age: " << (int) round(Zoo::animals[Id]->get_age())
                       << ", id: " << Id << ")\n";
+
+        */
     }
 
-    std::cout << "Choice 1: ";
-    int choice1;
-    std::cin >> choice1;
-
-    while ((choice1 < 0) || (choice1 >= numAnimals)){
-        std::cout << RED << "Invalid, please select one of the above animals: " << RESET;
-        std::cin >> choice1;
-    }
-
-    std::cout << "Choice 2: ";
-    int choice2;
-    std::cin >> choice2;
-
-    while ((choice2 < 0) || (choice2 >= numAnimals) || (choice1 == choice2)){
-        std::cout << RED << "Invalid, please select one of the above animals: " << RESET;
-        std::cin >> choice2;
-    }
+    int choice1 = optionSelector(animalsToBreed, std::string("Choice 1: "), true);
+    int choice2 = optionSelector(animalsToBreed, std::string("Choice 2: "), true);
 
     int animal1Id = Zoo::animalIds[choice1];
     int animal2Id = Zoo::animalIds[choice2];
 
     if (Zoo::animals.at(animal1Id)->enclosureID != Zoo::animals.at(animal2Id)->enclosureID){
-        std::cout << RED << "Animals must be from the same enclosure!\n" << RESET;
-        return {0};
+        //std::cout << RED << "Animals must be from the same enclosure!\n" << RESET;
+        return {0, true, std::string("Animals must be from the same enclosure!"), RED};
     }
 
     int enclosureID = Zoo::animals.at(animal1Id)->enclosureID;
 
     if (Zoo::animals.at(animal1Id)->get_name() != Zoo::animals.at(animal2Id)->get_name()){
-        std::cout << RED << "Animals must be the same species!\n" << RESET;
-        return {0};
+        //std::cout << RED << "Animals must be the same species!\n" << RESET;
+        return {0, true, std::string("Animals must be the same species!"), RED};
     }
 
     if ((Zoo::animals.at(animal1Id)->get_sex() != Zoo::animals.at(animal1Id)->get_sex())) {
-        std::cout << RED << "Animals must be of different sexes!\n" << RESET;
-        return {0};
+        //std::cout << RED << "Animals must be of different sexes!\n" << RESET;
+        return {0, true, std::string("Animals must be of different sexes!"), RED};
     }
 
     if (Zoo::enclosures.at(enclosureID)->get_currentAnimals() >= Zoo::enclosures.at(enclosureID)->get_maxAnimals()){
-        std::cout << RED << "No room left in enclosure!\n" << RESET;
-        return {0};
+        //std::cout << RED << "No room left in enclosure!\n" << RESET;
+        return {0, true, std::string("No room left in enclosure!"), RED};
     }
 
     if ((round(Zoo::animals.at(animal1Id)->get_age()) < 1.0) || (round(Zoo::animals.at(animal1Id)->get_age()) < 1.0)) {
-        std::cout << RED << "Animals must be of sexual maturity!\n" << RESET;
-        return {0};
+        //std::cout << RED << "Animals must be of sexual maturity!\n" << RESET;
+        return {0, true, std::string("Animals must be of sexual maturity!"), RED};
     }
 
 
-    std::cout << GREEN << "All conditions meet.... Attempting to breed animals...\nSuccess!\n" << RESET;
+    //std::cout << GREEN << "All conditions meet.... Attempting to breed animals...\nSuccess!\n" << RESET;
 
     Animal * newAnimal;
 
@@ -521,13 +536,13 @@ Changes Zoo::breadAnimals(int money){
     Zoo::animals[id] = newAnimalPtr;
     Zoo::animalIds.push_back(id);
 
-    return {10};
+    return {10, true, std::string("Successfully bred animals!"), GREEN};
 }
 
  Changes Zoo::buildUtilities(int money){
     std::cout << "What Utility do you want to build: \n";
     Zoo::displayOptions(Zoo::utilitiesInformation);
-    return {0};
+    return {0, true, std::string("Successfully built utility!"), GREEN};
  }
 
 Changes Zoo::goToBank(int money){

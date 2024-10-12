@@ -8,8 +8,8 @@
 #include <vector>
 
 
-#define INDENT "    "
-#define SELECTOR "▶   "
+#define INDENT std::string("    ")
+#define SELECTOR std::string("▶   ")
 
 void setRawMode(bool enable);
 

@@ -32,17 +32,22 @@ int main(void){
     //player.zoo.displayOptions(player.zoo.enclosureInformation);
     //player.zoo.displayOptions(player.zoo.animalInformation);
 
+    std::string message = "";
+
+    DailySales dailySales = {0,0};
+
     for (week = 0; week < TURNS; week++){
         for (int day = 0; day < ROUNDS_PER_TURN; day++){
 
-            Action action = player.getAction();
-            player.doAction(action);
-            DailySales dailySales = player.zoo.getRevenue();
+            message += player.zoo.summary("Test",player.money,week*ROUNDS_PER_TURN+day+1,dailySales);
+
+            Action action = player.getAction(message);
+            message = player.doAction(action) + "\n";
+            dailySales = player.zoo.getRevenue();
             player.money += dailySales.revenue;
-            player.zoo.summary("Test",player.money,week*ROUNDS_PER_TURN+day+1,dailySales);
             player.zoo.bank.incurInterest();
         }
-        player.zoo.ageAnimals();
+        message = message + "\n" + player.zoo.ageAnimals();
         player.chargeInterest(true);
         player.checkBankruptcy();
 
