@@ -1,6 +1,5 @@
 #include "Input.h"
 
-#define TESTING_RETURN_VALUE 0
 
 static bool rawModeOn = false;
 
@@ -35,7 +34,7 @@ int optionSelector(std::vector <std::string> choices, std::string topMessage, bo
 
     #ifndef TESTING
 
-    //clearScreen();
+    clearScreen();
 
     int selected = 0;
     const int numChoices = choices.size();
@@ -79,11 +78,12 @@ int optionSelector(std::vector <std::string> choices, std::string topMessage, bo
 
     clearScreen();
 
+    
     return selected;
 
     #else
 
-    return TESTING_RETURN_VALUE;
+    return 0;
 
     #endif
 }
