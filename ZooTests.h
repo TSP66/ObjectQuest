@@ -3,17 +3,20 @@
 
 #include "Zoo.h"
 
-class ZooTests {
+class ZooTests : public Zoo {
     public:
     void run_tests();
 
     private:
-    void ZooTests::test_enclosure_functions();
+    void test_enclosure_functions();
 
-    void test_summary(std::string, int, int,  DailySales);
+    Changes buildEnclosure(int) override;
+
+    void mapGetEnclosureById();
 
 
-}
+};
+
 
 
 
