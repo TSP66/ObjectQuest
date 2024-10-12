@@ -1,3 +1,5 @@
+#define TESTING
+
 #include "Zoo.h"
 
 Zoo::Zoo(){
@@ -11,7 +13,7 @@ void Zoo::summary(std::string name, int money, int day, DailySales dailySales){
 
     std::cout << "\n" << GREEN << name <<" zoo" << RESET << " (Day: " << day << ", Funds: $" << money << ", Visitors: " 
                       << dailySales.visitors << ", Sales: $" << dailySales.revenue <<")\n";
-
+                      
     bool zooEmpty = true;
 
     for (int enclosureId : Zoo::enclosureIds){
