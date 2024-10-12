@@ -1,6 +1,14 @@
-#define TESTING
-
 #include "Zoo.h"
+
+//Testing macro:
+
+/*
+#ifndef TESTING
+//  Code you don't wont to run in testing
+//#else
+//  Code you do want to run only in testing
+//#endif
+*/
 
 Zoo::Zoo(){
     Zoo::enclosureInformation = Zoo::makeEnclosureInformation();
