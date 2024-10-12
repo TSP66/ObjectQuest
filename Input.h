@@ -1,6 +1,8 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include "Testing.h"
+
 #include <iostream>
 #include <termios.h>
 #include <unistd.h>

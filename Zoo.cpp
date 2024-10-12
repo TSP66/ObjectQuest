@@ -193,7 +193,6 @@ Changes Zoo::buildEnclosure(int money){
 
     Zoo::addEnclosure(parameters);
     return {parameters.cost, true, std::string("Successfully added enclosure!"), GREEN};
-
 }
 
 void Zoo::addEnclosure(EnclosureInformation parameters){

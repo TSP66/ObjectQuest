@@ -2,6 +2,7 @@
 #include "Zootests.h"
 #include <iostream>
 
+
 int main(void){
 
     std::cout<<"testing animal.h"<<std::endl;
@@ -14,6 +15,7 @@ int main(void){
     std::cout<<std::endl;
 
     std::cout<<"testing zoo.h"<<std::endl;
+    std::cout<<std::endl;
 
     ZooTests _ZooTests;
     _ZooTests.run_tests();

@@ -1,6 +1,8 @@
 #ifndef ZOOTESTS_H
 #define ZOOTESTS_H
 
+
+
 #include "Zoo.h"
 
 class ZooTests : public Zoo {
@@ -10,9 +12,13 @@ class ZooTests : public Zoo {
     private:
     void test_enclosure_functions();
 
-    Changes buildEnclosure(int) override;
+    void test_EnclosureInformation();
 
-    void mapGetEnclosureById();
+    void test_buildEnclosure();
+
+    void test_addEnclosure();
+
+    // void test_mapGetEnclosureById();
 
 
 };

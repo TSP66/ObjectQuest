@@ -35,7 +35,7 @@ struct DailySales{
 
 class Zoo{
 
-    private:
+    protected:
 
     //Hashmap of Animals & Enclosures (maps id to pointer of object)
     std::vector<int> animalIds;
