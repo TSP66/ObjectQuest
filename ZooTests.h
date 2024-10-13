@@ -18,7 +18,14 @@ class ZooTests : public Zoo {
 
     void test_addEnclosure();
 
-    // void test_mapGetEnclosureById();
+
+    void test_animal_functions();
+
+    void test_AnimalInformation();
+
+    void test_buyAnimal();
+
+    void test_deleteAnimal();
 
 
 };
