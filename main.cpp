@@ -36,10 +36,10 @@ int main(void){
             player.money += dailySales.revenue;
             player.zoo.bank.incurInterest();
         }
-        message = message + "\n" + player.zoo.ageAnimals();
-        player.chargeInterest(true);
+        message = message + "\n" + player.zoo.ageAnimals() + "\n";
+        message = message + "\n" + player.chargeInterest(true) + "\n";
         if (player.checkBankruptcy()){
-            std::cout << RED << "You have been bankrupted!\n" << RESET;
+            std::cout << RED << "You have been bankrupted due to debt repayments!\n" << RESET;
             goto end;
         }
     }

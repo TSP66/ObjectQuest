@@ -28,6 +28,7 @@ class Bank {
     std::vector<std::string> getLoanInfo(void);
     int loanAmountFromOption(int);
     bool checkCredit(int);
+    void makePayment(int);
 };
 
 #endif

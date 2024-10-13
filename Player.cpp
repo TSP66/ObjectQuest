@@ -99,7 +99,8 @@ std::string Player::doAction(Action action){
 
 std::string Player::chargeInterest(bool display){
     int payment = Player::zoo.bank.getMinPayments();
-    Player::money -= Player::zoo.bank.getMinPayments();
+    Player::zoo.bank.makePayment(payment);
+    Player::money -= payment;
     if (display){
         return  "You were charged " + RED + "$" + std::to_string(payment) + RESET + " on your loan!\n";
     }

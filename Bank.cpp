@@ -15,6 +15,18 @@ Loan Bank::getLoan(int index){
     return Bank::loans[index];
 }
 
+void Bank::makePayment(int amount){
+    int total = amount;
+    for (int i = 0; i < Bank::loans.size(); i++){
+        if (Bank::loans[i].amount >= total){
+            Bank::payLoan(i, total);
+            return;
+        } else {
+            total -= Bank::loans[i].amount;
+            Bank::payLoan(i, total);
+        }
+    }
+}
 
 void Bank::payLoan(int index, int amount){
     Bank::loans[index].amount -= amount;
@@ -45,7 +57,7 @@ bool Bank::checkCredit(int playerMoney){
 }
 
 int Bank::getMinPayments(){
-    return Bank::getTotal()/20; //You have to pay 5% off every
+    return Bank::getTotal()/10; //You have to pay 10% off every cycle
 }
 
 int Bank::getNLoans(){
