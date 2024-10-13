@@ -4,7 +4,10 @@ Player::Player(int money) : money(money){
 
     Player::zoo = Zoo();
     Player::ActionNameMap = getActionNameMap();
-    Player::zoo.bank.addLoan({money,0.02});
+    
+    if (money > 0){
+        Player::zoo.bank.addLoan({money,0.02});
+    }
 
     Player::actions = std::vector<std::string>{
         "Build an Enclosure",
@@ -15,6 +18,7 @@ Player::Player(int money) : money(money){
         "Feed an Animal",
         "Set Ticket Price",
         "Go to the Bank",
+        "Do nothing",
     };
 }
 
@@ -74,7 +78,7 @@ std::string Player::doAction(Action action){
         break;
 
         case GO_TO_BANK:
-        result = {0}; // result = Player::zoo.goToBank(Player::money)
+        result = Player::zoo.goToBank(Player::money);
         break;
 
         case NUM_ACTIONS:

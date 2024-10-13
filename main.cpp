@@ -6,9 +6,7 @@
 #include "LandEnclosure.h"
 #include "Input.h"
 
-//#define DEBUG
-
-#define START_FUNDS 2000
+#define START_FUNDS 0 // The player has to take out a loan to get started
 #define ROUNDS_PER_TURN 4
 #define TURNS 100
 
@@ -40,9 +38,12 @@ int main(void){
         }
         message = message + "\n" + player.zoo.ageAnimals();
         player.chargeInterest(true);
-        player.checkBankruptcy();
-
+        if (player.checkBankruptcy()){
+            std::cout << RED << "You have been bankrupted!\n" << RESET;
+            goto end;
+        }
     }
-
+    end:
+    std::cout << "\n\nThank you for playing!\n";
     return 0;
 }
