@@ -22,9 +22,10 @@ Player::Player(int money) : money(money){
     };
 }
 
-void Player::intro(){
+std::string Player::intro(){
     //Put intro stuff here
     //Welcome to Zoo stuff
+    return "Intro message";
 }
 
 void Player::getName(void){

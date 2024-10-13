@@ -19,9 +19,7 @@ int main(void){
 
     Player player(START_FUNDS);
 
-    player.intro();
-
-    std::string message = "";
+    std::string message = player.intro();
 
     DailySales dailySales = {0,0};
 
