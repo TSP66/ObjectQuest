@@ -1,4 +1,5 @@
 #include "ZooTests.h"
+#include "Player.h"
 #include <iostream>
 
 
@@ -19,6 +20,7 @@ void ZooTests::test_enclosure_functions(){
     std::cout<<std::endl;
 
     ZooTests::test_buildEnclosure();
+    std::cout<<std::endl;
     
 }
 
@@ -69,15 +71,22 @@ void ZooTests::test_animal_functions(){
     ZooTests::test_AnimalInformation();
     std::cout<<std::endl;
 
-    // ZooTests::test_addAnimal();
-    // std::cout<<std::endl;
-
     ZooTests::test_buyAnimal();
     std::cout<<std::endl;
 
     ZooTests::test_deleteAnimal();
     std::cout<<std::endl;
-    
+
+    ZooTests::test_feedAnimal();
+    std::cout<<std::endl;
+
+    ZooTests::test_sellAnimal();
+    std::cout<<std::endl;
+
+    ZooTests::test_moveAnimal();
+    std::cout<<std::endl;
+
+    ZooTests::test_breadAnimals();
 }
 
 void ZooTests::test_AnimalInformation(){
@@ -116,6 +125,9 @@ void ZooTests::test_buyAnimal(){
 }
 
 void ZooTests::test_deleteAnimal(){
+
+    std::cout<<"testsing zoo.h deleteAnimal function"<<std::endl;
+
     EnclosureInformation testEnclosure3("testenclosure3",0,LAND,10);
     Zoo::addEnclosure(testEnclosure3);
     animalIds.clear();
@@ -133,4 +145,179 @@ void ZooTests::test_deleteAnimal(){
     } else {
         std::cout<<"deleteAnimal function is working"<<std::endl;
     }
+}
+
+void ZooTests::test_feedAnimal(){
+
+    std::cout<<"testing feedAnimal function"<<std::endl;
+
+    std::cout<<"testing without any animals"<<std::endl;
+    animalIds.clear();
+    Changes _test = feedAnimal(999999);
+    std::cout<<_test.returnMessage<<std::endl;
+
+    Changes _testAnimal = buyAnimal(999999);
+
+    std::cout<<"testing without funds"<<std::endl;
+    _test = feedAnimal(0);
+    std::cout<<_test.returnMessage<<std::endl;
+
+
+    std::cout<<"testing with animals and funds"<<std::endl;
+    int Id = Zoo::animalIds[0];
+    Zoo::animals[Id]->set_hunger(99.0);
+    float originalHunger = Zoo::animals[Id]->get_hunger();
+
+
+    std::cout<<"Original animal hunger: "<<originalHunger<<std::endl;
+    _test = feedAnimal(99999);
+    float newHunger = Zoo::animals[Id]->get_hunger();
+    std::cout<<"New animal hunger: "<<newHunger<<std::endl;
+
+    std::cout<<_test.returnMessage<<std::endl;
+
+    //see if i can get it to print animalsToFeed.push_back
+}
+
+void ZooTests::test_sellAnimal(){
+
+    std::cout<<"testing sellAnimal function"<<std::endl;
+
+    std::cout<<"testing without any animals"<<std::endl;
+    animalIds.clear();
+    Changes _test = sellAnimal();
+    std::cout<<_test.returnMessage<<std::endl;
+
+
+
+    std::cout<<"testing with animals"<<std::endl;
+    animalIds.clear();
+
+    Player _testPlayer(1000);
+    std::cout<<"Current player money: "<<_testPlayer.money<<std::endl;
+    
+    _test = buyAnimal(99999);
+    _test = sellAnimal();
+
+    std::cout<<"New player money: "<<_testPlayer.money<<std::endl;
+    // money doesnt go to player for some reason
+
+    if (animalIds.size()!=0){
+        std::cout<<"sellAnimal function did not delete the animal and is not working"<<std::endl;
+    } else {
+        std::cout<<"sellAnimal function deleted the animal and is working"<<std::endl;
+    }
+}
+
+void ZooTests::test_moveAnimal(){
+
+    std::cout<<"testing moveAnimal function"<<std::endl;
+
+    std::cout<<"testing without any animals"<<std::endl;
+    animalIds.clear();
+    enclosureIds.clear();
+    Changes _test = moveAnimal();
+    std::cout<<_test.returnMessage<<std::endl;
+    std::cout<<std::endl;
+
+
+    std::cout<<"testing with animals and one enclosure"<<std::endl;
+
+    animalIds.clear();
+    enclosureIds.clear();
+
+    EnclosureInformation testEnclosure3("testenclosure3",0,LAND,10);
+    Zoo::addEnclosure(testEnclosure3);
+    // EnclosureInformation testEnclosure2("testenclosure2",0,LAND,10);
+    // Zoo::addEnclosure(testEnclosure2);
+
+    Changes _testAnimal = buyAnimal(9999);
+    std::cout<<_testAnimal.returnMessage<<std::endl;
+
+    // Animal* animal = Zoo::animals[animalIds[0]].get();
+    // std::cout<<animal->get_name()<<std::endl;
+
+    // for (int i=0;i<enclosureIds.size();i++){
+    //     std::cout<<enclosureIds[i]<<std::endl;
+    // }
+
+    
+    // for (int i=0;i<animalIds.size();i++){
+    //     std::cout<<animalIds[i]<<std::endl;
+    // }
+
+    Changes _testMove = moveAnimal();
+    std::cout<<_testMove.returnMessage<<std::endl;
+    std::cout<<std::endl;
+
+    std::cout<<"testing with animals and multiple enclosures"<<std::endl;
+
+    animalIds.clear();
+    enclosureIds.clear();
+
+    EnclosureInformation testEnclosure2("testenclosure2",0,LAND,10);
+    Zoo::addEnclosure(testEnclosure2);
+    Zoo::addEnclosure(testEnclosure3);
+
+    Changes _testAnimal2 = buyAnimal(9999);
+    std::cout<<_testAnimal2.returnMessage<<std::endl;
+
+    Changes _testMove2 = moveAnimal();
+    std::cout<<_testMove2.returnMessage<<std::endl;
+}
+
+void ZooTests::test_breadAnimals(){
+    std::cout<<"testing breadAnimals function"<<std::endl;
+
+    animalIds.clear();
+    enclosureIds.clear();
+
+    std::cout<<"testing with less than two animals"<<std::endl;
+
+    EnclosureInformation testEnclosure2("testenclosure2",0,LAND,10);
+    Zoo::addEnclosure(testEnclosure2);
+
+    Changes _testAnimal = buyAnimal(9999);
+    std::cout<<_testAnimal.returnMessage<<std::endl;
+
+    Changes _testBreeding = breadAnimals(99999);
+    std::cout<<_testBreeding.returnMessage<<std::endl; 
+    std::cout<<std::endl;
+
+    std::cout<<"testing with two animals and no funds"<<std::endl;
+
+    Changes _testAnimal2 = buyAnimal(9999);
+    std::cout<<_testAnimal2.returnMessage<<std::endl;
+
+    Changes _testBreeding2 = breadAnimals(0);
+    std::cout<<_testBreeding2.returnMessage<<std::endl; 
+    std::cout<<std::endl;
+
+    std::cout<<"testing with two young animals and funds"<<std::endl;
+
+    Changes _testBreeding3 = breadAnimals(99999);
+    std::cout<<_testBreeding3.returnMessage<<std::endl; 
+    std::cout<<std::endl;
+
+    std::cout<<"testing with two older animals and funds"<<std::endl;
+
+    for (int i=0;i<animalIds.size();i++){
+        Animal* animal = Zoo::animals[animalIds[i]].get();
+        animal->set_age(6);
+    }
+
+    Changes _testBreeding4 = breadAnimals(99999);
+    std::cout<<_testBreeding4.returnMessage<<std::endl;
+
+    std::cout<<"checking if animal was added to the enclosure"<<std::endl;
+
+    if (animalIds.size()!= 3){
+        std::cout<<"new animals id was not added to id vector"<<std::endl;
+    } else {
+        std::cout<<"new animals id was successfully added to id vector"<<std::endl;
+        Animal* animal3 = Zoo::animals[animalIds[2]].get();
+        std::cout<<"A new lion with age: "<<animal3->get_age()<<std::endl;
+    }
+
+    
 }

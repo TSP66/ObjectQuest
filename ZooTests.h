@@ -27,6 +27,14 @@ class ZooTests : public Zoo {
 
     void test_deleteAnimal();
 
+    void test_feedAnimal();
+
+    void test_sellAnimal();
+
+    void test_moveAnimal();
+
+    void test_breadAnimals();
+
 
 };
 
