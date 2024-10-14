@@ -1,5 +1,6 @@
 #include "AnimalMacros.h"
 
+// macros used to quickly set animal prices and names
 Animals mapStringToAnimal(std::string animal){
     #define XX(NAME) if(animal == #NAME){ \
                 return CAPITALIZE_ANIMAL(NAME); \

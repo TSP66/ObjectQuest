@@ -7,6 +7,7 @@
 class AnimalTests {
     public:
     void run_tests();
+// testing all animal functions  
 
     private:
         void test_get_cost();
