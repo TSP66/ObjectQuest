@@ -43,7 +43,7 @@
 #define LIFESPAN_Otter 2.0
 #define LIFESPAN_Fish 1.0
 
-//------------------------------------------
+//------------------------------------------.
 
 #define CAPITALIZE_ANIMAL(animal) CAPITALIZE_##animal
 #define PRICE_ANIMAL(animal) PRICE_##animal
