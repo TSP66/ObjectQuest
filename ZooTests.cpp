@@ -71,9 +71,6 @@ void ZooTests::test_animal_functions(){
     ZooTests::test_AnimalInformation();
     std::cout<<std::endl;
 
-    // ZooTests::test_addAnimal();
-    // std::cout<<std::endl;
-
     ZooTests::test_buyAnimal();
     std::cout<<std::endl;
 
@@ -85,6 +82,11 @@ void ZooTests::test_animal_functions(){
 
     ZooTests::test_sellAnimal();
     std::cout<<std::endl;
+
+    ZooTests::test_moveAnimal();
+    std::cout<<std::endl;
+
+    ZooTests::test_breadAnimals();
 }
 
 void ZooTests::test_AnimalInformation(){
@@ -205,4 +207,117 @@ void ZooTests::test_sellAnimal(){
     } else {
         std::cout<<"sellAnimal function deleted the animal and is working"<<std::endl;
     }
+}
+
+void ZooTests::test_moveAnimal(){
+
+    std::cout<<"testing moveAnimal function"<<std::endl;
+
+    std::cout<<"testing without any animals"<<std::endl;
+    animalIds.clear();
+    enclosureIds.clear();
+    Changes _test = moveAnimal();
+    std::cout<<_test.returnMessage<<std::endl;
+    std::cout<<std::endl;
+
+
+    std::cout<<"testing with animals and one enclosure"<<std::endl;
+
+    animalIds.clear();
+    enclosureIds.clear();
+
+    EnclosureInformation testEnclosure3("testenclosure3",0,LAND,10);
+    Zoo::addEnclosure(testEnclosure3);
+    // EnclosureInformation testEnclosure2("testenclosure2",0,LAND,10);
+    // Zoo::addEnclosure(testEnclosure2);
+
+    Changes _testAnimal = buyAnimal(9999);
+    std::cout<<_testAnimal.returnMessage<<std::endl;
+
+    // Animal* animal = Zoo::animals[animalIds[0]].get();
+    // std::cout<<animal->get_name()<<std::endl;
+
+    // for (int i=0;i<enclosureIds.size();i++){
+    //     std::cout<<enclosureIds[i]<<std::endl;
+    // }
+
+    
+    // for (int i=0;i<animalIds.size();i++){
+    //     std::cout<<animalIds[i]<<std::endl;
+    // }
+
+    Changes _testMove = moveAnimal();
+    std::cout<<_testMove.returnMessage<<std::endl;
+    std::cout<<std::endl;
+
+    std::cout<<"testing with animals and multiple enclosures"<<std::endl;
+
+    animalIds.clear();
+    enclosureIds.clear();
+
+    EnclosureInformation testEnclosure2("testenclosure2",0,LAND,10);
+    Zoo::addEnclosure(testEnclosure2);
+    Zoo::addEnclosure(testEnclosure3);
+
+    Changes _testAnimal2 = buyAnimal(9999);
+    std::cout<<_testAnimal2.returnMessage<<std::endl;
+
+    Changes _testMove2 = moveAnimal();
+    std::cout<<_testMove2.returnMessage<<std::endl;
+}
+
+void ZooTests::test_breadAnimals(){
+    std::cout<<"testing breadAnimals function"<<std::endl;
+
+    animalIds.clear();
+    enclosureIds.clear();
+
+    std::cout<<"testing with less than two animals"<<std::endl;
+
+    EnclosureInformation testEnclosure2("testenclosure2",0,LAND,10);
+    Zoo::addEnclosure(testEnclosure2);
+
+    Changes _testAnimal = buyAnimal(9999);
+    std::cout<<_testAnimal.returnMessage<<std::endl;
+
+    Changes _testBreeding = breadAnimals(99999);
+    std::cout<<_testBreeding.returnMessage<<std::endl; 
+    std::cout<<std::endl;
+
+    std::cout<<"testing with two animals and no funds"<<std::endl;
+
+    Changes _testAnimal2 = buyAnimal(9999);
+    std::cout<<_testAnimal2.returnMessage<<std::endl;
+
+    Changes _testBreeding2 = breadAnimals(0);
+    std::cout<<_testBreeding2.returnMessage<<std::endl; 
+    std::cout<<std::endl;
+
+    std::cout<<"testing with two young animals and funds"<<std::endl;
+
+    Changes _testBreeding3 = breadAnimals(99999);
+    std::cout<<_testBreeding3.returnMessage<<std::endl; 
+    std::cout<<std::endl;
+
+    std::cout<<"testing with two older animals and funds"<<std::endl;
+
+    for (int i=0;i<animalIds.size();i++){
+        Animal* animal = Zoo::animals[animalIds[i]].get();
+        animal->set_age(6);
+    }
+
+    Changes _testBreeding4 = breadAnimals(99999);
+    std::cout<<_testBreeding4.returnMessage<<std::endl;
+
+    std::cout<<"checking if animal was added to the enclosure"<<std::endl;
+
+    if (animalIds.size()!= 3){
+        std::cout<<"new animals id was not added to id vector"<<std::endl;
+    } else {
+        std::cout<<"new animals id was successfully added to id vector"<<std::endl;
+        Animal* animal3 = Zoo::animals[animalIds[2]].get();
+        std::cout<<"A new lion with age: "<<animal3->get_age()<<std::endl;
+    }
+
+    
 }

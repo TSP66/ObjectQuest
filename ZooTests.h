@@ -31,6 +31,10 @@ class ZooTests : public Zoo {
 
     void test_sellAnimal();
 
+    void test_moveAnimal();
+
+    void test_breadAnimals();
+
 
 };
 

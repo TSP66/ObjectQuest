@@ -70,8 +70,7 @@ class Zoo{
 
     std::string summary(std::string, int, int,  DailySales);
 
-    void addAnimal(std::shared_ptr<Animal>);
-    // not implemented?
+
     void addEnclosure(EnclosureInformation enclosureType);
 
     std::shared_ptr<Animal> getAnimalByID(int id);
