@@ -19,6 +19,7 @@ void ZooTests::test_enclosure_functions(){
     std::cout<<std::endl;
 
     ZooTests::test_buildEnclosure();
+    std::cout<<std::endl;
     
 }
 
@@ -77,7 +78,10 @@ void ZooTests::test_animal_functions(){
 
     ZooTests::test_deleteAnimal();
     std::cout<<std::endl;
-    
+
+    ZooTests::test_feedAnimal();
+    std::cout<<std::endl;
+
 }
 
 void ZooTests::test_AnimalInformation(){
@@ -116,6 +120,9 @@ void ZooTests::test_buyAnimal(){
 }
 
 void ZooTests::test_deleteAnimal(){
+
+    std::cout<<"testsing zoo.h deleteAnimal function"<<std::endl;
+
     EnclosureInformation testEnclosure3("testenclosure3",0,LAND,10);
     Zoo::addEnclosure(testEnclosure3);
     animalIds.clear();
@@ -134,3 +141,24 @@ void ZooTests::test_deleteAnimal(){
         std::cout<<"deleteAnimal function is working"<<std::endl;
     }
 }
+
+void ZooTests::test_feedAnimal(){
+
+    std::cout<<"testing feedAnimal function"<<std::endl;
+
+    std::cout<<"testing without any animals"<<std::endl;
+
+    animalIds.clear();
+    Changes _test = feedAnimal(999999);
+
+    std::cout<<_test.returnMessage<<std::endl;
+
+    std::cout<<"testing with animals"<<std::endl;
+
+    Changes _testAnimal = buyAnimal(999999);
+
+    _test = feedAnimal(99999);
+
+    std::cout<<_test.returnMessage<<std::endl;
+}
+

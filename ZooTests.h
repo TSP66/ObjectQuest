@@ -27,6 +27,8 @@ class ZooTests : public Zoo {
 
     void test_deleteAnimal();
 
+    void test_feedAnimal();
+
 
 };
 
