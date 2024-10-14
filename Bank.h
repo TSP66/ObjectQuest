@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 
+#include "Input.h" //For INDENT
+
 struct Loan {
     int amount; // the amount of the loan.
     float interest;// Value between 0 and 1.
@@ -13,6 +15,8 @@ class Bank {
     private:
     std::vector<Loan> loans;
     public:
+    static std::vector<std::string> loanAmounts;
+    static std::vector<float> interestRates;
     Bank();
     void addLoan(Loan); // used to add loans
     Loan getLoan(int); // used to observe loans
@@ -21,5 +25,9 @@ class Bank {
     void incurInterest(); // used to incur interest
     int getTotal(); // used to get total 
     int getMinPayments();
+    std::vector<std::string> getLoanInfo(void);
+    int loanAmountFromOption(int);
+    bool checkCredit(int);
+    void makePayment(int);
 };
 #endif

@@ -32,7 +32,8 @@ Zoo::Zoo(){
 std::string Zoo::summary(std::string name, int money, int day, DailySales dailySales){
 
     std::string message = "\n" + GREEN + name +" zoo" + RESET + " (Day: " + std::to_string(day) + ", Funds: $" + std::to_string(money) + ", Visitors: "
-                      + std::to_string(dailySales.visitors) + ", Sales: $" + std::to_string(dailySales.revenue) +")\n";
+                      + std::to_string(dailySales.visitors) + ", Sales: $" + std::to_string(dailySales.revenue) 
+                      + ", Debt: $" + std::to_string(Zoo::bank.getTotal()) +")\n";
 
     /*
     std::cout << "\n" << GREEN << name <<" zoo" << RESET << " (Day: " << day << ", Funds: $" << money << ", Visitors: " 
@@ -56,7 +57,7 @@ std::string Zoo::summary(std::string name, int money, int day, DailySales dailyS
             message += INDENT + INDENT + CYAN + mapObject.second->get_name() + RESET //name
                       + " (age: " + std::to_string((int) round(mapObject.second->get_age())) 
                       + ", sex: " + sexToString(mapObject.second->get_sex())
-                      + ", happiness: " + std::to_string(mapObject.second->get_happiness())
+                      + ", happiness: " + std::to_string((int) round(mapObject.second->get_happiness()))
                       + ", id: " + std::to_string(mapObject.first) + ")\n";
 
             /*          
@@ -588,11 +589,32 @@ Changes Zoo::breadAnimals(int money){
  }
 
 Changes Zoo::goToBank(int money){
-    std::cout << "Welcome to the bank! ";
-    if (Zoo::bank.getNLoans() > 0){
 
-    } else {
+    std::vector<std::string> bankingOptions = {"Pay loan", "Get load"};
 
-    }
+    int choice = optionSelector(bankingOptions, std::string("Welcome to the bank!"), true);
+
+    if (choice == 0){ // Pay Loan Option
+        if (Zoo::bank.getNLoans() > 0){
+            int loanIndex = optionSelector(Zoo::bank.getLoanInfo(), std::string("Which loan would you like to pay off?"), true);
+            if (Zoo::bank.getLoan(loanIndex).amount > money){
+                return {0, true, std::string("Insufficient funds!"), RED};
+            }
+            Zoo::bank.payLoan(loanIndex, money);
+            return {money, true, std::string("Successfully paid off loan!"), GREEN};
+        } else {
+            return {0, true, std::string("You have no loans!"), GREEN};
+        }
+    } else { // Get Load Option
+        if (!Zoo::bank.checkCredit(money)){
+            return {0, true, std::string("Your credit is too bad! You can't borrow more!"), RED};
+        }
+        int loanAmountChoice = optionSelector(Zoo::bank.loanAmounts, std::string("How much would you like to borrow? (Higher amount = higher interest)"), true);
+        int loanAmount = Zoo::bank.loanAmountFromOption(loanAmountChoice);
+        Zoo::bank.addLoan({loanAmount, Zoo::bank.interestRates[loanAmountChoice]});
+        return {-loanAmount, true, std::string("Successfully borrowed $" + std::to_string(loanAmount) + "!"), GREEN};
+    } 
+
     return {0, true, std::string("Successfully went to the bank!"), GREEN};
+
 }

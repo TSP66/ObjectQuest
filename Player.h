@@ -13,7 +13,7 @@ class Player{
     std::vector<std::string> actions;
     public:
     Player(int);
-    void intro();
+    std::string intro();
     void getName(void);
     Action getAction(std::string message);
     std::string doAction(Action);

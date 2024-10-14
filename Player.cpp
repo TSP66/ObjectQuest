@@ -4,7 +4,10 @@ Player::Player(int money) : money(money){
 
     Player::zoo = Zoo();
     Player::ActionNameMap = getActionNameMap();
-    Player::zoo.bank.addLoan({money,0.02});
+    
+    if (money > 0){
+        Player::zoo.bank.addLoan({money,0.02});
+    }
 
     Player::actions = std::vector<std::string>{
         "Build an Enclosure",
@@ -15,12 +18,14 @@ Player::Player(int money) : money(money){
         "Feed an Animal",
         "Set Ticket Price",
         "Go to the Bank",
+        "Do nothing",
     };
 }
 
-void Player::intro(){
+std::string Player::intro(){
     //Put intro stuff here
     //Welcome to Zoo stuff
+    return "Intro message";
 }
 
 void Player::getName(void){
@@ -74,7 +79,7 @@ std::string Player::doAction(Action action){
         break;
 
         case GO_TO_BANK:
-        result = {0}; // result = Player::zoo.goToBank(Player::money)
+        result = Player::zoo.goToBank(Player::money);
         break;
 
         case NUM_ACTIONS:
@@ -95,7 +100,8 @@ std::string Player::doAction(Action action){
 
 std::string Player::chargeInterest(bool display){
     int payment = Player::zoo.bank.getMinPayments();
-    Player::money -= Player::zoo.bank.getMinPayments();
+    Player::zoo.bank.makePayment(payment);
+    Player::money -= payment;
     if (display){
         return  "You were charged " + RED + "$" + std::to_string(payment) + RESET + " on your loan!\n";
     }
