@@ -161,8 +161,8 @@ Changes Zoo::buyAnimal(int money){
     //std::cout << "Okay, which enclosure would you like to put it in: ";
     //std::cin >> enclosureChoice;
 
-    int enclosureChoice = optionSelector(enclosureNames, std::string("Okay, which enclosure would you like to put it in: "), true);
-
+    int selection = optionSelector(enclosureNames, std::string("Okay, which enclosure would you like to put it in: "), true);
+    int enclosureChoice = suitableEnclosures[selection];
     //Create shared pointer
     std::shared_ptr<Animal> newAnimalPtr = std::shared_ptr<Animal>(std::move(newAnimal));
 

@@ -124,5 +124,6 @@
     "system_error": "cpp",
     "utility": "cpp",
     "numbers": "cpp"
-  }
+  },
+  "makefile.configureOnOpen": false
 }

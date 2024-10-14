@@ -1,6 +1,7 @@
 #include "Animal.h"
 //animal class. Used to specify animal features
 Animal::Animal(int id, std::string name, int lifespan) : lifespan(lifespan), id(id), name(name){
+    Animal::age = 0;
     Animal::cost = 50;
     Animal::happiness = 100.0;
     Animal::sex = (Sex) (rand() > RAND_MAX/2);
