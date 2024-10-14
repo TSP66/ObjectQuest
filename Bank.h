@@ -7,8 +7,8 @@
 #include "Input.h" //For INDENT
 
 struct Loan {
-    int amount;
-    float interest; // Value between 0 and 1
+    int amount; // the amount of the loan.
+    float interest;// Value between 0 and 1.
 };
 
 class Bank {
@@ -18,17 +18,16 @@ class Bank {
     static std::vector<std::string> loanAmounts;
     static std::vector<float> interestRates;
     Bank();
-    void addLoan(Loan);
-    Loan getLoan(int);
-    int getNLoans();
-    void payLoan(int, int);
-    void incurInterest();
-    int getTotal();
+    void addLoan(Loan); // used to add loans
+    Loan getLoan(int); // used to observe loans
+    int getNLoans(); // used t o get multiple loans
+    void payLoan(int, int); // used to pay loan
+    void incurInterest(); // used to incur interest
+    int getTotal(); // used to get total 
     int getMinPayments();
     std::vector<std::string> getLoanInfo(void);
     int loanAmountFromOption(int);
     bool checkCredit(int);
     void makePayment(int);
 };
-
 #endif

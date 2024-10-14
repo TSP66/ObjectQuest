@@ -15,6 +15,9 @@ enum Death{
     OLD_AGE,
 };
 
+//these functions are all the getters and 
+//setters for the animals variables 
+//this can be anything from age to death to hunger
 class Animal{
     private:
     float lifespan;

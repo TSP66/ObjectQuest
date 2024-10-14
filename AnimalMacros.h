@@ -24,19 +24,26 @@
 #define CAPITALIZE_Dolphin DOLPHIN
 #define CAPITALIZE_Fish FISH
 
+// defining price of animals 
+//each animals has a differnt price 
+//depending on the amount of customers they bring in,
+//animals will cost more if they bring in more customers
+//and animals will cost less if they dont do as much for the zoos economy
 #define PRICE_Lion 30
 #define PRICE_Tiger 50
 #define PRICE_Dolphin 20
 #define PRICE_Otter 20
 #define PRICE_Fish 10
 
+//setting the animals lifespan 
+//animal lifespan is somewaht inspired by their real animal lifespans 
 #define LIFESPAN_Lion 10.0
 #define LIFESPAN_Tiger 5.0
 #define LIFESPAN_Dolphin 7.0
 #define LIFESPAN_Otter 2.0
 #define LIFESPAN_Fish 1.0
 
-//------------------------------------------
+//------------------------------------------.
 
 #define CAPITALIZE_ANIMAL(animal) CAPITALIZE_##animal
 #define PRICE_ANIMAL(animal) PRICE_##animal
