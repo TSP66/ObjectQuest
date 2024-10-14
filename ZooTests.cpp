@@ -1,4 +1,5 @@
 #include "ZooTests.h"
+#include "Player.h"
 #include <iostream>
 
 
@@ -82,6 +83,8 @@ void ZooTests::test_animal_functions(){
     ZooTests::test_feedAnimal();
     std::cout<<std::endl;
 
+    ZooTests::test_sellAnimal();
+    std::cout<<std::endl;
 }
 
 void ZooTests::test_AnimalInformation(){
@@ -147,18 +150,59 @@ void ZooTests::test_feedAnimal(){
     std::cout<<"testing feedAnimal function"<<std::endl;
 
     std::cout<<"testing without any animals"<<std::endl;
-
     animalIds.clear();
     Changes _test = feedAnimal(999999);
-
     std::cout<<_test.returnMessage<<std::endl;
-
-    std::cout<<"testing with animals"<<std::endl;
 
     Changes _testAnimal = buyAnimal(999999);
 
+    std::cout<<"testing without funds"<<std::endl;
+    _test = feedAnimal(0);
+    std::cout<<_test.returnMessage<<std::endl;
+
+
+    std::cout<<"testing with animals and funds"<<std::endl;
+    int Id = Zoo::animalIds[0];
+    Zoo::animals[Id]->set_hunger(99.0);
+    float originalHunger = Zoo::animals[Id]->get_hunger();
+
+
+    std::cout<<"Original animal hunger: "<<originalHunger<<std::endl;
     _test = feedAnimal(99999);
+    float newHunger = Zoo::animals[Id]->get_hunger();
+    std::cout<<"New animal hunger: "<<newHunger<<std::endl;
 
     std::cout<<_test.returnMessage<<std::endl;
+
+    //see if i can get it to print animalsToFeed.push_back
 }
 
+void ZooTests::test_sellAnimal(){
+
+    std::cout<<"testing sellAnimal function"<<std::endl;
+
+    std::cout<<"testing without any animals"<<std::endl;
+    animalIds.clear();
+    Changes _test = sellAnimal();
+    std::cout<<_test.returnMessage<<std::endl;
+
+
+
+    std::cout<<"testing with animals"<<std::endl;
+    animalIds.clear();
+
+    Player _testPlayer(1000);
+    std::cout<<"Current player money: "<<_testPlayer.money<<std::endl;
+    
+    _test = buyAnimal(99999);
+    _test = sellAnimal();
+
+    std::cout<<"New player money: "<<_testPlayer.money<<std::endl;
+    // money doesnt go to player for some reason
+
+    if (animalIds.size()!=0){
+        std::cout<<"sellAnimal function did not delete the animal and is not working"<<std::endl;
+    } else {
+        std::cout<<"sellAnimal function deleted the animal and is working"<<std::endl;
+    }
+}
