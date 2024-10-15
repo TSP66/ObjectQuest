@@ -538,7 +538,7 @@ Changes Zoo::breadAnimals(int money){
         return {0, true, std::string("Animals must be the same species!"), RED};
     }
 
-    if ((Zoo::animals.at(animal1Id)->get_sex() != Zoo::animals.at(animal1Id)->get_sex())) {
+    if ((Zoo::animals.at(animal1Id)->get_sex() == Zoo::animals.at(animal2Id)->get_sex())) {
         //std::cout << RED << "Animals must be of different sexes!\n" << RESET;
         return {0, true, std::string("Animals must be of different sexes!"), RED};
     }
