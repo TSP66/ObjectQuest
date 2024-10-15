@@ -527,34 +527,27 @@ Changes Zoo::breadAnimals(int money){
     int animal2Id = Zoo::animalIds[choice2];
 
     if (Zoo::animals.at(animal1Id)->enclosureID != Zoo::animals.at(animal2Id)->enclosureID){
-        //std::cout << RED << "Animals must be from the same enclosure!\n" << RESET;
         return {0, true, std::string("Animals must be from the same enclosure!"), RED};
     }
 
     int enclosureID = Zoo::animals.at(animal1Id)->enclosureID;
 
     if (Zoo::animals.at(animal1Id)->get_name() != Zoo::animals.at(animal2Id)->get_name()){
-        //std::cout << RED << "Animals must be the same species!\n" << RESET;
         return {0, true, std::string("Animals must be the same species!"), RED};
     }
 
     if ((Zoo::animals.at(animal1Id)->get_sex() == Zoo::animals.at(animal2Id)->get_sex())) {
-        //std::cout << RED << "Animals must be of different sexes!\n" << RESET;
         return {0, true, std::string("Animals must be of different sexes!"), RED};
     }
 
     if (Zoo::enclosures.at(enclosureID)->get_currentAnimals() >= Zoo::enclosures.at(enclosureID)->get_maxAnimals()){
-        //std::cout << RED << "No room left in enclosure!\n" << RESET;
         return {0, true, std::string("No room left in enclosure!"), RED};
     }
 
     if ((round(Zoo::animals.at(animal1Id)->get_age()) < 1.0) || (round(Zoo::animals.at(animal1Id)->get_age()) < 1.0)) {
-        //std::cout << RED << "Animals must be of sexual maturity!\n" << RESET;
         return {0, true, std::string("Animals must be of sexual maturity!"), RED};
     }
 
-
-    //std::cout << GREEN << "All conditions meet.... Attempting to breed animals...\nSuccess!\n" << RESET;
 
     Animal * newAnimal;
 
