@@ -46,6 +46,11 @@ int Animal::get_cost(){
 Sex Animal::get_sex(){
     return Animal::sex;
 }
+
+void Animal::set_sex(Sex new_sex){
+    Animal::sex = new_sex;
+}
+
 //return animal sex in a string. Ensures user has a way of 
 //observing gender while playing 
 std::string sexToString(Sex sex){

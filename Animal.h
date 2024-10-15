@@ -41,6 +41,7 @@ class Animal{
     virtual Death timestep();
     int get_id();
     Sex get_sex();
+    void set_sex(Sex new_sex);
     float get_hunger(void);
     float get_happiness(void);
     void set_happiness(float);
