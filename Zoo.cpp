@@ -30,10 +30,6 @@ std::string Zoo::summary(std::string name, int money, int day, DailySales dailyS
                       + std::to_string(dailySales.visitors) + ", Sales: $" + std::to_string(dailySales.revenue) 
                       + ", Debt: $" + std::to_string(Zoo::bank.getTotal()) +")\n";
 
-    /*
-    std::cout << "\n" << GREEN << name <<" zoo" << RESET << " (Day: " << day << ", Funds: $" << money << ", Visitors:. " 
-                      << dailySales.visitors << ", Sales: $" << dailySales.revenue <<")\n".;
-    */
 
     bool zooEmpty = true;
 
@@ -41,9 +37,6 @@ std::string Zoo::summary(std::string name, int money, int day, DailySales dailyS
 
         message += INDENT + MAGENTA + "Enclosure" + RESET +" (type: " + Zoo::enclosures[enclosureId]->get_name()
                             + ", id: " + std::to_string(Zoo::enclosures[enclosureId]->get_id()) + "):\n";
-
-        //.std::cout << INDENT << MAGENTA << "Enclosure" << RESET <<" (type: " << Zoo::enclosures[enclosureId]->get_name() 
-        //.                    << ", id: " << Zoo::enclosures[enclosureId]->get_id() << "):\n";
         
         bool enclosureEmpty = true;
 
@@ -54,14 +47,6 @@ std::string Zoo::summary(std::string name, int money, int day, DailySales dailyS
                       + ", sex: " + sexToString(mapObject.second->get_sex())
                       + ", happiness: " + std::to_string((int) round(mapObject.second->get_happiness()))
                       + ", id: " + std::to_string(mapObject.first) + ")\n";
-
-            /*          
-            std::cout << INDENT << INDENT << CYAN << mapObject.second->get_name() << RESET //name
-                      << " (age: " << (int) round(mapObject.second->get_age()). 
-                      << ", sex: " << sexToString(mapObject.second->get_sex()).
-                      << ", happiness: " << mapObject.second->get_happiness().
-                      << ", id: " << mapObject.first << ")\n";.
-            */
 
             enclosureEmpty = false;
         }
@@ -83,9 +68,10 @@ std::string Zoo::summary(std::string name, int money, int day, DailySales dailyS
 DailySales Zoo::getRevenue(){
 
     double zooScore = 0;
+
     for (auto mapObject : Zoo::animals){
 
-        double animalScore = pow((double) mapObject.second->get_cost()/25.0, 2.0); //Exotic Animals are more expensive but also more popular.
+        double animalScore = pow((double) mapObject.second->get_cost()/50.0, 2.0); //Exotic Animals are more expensive but also more popular.
 
         if (mapObject.second->get_age() < 1.0){ //checks to see if animal is baby and if so acounts for that with revenue 
             animalScore *= 2.5; //People love baby animals.
@@ -242,12 +228,12 @@ template <typename T> int Zoo::displayOptions(std::vector<T> options){
 //
 std::vector<EnclosureInformation> Zoo::makeEnclosureInformation(){
     std::vector<EnclosureInformation> enclosureInformation{
-        EnclosureInformation("Big Enclosure", 5000, LAND, 10),
-        EnclosureInformation("Medium Enclosure", 2000, LAND, 3),
-        EnclosureInformation("Small Enclosure", 1000, LAND, 2),
-        EnclosureInformation("Big Tank", 5000, AQUATIC, 10),
-        EnclosureInformation("Medium Tank", 2000, AQUATIC, 3),
-        EnclosureInformation("Small Tank", 1000, AQUATIC, 2),
+        EnclosureInformation("Big Enclosure", 2500, LAND, 10),
+        EnclosureInformation("Medium Enclosure", 1000, LAND, 3),
+        EnclosureInformation("Small Enclosure", 500, LAND, 2),
+        EnclosureInformation("Big Tank", 2500, AQUATIC, 10),
+        EnclosureInformation("Medium Tank", 1000, AQUATIC, 3),
+        EnclosureInformation("Small Tank", 500, AQUATIC, 2),
     };
     return enclosureInformation;
 }
@@ -584,12 +570,14 @@ Changes Zoo::breadAnimals(int money){
 
     return {10, true, std::string("Successfully bred animals!"), GREEN};
 }
+
 //allows user to build utilities such as toilet (not implemented)
  Changes Zoo::buildUtilities(int money){
     std::cout << "What Utility do you want to build: \n";
     Zoo::displayOptions(Zoo::utilitiesInformation);
     return {0, true, std::string("Successfully built utility!"), GREEN};
  }
+
 //allows user to go to bank
 //here user can borrow and pay loans 
 Changes Zoo::goToBank(int money){
