@@ -27,12 +27,12 @@ void ZooTests::test_enclosure_functions(){
 }
 
 void ZooTests::test_EnclosureInformation(){
-    std::cout<<"testing zoo.h enclosure information generation"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing zoo.h enclosure information generation"<<RESET<<std::endl;
 
     EnclosureInformation testEnclosure("testenclosure",0,LAND,10);
 
     if (testEnclosure.type == LAND && testEnclosure.cost == 0 && testEnclosure.maxAnimals == 10 ){
-        std::cout<<"EnclosureInformation class working correctly"<<std::endl;
+        std::cout<<BOLD<<BLUE<<"EnclosureInformation class working correctly"<<RESET<<std::endl;
     }
     
 
@@ -40,11 +40,11 @@ void ZooTests::test_EnclosureInformation(){
 
 void ZooTests::test_buildEnclosure(){
 
-    std::cout<<"testing zoo.h buildEnclosure function"<<std::endl;
-    std::cout<<"testing without funds"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing zoo.h buildEnclosure function"<<RESET<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing without funds"<<RESET<<std::endl;
     Changes resultWithoutFunds = Zoo::buildEnclosure(0);
     std::cout<<resultWithoutFunds.returnMessage<<std::endl;
-    std::cout<<"testing with funds"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing with funds"<<RESET<<std::endl;
     Changes resultWithFunds = Zoo::buildEnclosure(999999);
     std::cout<<resultWithFunds.returnMessage<<std::endl;
 
@@ -54,17 +54,17 @@ void ZooTests::test_buildEnclosure(){
 void ZooTests::test_addEnclosure(){
 
 
-    std::cout<<"testing addEnclosure function"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing addEnclosure function"<<RESET<<std::endl;
     int originalNum = enclosureIds.size();
-    std::cout<<"original number of enclosures: "<<originalNum<<std::endl;
+    std::cout<<BOLD<<BLUE<<"original number of enclosures: "<<RESET<<originalNum<<std::endl;
     EnclosureInformation testEnclosure2("testenclosure2",0,LAND,10);
     Zoo::addEnclosure(testEnclosure2);
     int newNum = enclosureIds.size();
-    std::cout<<"new number of enclosures: "<<newNum<<std::endl;
+    std::cout<<BOLD<<BLUE<<"new number of enclosures: "<<newNum<<RESET<<std::endl;
     if (newNum != originalNum + 1){
-        std::cout<<"addEnclosure function is not working"<<std::endl;
+        std::cout<<BOLD<<BLUE<<"addEnclosure function is not working"<<RESET<<std::endl;
     } else {
-        std::cout<<"addEnclosure function is working"<<std::endl;
+        std::cout<<BOLD<<BLUE<<"addEnclosure function is working"<<RESET<<std::endl;
     }
 }
 
@@ -93,33 +93,35 @@ void ZooTests::test_animal_functions(){
 
 void ZooTests::test_AnimalInformation(){
 
-    std::cout<<"testing zoo.h animal information generation"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing zoo.h animal information generation"<<RESET<<std::endl;
 
     AnimalInformation testAnimal("Lion",PRICE_ANIMAL(Lion),CAPITALIZE_ANIMAL(Lion),LAND);
 
     if (testAnimal.enclosureType == LAND && testAnimal.cost == 30 && testAnimal.type == LION ){
-        std::cout<<"AnimalInformation class working correctly"<<std::endl;
+        std::cout<<BOLD<<BLUE<<"AnimalInformation class working correctly"<<RESET<<std::endl;
+    } else {
+        std::cout<<BOLD<<BLUE<<"AnimalInformation class is not working correctly"<<RESET<<std::endl;
     }
 }
 
 void ZooTests::test_buyAnimal(){
 
-    std::cout<<"testing zoo.h buyAnimal function"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing zoo.h buyAnimal function"<<RESET<<std::endl;
 
-    std::cout<<"testing without funds"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing without funds"<<RESET<<std::endl;
     Changes resultWithoutFunds = Zoo::buyAnimal(0);
     std::cout<<resultWithoutFunds.returnMessage<<std::endl;
 
-    std::cout<<"testing with funds"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing with funds"<<RESET<<std::endl;
     Changes resultWithFunds = Zoo::buyAnimal(999999);
     std::cout<<resultWithFunds.returnMessage<<std::endl;
 
-    std::cout<<"testing without enclosure"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing without enclosure"<<RESET<<std::endl;
     enclosureIds.clear();
     Changes resultWithoutEnclosures = Zoo::buyAnimal(999999);
     std::cout<<resultWithoutEnclosures.returnMessage<<std::endl;
 
-    std::cout<<"testing with wrong enclosure"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing with wrong enclosure"<<RESET<<std::endl;
     EnclosureInformation testEnclosure4("testenclosure4",0,AQUATIC,10);
     Zoo::addEnclosure(testEnclosure4);
     Changes resultWithWrongEnclosure = Zoo::buyAnimal(999999);
@@ -128,7 +130,7 @@ void ZooTests::test_buyAnimal(){
 
 void ZooTests::test_deleteAnimal(){
 
-    std::cout<<"testsing zoo.h deleteAnimal function"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testsing zoo.h deleteAnimal function"<<RESET<<std::endl;
 
     EnclosureInformation testEnclosure3("testenclosure3",0,LAND,10);
     Zoo::addEnclosure(testEnclosure3);
@@ -143,38 +145,38 @@ void ZooTests::test_deleteAnimal(){
     int newNum = animalIds.size();
 
     if ((originalNum != 1) || (newNum != 0)){
-        std::cout<<"deleteAnimal function is not working"<<std::endl;
+        std::cout<<BOLD<<BLUE<<"deleteAnimal function is not working"<<RESET<<std::endl;
     } else {
-        std::cout<<"deleteAnimal function is working"<<std::endl;
+        std::cout<<BOLD<<BLUE<<"deleteAnimal function is working"<<RESET<<std::endl;
     }
 }
 
 void ZooTests::test_feedAnimal(){
 
-    std::cout<<"testing feedAnimal function"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing feedAnimal function"<<RESET<<std::endl;
 
-    std::cout<<"testing without any animals"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing without any animals"<<RESET<<std::endl;
     animalIds.clear();
     Changes _test = feedAnimal(999999);
     std::cout<<_test.returnMessage<<std::endl;
 
     Changes _testAnimal = buyAnimal(999999);
 
-    std::cout<<"testing without funds"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing without funds"<<RESET<<std::endl;
     _test = feedAnimal(0);
     std::cout<<_test.returnMessage<<std::endl;
 
 
-    std::cout<<"testing with animals and funds"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing with animals and funds"<<RESET<<std::endl;
     int Id = Zoo::animalIds[0];
     Zoo::animals[Id]->set_hunger(99.0);
     float originalHunger = Zoo::animals[Id]->get_hunger();
 
 
-    std::cout<<"Original animal hunger: "<<originalHunger<<std::endl;
+    std::cout<<BOLD<<BLUE<<"Original animal hunger: "<<originalHunger<<RESET<<std::endl;
     _test = feedAnimal(99999);
     float newHunger = Zoo::animals[Id]->get_hunger();
-    std::cout<<"New animal hunger: "<<newHunger<<std::endl;
+    std::cout<<BOLD<<BLUE<<"New animal hunger: "<<newHunger<<RESET<<std::endl;
 
     std::cout<<_test.returnMessage<<std::endl;
 
@@ -183,16 +185,16 @@ void ZooTests::test_feedAnimal(){
 
 void ZooTests::test_sellAnimal(){
 
-    std::cout<<"testing sellAnimal function"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing sellAnimal function"<<RESET<<std::endl;
 
-    std::cout<<"testing without any animals"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing without any animals"<<RESET<<std::endl;
     animalIds.clear();
     Changes _test = sellAnimal();
     std::cout<<_test.returnMessage<<std::endl;
 
 
 
-    std::cout<<"testing with animals"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing with animals"<<RESET<<std::endl;
     animalIds.clear();
 
     // Player _testPlayer(1000);
@@ -205,17 +207,17 @@ void ZooTests::test_sellAnimal(){
     // // money doesnt go to player for some reason
 
     if (animalIds.size()!=0){
-        std::cout<<"sellAnimal function did not delete the animal and is not working"<<std::endl;
+        std::cout<<BOLD<<BLUE<<"sellAnimal function did not delete the animal and is not working"<<RESET<<std::endl;
     } else {
-        std::cout<<"sellAnimal function deleted the animal and is working"<<std::endl;
+        std::cout<<BOLD<<BLUE<<"sellAnimal function deleted the animal and is working"<<RESET<<std::endl;
     }
 }
 
 void ZooTests::test_moveAnimal(){
 
-    std::cout<<"testing moveAnimal function"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing moveAnimal function"<<RESET<<std::endl;
 
-    std::cout<<"testing without any animals"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing without any animals"<<RESET<<std::endl;
     animalIds.clear();
     enclosureIds.clear();
     Changes _test = moveAnimal();
@@ -223,7 +225,7 @@ void ZooTests::test_moveAnimal(){
     std::cout<<std::endl;
 
 
-    std::cout<<"testing with animals and one enclosure"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing with animals and one enclosure"<<RESET<<std::endl;
 
     animalIds.clear();
     enclosureIds.clear();
@@ -252,7 +254,7 @@ void ZooTests::test_moveAnimal(){
     std::cout<<_testMove.returnMessage<<std::endl;
     std::cout<<std::endl;
 
-    std::cout<<"testing with animals and multiple enclosures"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing with animals and multiple enclosures"<<RESET<<std::endl;
 
     animalIds.clear();
     enclosureIds.clear();
@@ -269,12 +271,12 @@ void ZooTests::test_moveAnimal(){
 }
 
 void ZooTests::test_breadAnimals(){
-    std::cout<<"testing breadAnimals function"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing breadAnimals function"<<RESET<<std::endl;
 
     animalIds.clear();
     enclosureIds.clear();
 
-    std::cout<<"testing with less than two animals"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing with less than two animals"<<RESET<<std::endl;
 
     EnclosureInformation testEnclosure2("testenclosure2",0,LAND,10);
     Zoo::addEnclosure(testEnclosure2);
@@ -286,7 +288,7 @@ void ZooTests::test_breadAnimals(){
     std::cout<<_testBreeding.returnMessage<<std::endl; 
     std::cout<<std::endl;
 
-    std::cout<<"testing with two animals and no funds"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing with two animals and no funds"<<RESET<<std::endl;
 
     Changes _testAnimal2 = buyAnimal(9999);
     std::cout<<_testAnimal2.returnMessage<<std::endl;
@@ -295,13 +297,13 @@ void ZooTests::test_breadAnimals(){
     std::cout<<_testBreeding2.returnMessage<<std::endl; 
     std::cout<<std::endl;
 
-    std::cout<<"testing with two young animals and funds"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing with two young animals and funds"<<RESET<<std::endl;
 
     Changes _testBreeding3 = breadAnimals(99999);
     std::cout<<_testBreeding3.returnMessage<<std::endl; 
     std::cout<<std::endl;
 
-    std::cout<<"testing with two older animals and funds"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"testing with two older animals and funds"<<RESET<<std::endl;
 
     for (int i=0;i<animalIds.size();i++){
         Animal* animal = Zoo::animals[animalIds[i]].get();
@@ -311,14 +313,14 @@ void ZooTests::test_breadAnimals(){
     Changes _testBreeding4 = breadAnimals(99999);
     std::cout<<_testBreeding4.returnMessage<<std::endl;
 
-    std::cout<<"checking if animal was added to the enclosure"<<std::endl;
+    std::cout<<BOLD<<BLUE<<"checking if animal was added to the enclosure"<<RESET<<std::endl;
 
     if (animalIds.size()!= 3){
-        std::cout<<"new animals id was not added to id vector"<<std::endl;
+        std::cout<<BOLD<<BLUE<<"new animals id was not added to id vector"<<RESET<<std::endl;
     } else {
-        std::cout<<"new animals id was successfully added to id vector"<<std::endl;
+        std::cout<<BOLD<<BLUE<<"new animals id was successfully added to id vector"<<RESET<<std::endl;
         Animal* animal3 = Zoo::animals[animalIds[2]].get();
-        std::cout<<"A new lion with age: "<<animal3->get_age()<<std::endl;
+        std::cout<<BOLD<<BLUE<<"a new lion with age: "<<animal3->get_age()<<RESET<<std::endl;
     }
 
 }
