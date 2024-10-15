@@ -21,8 +21,6 @@ SRCS = mainTests.cpp \
        EnclosureInformation.cpp \
        AquaticAnimal.cpp \
        AnimalMacros.cpp \
-       Utilities.cpp \
-       UtilitiesInformation.cpp \
        Bank.cpp \
        Input.cpp \
 	ZooTests.cpp \
@@ -43,8 +41,6 @@ HDRS = Testing.h \
        AnimalInformation.h \
        EnclosureInformation.h \
        AnimalMacros.h \
-       Utilities.h \
-       UtilitiesInformation.h \
        Bank.h \
        Input.h \
 	ZooTests.h \

@@ -5,7 +5,6 @@
 Zoo::Zoo(){
     Zoo::enclosureInformation = Zoo::makeEnclosureInformation();
     Zoo::animalInformation = Zoo::makeAnimalInformation();
-    Zoo::utilitiesInformation = Zoo::makeUtilitiesInformation();
     Zoo::ticketPrice = 1; //ticket price initially set to 1. 
     //maining every costomer pays 1 dollar for entry 
 
@@ -237,17 +236,6 @@ std::vector<EnclosureInformation> Zoo::makeEnclosureInformation(){
     };
     return enclosureInformation;
 }
-//different utilitie options
-//different utilities generate differnt revenue 
-//and cost differnt amoutnts of money
-std::vector<UtilitiesInformation> Zoo::makeUtilitiesInformation(){
-    std::vector<UtilitiesInformation> enclosureInformation{
-        UtilitiesInformation("Toilet", 100, 1000, TOILET),
-        UtilitiesInformation("Fountain", 50, 600, FOUNTAIN),
-        UtilitiesInformation("Gift Shop", 400, 3000, GIFTSHOP),
-    };
-    return enclosureInformation;
-}
 
 //diasplays animal information such as price and name and what enclosure type they require. 
 std::vector<AnimalInformation> Zoo::makeAnimalInformation(){
@@ -264,7 +252,6 @@ std::vector<AnimalInformation> Zoo::makeAnimalInformation(){
 
 template int Zoo::displayOptions<EnclosureInformation>(std::vector<EnclosureInformation>);
 template int Zoo::displayOptions<AnimalInformation>(std::vector<AnimalInformation>);
-//template int Zoo::displayOptions<UtilitiesInformation>(std::vector<UtilitiesInformation>);.
 
 int Zoo::ticketPriceFromOption(int option){
     return atoi(Zoo::ticketPriceChoices[option].substr(1, Zoo::ticketPriceChoices.size()-1).c_str());
@@ -570,13 +557,6 @@ Changes Zoo::breadAnimals(int money){
 
     return {10, true, std::string("Successfully bred animals!"), GREEN};
 }
-
-//allows user to build utilities such as toilet (not implemented)
- Changes Zoo::buildUtilities(int money){
-    std::cout << "What Utility do you want to build: \n";
-    Zoo::displayOptions(Zoo::utilitiesInformation);
-    return {0, true, std::string("Successfully built utility!"), GREEN};
- }
 
 //allows user to go to bank
 //here user can borrow and pay loans 

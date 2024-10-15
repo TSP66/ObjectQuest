@@ -21,8 +21,6 @@ SRCS = main.cpp \
        EnclosureInformation.cpp \
        AquaticAnimal.cpp \
        AnimalMacros.cpp \
-       Utilities.cpp \
-       UtilitiesInformation.cpp \
        Bank.cpp \
        Input.cpp \
 
@@ -40,8 +38,6 @@ HDRS = Player.h \
        AnimalInformation.h \
        EnclosureInformation.h \
        AnimalMacros.h \
-       Utilities.h \
-       UtilitiesInformation.h \
        Bank.h \
        Input.h \
        
