@@ -99,7 +99,7 @@ void ZooTests::test_AnimalInformation(){
 
     AnimalInformation testAnimal("Lion",PRICE_ANIMAL(Lion),CAPITALIZE_ANIMAL(Lion),LAND);
 
-    if (testAnimal.enclosureType == LAND && testAnimal.cost == 30 && testAnimal.type == LION ){
+    if ((testAnimal.enclosureType == LAND) && (testAnimal.cost) == PRICE_ANIMAL(Lion) && (testAnimal.type == LION)){
         std::cout<<BOLD<<GREEN<<"AnimalInformation class working correctly"<<RESET<<std::endl;
     } else {
         std::cout<<BOLD<<RED<<"AnimalInformation class is not working correctly"<<RESET<<std::endl;
