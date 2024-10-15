@@ -16,7 +16,7 @@ Death LandAnimal::timestep(){ //Returns true if has died
     }
     
     //Animals randomly die as they get older
-    if (rand() < (RAND_MAX*LandAnimal::age)/(2.0*LandAnimal::get_lifespan())){
+    if (rand() < (RAND_MAX*LandAnimal::age)/(4.0*LandAnimal::get_lifespan())){
         if (LandAnimal::age >= (3*LandAnimal::get_lifespan())/4){
             return OLD_AGE;
         }

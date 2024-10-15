@@ -11,18 +11,24 @@
 
 #define LAND_ANIMAL_LIST(XX) \
     XX(Lion) \
-    XX(Tiger) 
+    XX(Tiger) \
+    XX(Rhinoceros) \
+    XX(Elephant) \
 
 #define AQUATIC_ANIMAL_LIST(XX) \
     XX(Dolphin) \
     XX(Otter) \
-    XX(Fish)
+    XX(Fish) \
+    XX(Octopus)
 
 #define CAPITALIZE_Otter OTTER
 #define CAPITALIZE_Lion LION
 #define CAPITALIZE_Tiger TIGER
 #define CAPITALIZE_Dolphin DOLPHIN
 #define CAPITALIZE_Fish FISH
+#define CAPITALIZE_Rhinoceros RHINOCEROS
+#define CAPITALIZE_Octopus OCTOPUS
+#define CAPITALIZE_Elephant ELEPHANT
 
 // defining price of animals 
 //each animals has a differnt price 
@@ -34,6 +40,9 @@
 #define PRICE_Dolphin 20
 #define PRICE_Otter 20
 #define PRICE_Fish 10
+#define PRICE_Rhinoceros 80
+#define PRICE_Octopus 25
+#define PRICE_Elephant 100
 
 //setting the animals lifespan 
 //animal lifespan is somewaht inspired by their real animal lifespans 
@@ -42,6 +51,9 @@
 #define LIFESPAN_Dolphin 7.0
 #define LIFESPAN_Otter 2.0
 #define LIFESPAN_Fish 1.0
+#define LIFESPAN_Rhinoceros 10.0
+#define LIFESPAN_Octopus 5.0
+#define LIFESPAN_Elephant 30.0
 
 //------------------------------------------.
 
