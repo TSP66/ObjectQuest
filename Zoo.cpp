@@ -1,15 +1,5 @@
 #include "Zoo.h"
 
-//Testing macro:
-
-/*
-#ifndef TESTING
-// Code you don't wont to run in testing.
-//#else.
-// Code you do want to run only in testing.
-//#endif.
-*/
-
 Zoo::Zoo(){
     Zoo::enclosureInformation = Zoo::makeEnclosureInformation();
     Zoo::animalInformation = Zoo::makeAnimalInformation();
@@ -17,8 +7,8 @@ Zoo::Zoo(){
     Zoo::ticketPrice = 1; //ticket price initially set to 1. 
     //maining every costomer pays 1 dollar for entry 
 
-//ticket price options
-//setting ticket prices affects costomer quantity 
+    //ticket price options
+    //setting ticket prices affects costomer quantity 
     Zoo::ticketPriceChoices = {
         "$1",
         "$2",
@@ -38,10 +28,6 @@ std::string Zoo::summary(std::string name, int money, int day, DailySales dailyS
                       + std::to_string(dailySales.visitors) + ", Sales: $" + std::to_string(dailySales.revenue) 
                       + ", Debt: $" + std::to_string(Zoo::bank.getTotal()) +")\n";
 
-    /*
-    std::cout << "\n" << GREEN << name <<" zoo" << RESET << " (Day: " << day << ", Funds: $" << money << ", Visitors:. " 
-                      << dailySales.visitors << ", Sales: $" << dailySales.revenue <<")\n".;
-    */
 
     bool zooEmpty = true;
 
@@ -50,9 +36,7 @@ std::string Zoo::summary(std::string name, int money, int day, DailySales dailyS
         message += INDENT + MAGENTA + "Enclosure" + RESET +" (type: " + Zoo::enclosures[enclosureId]->get_name()
                             + ", id: " + std::to_string(Zoo::enclosures[enclosureId]->get_id()) + "):\n";
 
-        //.std::cout << INDENT << MAGENTA << "Enclosure" << RESET <<" (type: " << Zoo::enclosures[enclosureId]->get_name() 
-        //.                    << ", id: " << Zoo::enclosures[enclosureId]->get_id() << "):\n";
-        
+
         bool enclosureEmpty = true;
 
         for (auto mapObject : Zoo::enclosures[enclosureId]->animals){
@@ -63,24 +47,14 @@ std::string Zoo::summary(std::string name, int money, int day, DailySales dailyS
                       + ", happiness: " + std::to_string((int) round(mapObject.second->get_happiness()))
                       + ", id: " + std::to_string(mapObject.first) + ")\n";
 
-            /*          
-            std::cout << INDENT << INDENT << CYAN << mapObject.second->get_name() << RESET //name
-                      << " (age: " << (int) round(mapObject.second->get_age()). 
-                      << ", sex: " << sexToString(mapObject.second->get_sex()).
-                      << ", happiness: " << mapObject.second->get_happiness().
-                      << ", id: " << mapObject.first << ")\n";.
-            */
-
             enclosureEmpty = false;
         }
         if (enclosureEmpty)
-            //std::cout << INDENT << INDENT << RED << "EMPTY\n" << RESET;.
             message += INDENT + INDENT + RED + "EMPTY\n" + RESET;
         
         zooEmpty = false;
     }
     if (zooEmpty) {
-        //std::cout << INDENT << RED << "EMPTY\n" << RESET;.
         message += INDENT + INDENT + RED + "EMPTY\n" + RESET;
     }
     //std::cout << "\n";.
@@ -159,11 +133,6 @@ Changes Zoo::buyAnimal(int money){
         return {0, true, std::string("You have no suitable enclosures!"), RED};
     }
 
-    //int enclosureChoice = -1;.
-
-    //std::cout << "Okay, which enclosure would you like to put it in: ";.
-    //std::cin >> enclosureChoice;.
-
     int selection = optionSelector(enclosureNames, std::string("Okay, which enclosure would you like to put it in: "), true);
     int enclosureChoice = suitableEnclosures[selection];
     //Create shared pointer.
@@ -171,8 +140,6 @@ Changes Zoo::buyAnimal(int money){
 
     //Add pointer to enclosure object.
     if(!Zoo::enclosures[Zoo::enclosureIds[enclosureChoice]]->addAnimal(id, newAnimalPtr)){
-        //std::cout << RED << "Enclosure has no space!\n" << RESET;.
-        //delete newAnimalPtr; //Free memory if can't make it.
         return {0, true, std::string("Enclosure has no space!"), RED};
     }
 
@@ -286,7 +253,6 @@ std::vector<AnimalInformation> Zoo::makeAnimalInformation(){
 
 template int Zoo::displayOptions<EnclosureInformation>(std::vector<EnclosureInformation>);
 template int Zoo::displayOptions<AnimalInformation>(std::vector<AnimalInformation>);
-//template int Zoo::displayOptions<UtilitiesInformation>(std::vector<UtilitiesInformation>);.
 
 int Zoo::ticketPriceFromOption(int option){
     return atoi(Zoo::ticketPriceChoices[option].substr(1, Zoo::ticketPriceChoices.size()-1).c_str());
@@ -374,14 +340,6 @@ Changes Zoo::feedAnimal(int money){ //feeding animals
                                 + ", hunger: " + std::to_string(Zoo::animals[Id]->get_hunger()) 
                                 + ", happiness: " + std::to_string(Zoo::animals[Id]->get_happiness())
                                 + ", id: " + std::to_string(Id));
-    
-        /*
-        std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET //name.
-                      << " (cost to feed: $" << (int) round(Zoo::animals[Id]->get_hu.nger()/3.0 * Zoo::animals[Id]->get_cost()/10.0)
-                      << ", hunger: " << Zoo::animals[Id]->get_hunger().
-                      << ", happiness: " << Zoo::animals[Id]->get_happiness().
-                      << ", id: " << Id << ")\n";.
-        */
     }
 
     int choice = optionSelector(animalsToFeed, std::string("Which Animal would you like to feed: "), true);
@@ -420,11 +378,6 @@ Changes Zoo::sellAnimal(void){ //function used to sell animals
                                 + "(value: $" + std::to_string(std::max(1.0, Zoo::animals[Id]->get_cost() - 3.0 * Zoo::animals[Id]->get_age()))
                                 + ", id: " + std::to_string(Id));
     
-        /*
-        std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET//name.
-                      << " (value: $" << (int) std::max(1.0, Zoo::animals[Id]->get_cost() - 3.0 * Zoo::an.imals[Id]->get_age())
-                      << ", id: " << Id << ")\n";.
-        */
     }
 
     int choice = optionSelector(animalsToSell, std::string("Which Animal would you like to sell: "), true); //allows the user to choose which animals to sell
