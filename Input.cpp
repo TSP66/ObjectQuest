@@ -19,9 +19,9 @@ void setRawMode(bool enable) {
 
 void clearScreen() {
     if (!rawModeOn){
-        setRawMode(true);  // Enable raw input mode
+        setRawMode(true);  // Enable raw input mode.
     }
-    std::cout << "\033[2J\033[H";  // ANSI escape code to clear the screen
+    std::cout << "\033[2J\033[H";  // ANSI escape code to clear the screen.
 }
 
 int optionSelector(std::vector <std::string> choices){
@@ -40,7 +40,7 @@ int optionSelector(std::vector <std::string> choices, std::string topMessage, bo
     const int numChoices = choices.size();
 
     if (!rawModeOn){
-        setRawMode(true);  // Enable raw input mode
+        setRawMode(true);  // Enable raw input mode.
     }
 
     while (true) {
@@ -51,7 +51,7 @@ int optionSelector(std::vector <std::string> choices, std::string topMessage, bo
 
         for (int i = 0; i < numChoices; ++i) {
             if (i == selected) {
-                std::cout << SELECTOR << choices[i] << std::endl; // Highlight current choice
+                std::cout << SELECTOR << choices[i] << std::endl; // Highlight current choice.
             } else {
                 std::cout << INDENT << choices[i] << std::endl;
             }
@@ -59,14 +59,14 @@ int optionSelector(std::vector <std::string> choices, std::string topMessage, bo
 
         char c = getchar();
 
-        if (c == '\033') { // If first character is ESC
-            getchar(); // skip the '[' character
-            switch(getchar()) { // the third character is the actual key code
+        if (c == '\033') { // If first character is ESC.
+            getchar(); // skip the '[' character.
+            switch(getchar()) { // the third character is the actual key code.
                 case 'A':
-                    selected = (selected - 1 + numChoices) % numChoices; // Up arrow
+                    selected = (selected - 1 + numChoices) % numChoices; // Up arrow.
                     break;
                 case 'B':
-                    selected = (selected + 1) % numChoices; // Down arrow
+                    selected = (selected + 1) % numChoices; // Down arrow.
                     break;
             }
         } else if (c == '\n') {
@@ -87,3 +87,7 @@ int optionSelector(std::vector <std::string> choices, std::string topMessage, bo
 
     #endif
 }
+
+//
+//
+//

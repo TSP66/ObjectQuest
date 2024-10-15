@@ -13,7 +13,7 @@
 int main(void){
 
     setRawMode(true);
-    clearScreen();
+    clearScreen(); //clears screen using ANSI escape code
 
     srand((unsigned)time(NULL));
 

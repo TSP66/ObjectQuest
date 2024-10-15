@@ -98,3 +98,7 @@ void Animal::set_hunger(float hunger){
 void Animal::set_cost(int cost){
     Animal::cost = cost;
 }
+
+//
+//
+//

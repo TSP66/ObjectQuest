@@ -3,7 +3,7 @@
 
 #include "Information.h"
 
-enum EnclosureType{
+enum EnclosureType{ //determines the type of enclosure.
     LAND,
     AQUATIC,
 };
@@ -11,7 +11,7 @@ enum EnclosureType{
 class EnclosureInformation: public Information {
     public:
     EnclosureInformation(std::string, int, EnclosureType, int);
-    EnclosureType type;
+    EnclosureType type; 
     int maxAnimals;
 };
 

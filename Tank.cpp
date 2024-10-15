@@ -1,6 +1,6 @@
 #include "Tank.h"
 
-//Blank Intialization for debugging purposes
+//Blank Intialization for debugging purposes.
 Tank::Tank() : Enclosure(std::string(""), 0, AQUATIC){
 }
 

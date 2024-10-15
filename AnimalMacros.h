@@ -35,14 +35,14 @@
 //depending on the amount of customers they bring in,
 //animals will cost more if they bring in more customers
 //and animals will cost less if they dont do as much for the zoos economy
-#define PRICE_Lion 30
-#define PRICE_Tiger 50
-#define PRICE_Dolphin 20
-#define PRICE_Otter 20
-#define PRICE_Fish 10
-#define PRICE_Rhinoceros 80
-#define PRICE_Octopus 25
-#define PRICE_Elephant 100
+#define PRICE_Lion 60
+#define PRICE_Tiger 100
+#define PRICE_Dolphin 40
+#define PRICE_Otter 40
+#define PRICE_Fish 20
+#define PRICE_Rhinoceros 160
+#define PRICE_Octopus 50
+#define PRICE_Elephant 200
 
 //setting the animals lifespan 
 //animal lifespan is somewaht inspired by their real animal lifespans 
@@ -84,3 +84,7 @@ Animals mapStringToAnimal(std::string animal);
 int animalToPrice(Animals animal);
 
 #endif
+
+//
+//
+//
