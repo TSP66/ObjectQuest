@@ -445,7 +445,8 @@ Changes Zoo::moveAnimal(void){
         return {0, true, std::string("You have no animals!"), RED}; //displays when you try to move an animal when no animals are in the zoo
     }
 
-
+// asks the user which animal they wish to move. This only occurs when there are animals that 
+//exist within the zoo 
     std::cout << "Which Animal would you like to move:\n";
 
     std::vector<std::string> animalsToMove;
@@ -458,12 +459,12 @@ Changes Zoo::moveAnimal(void){
                                 + ", age: " + std::to_string(round(Zoo::animals[Id]->get_age()))
                                 + ", id: " + std::to_string(Id));
     
-        /*
-        std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET//name
-                      << " (sex: " << sexToString(Zoo::animals[Id]->get_sex())
-                      << ", age: " << (int) round(Zoo::animals[Id]->get_age())
-                      << ", id: " << Id << ")\n";
-        */
+        /*.
+        std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET//name.
+                      << " (sex: " << sexToString(Zoo::animals[Id]->get_sex()).
+                      << ", age: " << (int) round(Zoo::animals[Id]->get_age()).
+                      << ", id: " << Id << ")\n";.
+        */.
     }
 
     int choice = optionSelector(animalsToMove, std::string("Which Animal would you like to move: "), true);
