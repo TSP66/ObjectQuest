@@ -2,14 +2,16 @@
 
 #define BOLD std::string("\033[1m")
 
-#define RED std::string("\033[31m")
+// defining colours for our game text 
 
-#define GREEN std::string("\033[32m")
+#define RED std::string("\033[31m") // red
 
-#define YELLOW std::string("\033[33m")
+#define GREEN std::string("\033[32m") // green
 
-#define BLUE std::string("\033[34m")
+#define YELLOW std::string("\033[33m") // yeallow 
 
-#define MAGENTA std::string("\033[35m")
+#define BLUE std::string("\033[34m") // blue
 
-#define CYAN std::string("\033[36m")
+#define MAGENTA std::string("\033[35m") // magenta
+
+#define CYAN std::string("\033[36m") // cyan
