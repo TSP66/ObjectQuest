@@ -502,15 +502,17 @@ Changes Zoo::moveAnimal(void){
 
     return {0, true, std::string("Successfully moved animal!"), GREEN};
 }
-
+//function to breed animals 
 Changes Zoo::breadAnimals(int money){
 
     int numAnimals = Zoo::animalIds.size();
-
-    if (numAnimals < 2){
+// if breeding requirements are not 
+// in terms of there not being two animals 
+    if (numAnimals < 2){ 
         return {0, true, std::string("You have less than two animals!"), RED};
     }
-
+// if breeding requirements are not 
+// in terms of there not being enough funding 
     if (money < 10) {
         //std::cout << RED << "Insufficient funds to breed!\n" << RESET;
         return {0, true, std::string("Insufficient funds to breed!"), RED};
@@ -526,14 +528,16 @@ Changes Zoo::breadAnimals(int money){
                                 + ", age: " + std::to_string(round(Zoo::animals[Id]->get_age()))                                
                                 + ", id: " + std::to_string(Id));
         /*
-        std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET //name
-                      << " (sex: " << sexToString(Zoo::animals[Id]->get_sex())
-                      << ", age: " << (int) round(Zoo::animals[Id]->get_age())
-                      << ", id: " << Id << ")\n";
+        std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET //name.
+                      << " (sex: " << sexToString(Zoo::animals[Id]->get_sex()).
+                      << ", age: " << (int) round(Zoo::animals[Id]->get_age()).
+                      << ", id: " << Id << ")\n";.
 
         */
     }
-
+//allows user to choose which animals are breesing 
+//user picks a choice 1 
+//user also picks a choice 2
     int choice1 = optionSelector(animalsToBreed, std::string("Choice 1: "), true);
     int choice2 = optionSelector(animalsToBreed, std::string("Choice 2: "), true);
 
@@ -541,34 +545,34 @@ Changes Zoo::breadAnimals(int money){
     int animal2Id = Zoo::animalIds[choice2];
 
     if (Zoo::animals.at(animal1Id)->enclosureID != Zoo::animals.at(animal2Id)->enclosureID){
-        //std::cout << RED << "Animals must be from the same enclosure!\n" << RESET;
+        //std::cout << RED << "Animals must be from the same enclosure!\n" << RESET;.
         return {0, true, std::string("Animals must be from the same enclosure!"), RED};
     }
 
     int enclosureID = Zoo::animals.at(animal1Id)->enclosureID;
 
     if (Zoo::animals.at(animal1Id)->get_name() != Zoo::animals.at(animal2Id)->get_name()){
-        //std::cout << RED << "Animals must be the same species!\n" << RESET;
+        //std::cout << RED << "Animals must be the same species!\n" << RESET;.
         return {0, true, std::string("Animals must be the same species!"), RED};
     }
 
     if ((Zoo::animals.at(animal1Id)->get_sex() != Zoo::animals.at(animal1Id)->get_sex())) {
-        //std::cout << RED << "Animals must be of different sexes!\n" << RESET;
+        //std::cout << RED << "Animals must be of different sexes!\n" << RESET;.
         return {0, true, std::string("Animals must be of different sexes!"), RED};
     }
 
     if (Zoo::enclosures.at(enclosureID)->get_currentAnimals() >= Zoo::enclosures.at(enclosureID)->get_maxAnimals()){
-        //std::cout << RED << "No room left in enclosure!\n" << RESET;
+        //std::cout << RED << "No room left in enclosure!\n" << RESET;.
         return {0, true, std::string("No room left in enclosure!"), RED};
     }
 
     if ((round(Zoo::animals.at(animal1Id)->get_age()) < 1.0) || (round(Zoo::animals.at(animal1Id)->get_age()) < 1.0)) {
-        //std::cout << RED << "Animals must be of sexual maturity!\n" << RESET;
+        //std::cout << RED << "Animals must be of sexual maturity!\n" << RESET;.
         return {0, true, std::string("Animals must be of sexual maturity!"), RED};
     }
 
 
-    //std::cout << GREEN << "All conditions meet.... Attempting to breed animals...\nSuccess!\n" << RESET;
+    //std::cout << GREEN << "All conditions meet.... Attempting to breed animals...\nSuccess!\n" << RESET;.
 
     Animal * newAnimal;
 
@@ -586,7 +590,7 @@ Changes Zoo::breadAnimals(int money){
 
     std::shared_ptr<Animal> newAnimalPtr = std::shared_ptr<Animal>(std::move(newAnimal));
 
-    //Add pointer to Zoo object
+    //Add pointer to Zoo object.
     newAnimalPtr->enclosureID = enclosureID;
     Zoo::enclosures[enclosureID]->addAnimal(id, newAnimalPtr);
     newAnimalPtr->set_cost(animalToPrice(type));
@@ -595,20 +599,21 @@ Changes Zoo::breadAnimals(int money){
 
     return {10, true, std::string("Successfully bred animals!"), GREEN};
 }
-
+//allows user to build utilities such as toilet (not implemented)
  Changes Zoo::buildUtilities(int money){
     std::cout << "What Utility do you want to build: \n";
     Zoo::displayOptions(Zoo::utilitiesInformation);
     return {0, true, std::string("Successfully built utility!"), GREEN};
  }
-
+//allows user to go to bank
+//here user can borrow and pay loans 
 Changes Zoo::goToBank(int money){
 
     std::vector<std::string> bankingOptions = {"Pay loan", "Get load"};
 
     int choice = optionSelector(bankingOptions, std::string("Welcome to the bank!"), true);
 
-    if (choice == 0){ // Pay Loan Option
+    if (choice == 0){ // Pay Loan Option.
         if (Zoo::bank.getNLoans() > 0){
             int loanIndex = optionSelector(Zoo::bank.getLoanInfo(), std::string("Which loan would you like to pay off?"), true);
             if (Zoo::bank.getLoan(loanIndex).amount > money){
@@ -619,7 +624,7 @@ Changes Zoo::goToBank(int money){
         } else {
             return {0, true, std::string("You have no loans!"), GREEN};
         }
-    } else { // Get Load Option
+    } else { // Get Load Option.
         if (!Zoo::bank.checkCredit(money)){
             return {0, true, std::string("Your credit is too bad! You can't borrow more!"), RED};
         }
