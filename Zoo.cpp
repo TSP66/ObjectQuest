@@ -348,9 +348,9 @@ Changes Zoo::feedAnimal(int money){ //feeding animals
         int Id = Zoo::animalIds[i];
 
         animalsToFeed.push_back(Zoo::animals[Id]->get_name() 
-                                + "(cost to feed: $" + std::to_string(round(Zoo::animals[Id]->get_hunger()/3.0 * Zoo::animals[Id]->get_cost()/10.0)) 
-                                + ", hunger: " + std::to_string(Zoo::animals[Id]->get_hunger()) 
-                                + ", happiness: " + std::to_string(Zoo::animals[Id]->get_happiness())
+                                + "(cost to feed: $" + std::to_string((int) round(Zoo::animals[Id]->get_hunger()/3.0 * Zoo::animals[Id]->get_cost()/10.0)) 
+                                + ", hunger: " + std::to_string((int) Zoo::animals[Id]->get_hunger()) 
+                                + ", happiness: " + std::to_string((int) Zoo::animals[Id]->get_happiness())
                                 + ", id: " + std::to_string(Id));
     
         /*
