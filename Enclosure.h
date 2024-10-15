@@ -19,13 +19,13 @@ class Enclosure{
     std::unordered_map<int, std::shared_ptr<Animal>> animals;
     EnclosureType enclosureType;
     Enclosure(std::string, int, EnclosureType);
-    bool addAnimal(int, std::shared_ptr<Animal>);
-    bool removeAnimal(int);
-    int get_id(void);
-    void set_id(int);
-    int get_currentAnimals(void);
-    int get_maxAnimals(void);
-    std::string get_name(void);
+    bool addAnimal(int, std::shared_ptr<Animal>); //adds animal
+    bool removeAnimal(int); //removes animal
+    int get_id(void); //returns ID of individual animal
+    void set_id(int); //sets the animal ID to a specific used ID
+    int get_currentAnimals(void); //Returns current animals in enclosure 
+    int get_maxAnimals(void); //returns max amout of animals that can fit in enclosure 
+    std::string get_name(void); //returns name of enclosure 
 };
 
 #endif

@@ -31,6 +31,8 @@ void Bank::makePayment(int amount){
     }
 }
 
+// function removes loans 
+//loans are erased when paid for 
 void Bank::payLoan(int index, int amount){
     Bank::loans[index].amount -= amount;
     if (Bank::loans[index].amount <= 0){
@@ -38,12 +40,16 @@ void Bank::payLoan(int index, int amount){
     }
 }
 
+// loans incur interest the longer they arent paid for 
 void Bank::incurInterest(){
     for(int i = 0; i < Bank::loans.size(); i++){
         Bank::loans[i].amount = (int) ((float) Bank::loans[i].amount * (1.0 + Bank::loans[i].interest));
     }
 }
 
+//returns the total amount of moneu loaned
+//
+//
 int Bank::getTotal(){
     int sum = 0;
     for (Loan loan : Bank::loans) {
@@ -63,10 +69,12 @@ int Bank::getMinPayments(){
     return Bank::getTotal()/10; //You have to pay 10% off every cycle
 }
 
+//returns the size of bank loans
 int Bank::getNLoans(){
     return (int) Bank::loans.size();
 }
 
+//returns all information about current loans that are in play
 std::vector<std::string> Bank::getLoanInfo(void){
     std::vector<std::string> loanInfo;
     for (int i = 0; i < Bank::loans.size(); i++){
