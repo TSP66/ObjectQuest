@@ -442,7 +442,7 @@ Changes Zoo::moveAnimal(void){
     int numAnimals = Zoo::animalIds.size();
 
     if (numAnimals == 0){
-        return {0, true, std::string("You have no animals!"), RED};
+        return {0, true, std::string("You have no animals!"), RED}; //displays when you try to move an animal when no animals are in the zoo
     }
 
 
