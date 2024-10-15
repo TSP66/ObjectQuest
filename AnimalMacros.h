@@ -84,7 +84,3 @@ Animals mapStringToAnimal(std::string animal);
 int animalToPrice(Animals animal);
 
 #endif
-
-//
-//
-//
