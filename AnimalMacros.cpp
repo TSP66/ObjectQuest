@@ -18,3 +18,7 @@ int animalToPrice(Animals animal){
         #undef XX
     }
 }
+
+//
+//
+//

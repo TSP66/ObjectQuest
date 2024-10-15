@@ -30,7 +30,8 @@ inline std::unordered_map<Action, std::string> getActionNameMap(void){
         {FEED_ANIMAL, "Feed Animal"},//feed animals option used to ensure animals stay happy which brings in  more customers 
         {SET_TICKET_PRICE, "Set ticket price"}, //allows for yhe user to change the price that visitors must pay to enter
         {GO_TO_BANK, "Go to bank"}, //takes you to bank options here you can make loans and pay loans
-        {NUM_ACTIONS, "Do nothing"},
+        {NUM_ACTIONS, "Do nothing"},// allows the user to do nothing for a turn.
+        //this can allow the user to build up funds 
         
     };
 

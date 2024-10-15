@@ -48,6 +48,8 @@ void Bank::incurInterest(){
 }
 
 //returns the total amount of moneu loaned
+//
+//
 int Bank::getTotal(){
     int sum = 0;
     for (Loan loan : Bank::loans) {

@@ -31,3 +31,12 @@ class Bank {
     void makePayment(int);// used to make a payment with money in your bank 
 };
 #endif
+
+
+
+
+
+
+//
+//
+//
