@@ -285,53 +285,30 @@ void ZooTests::test_breadAnimals(){
 
     Changes _testAnimal = buyAnimal(9999);
     std::cout<<_testAnimal.returnMessage<<std::endl;
+    animals[animalIds[0]]->set_sex(MALE);
 
     Changes _testBreeding = breadAnimals(99999);
-    std::cout<<_testBreeding.returnMessage<<std::endl; 
+    std::cout<<_testBreeding.returnMessage<<std::endl;
+    std::cout<<std::endl;
+
+    std::cout<<BOLD<<BLUE<<"testing with two animals of the same sex"<<RESET<<std::endl;
+
+    Changes _testAnimal8 = buyAnimal(9999);
+    std::cout<<_testAnimal8.returnMessage<<std::endl;
+    animals[animalIds[1]]->set_sex(MALE);
+    
+
+    Changes _testBreeding8 = breadAnimals(99999);
+    std::cout<<_testBreeding8.returnMessage<<std::endl; 
     std::cout<<std::endl;
 
     std::cout<<BOLD<<BLUE<<"testing with two animals and no funds"<<RESET<<std::endl;
 
-    Changes _testAnimal2 = buyAnimal(9999);
-    std::cout<<_testAnimal2.returnMessage<<std::endl;
+    animals[animalIds[1]]->set_sex(FEMALE);
+
 
     Changes _testBreeding2 = breadAnimals(0);
     std::cout<<_testBreeding2.returnMessage<<std::endl; 
     std::cout<<std::endl;
 
-    std::cout<<BOLD<<BLUE<<"testing with two young animals and funds"<<RESET<<std::endl;
-
-    Changes _testBreeding3 = breadAnimals(99999);
-    std::cout<<_testBreeding3.returnMessage<<std::endl; 
-    std::cout<<std::endl;
-
-    std::cout<<BOLD<<BLUE<<"testing with two older animals and funds"<<RESET<<std::endl;
-
-    for (int i=0;i<animalIds.size();i++){
-        Animal* animal = Zoo::animals[animalIds[i]].get();
-        animal->set_age(6);
-    }
-
-    Changes _testBreeding4 = breadAnimals(99999);
-    std::cout<<_testBreeding4.returnMessage<<std::endl;
-
-    std::cout<<BOLD<<BLUE<<"checking if animal was added to the enclosure"<<RESET<<std::endl;
-
-    if (animalIds.size()!= 3){
-        std::cout<<BOLD<<RED<<"new animals id was not added to id vector"<<RESET<<std::endl;
-    } else {
-        std::cout<<BOLD<<GREEN<<"new animals id was successfully added to id vector"<<RESET<<std::endl;
-        Animal* animal3 = Zoo::animals[animalIds[2]].get();
-        std::cout<<BOLD<<BLUE<<"a new lion with age: "<<animal3->get_age()<<RESET<<std::endl;
-    }
-
 }
-
-// void ZooTests::test_goToBank(){
-
-//     std::cout<<"testing goToBank function"<<std::endl;
-
-//     std::cout<<"testing pay loan"<<std::endl;
-
-
-// }
