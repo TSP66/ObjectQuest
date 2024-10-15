@@ -694,5 +694,226 @@ Changes Zoo::goToBank(int money) {
             GREEN};
   }
 
+<<<<<<< HEAD
   return {0, true, std::string("Successfully went to the bank!"), GREEN};
+=======
+    std::vector<std::string> animalsToSell;
+
+    for (int i = 0; i < numAnimals; i++){
+        int Id = Zoo::animalIds[i];
+
+        animalsToSell.push_back(Zoo::animals[Id]->get_name() //shoes the value of the animal that your trying to sell and the animasl ID 
+                                + "(value: $" + std::to_string(std::max(1.0, Zoo::animals[Id]->get_cost() - 3.0 * Zoo::animals[Id]->get_age()))
+                                + ", id: " + std::to_string(Id));
+    
+        /*
+        std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET//name.
+                      << " (value: $" << (int) std::max(1.0, Zoo::animals[Id]->get_cost() - 3.0 * Zoo::an.imals[Id]->get_age())
+                      << ", id: " << Id << ")\n";.
+        */
+    }
+
+    int choice = optionSelector(animalsToSell, std::string("Which Animal would you like to sell: "), true); //allows the user to choose which animals to sell
+
+    int Id = Zoo::animalIds[choice];
+    int value = (int) std::max(1.0, Zoo::animals[Id]->get_cost() - 3.0 * Zoo::animals[Id]->get_age());
+
+    Zoo::deleteAnimal(Id);//deletes the animals ID
+    // frees up space for new animal once sold 
+    return {-value}; //Negative as the user get to keep the value.
+}
+
+Changes Zoo::moveAnimal(void){
+
+    int numAnimals = Zoo::animalIds.size();
+
+    if (numAnimals == 0){
+        return {0, true, std::string("You have no animals!"), RED}; //displays when you try to move an animal when no animals are in the zoo
+    }
+
+// asks the user which animal they wish to move. This only occurs when there are animals that 
+//exist within the zoo 
+    std::cout << "Which Animal would you like to move:\n";
+
+    std::vector<std::string> animalsToMove;
+
+    for (int i = 0; i < numAnimals; i++){
+        int Id = Zoo::animalIds[i];
+//user choosing animal from determining its sex age and ID
+        animalsToMove.push_back(Zoo::animals[Id]->get_name() 
+                                + "(sex: " + sexToString(Zoo::animals[Id]->get_sex())
+                                + ", age: " + std::to_string(round(Zoo::animals[Id]->get_age()))
+                                + ", id: " + std::to_string(Id));
+    
+        /*.
+        std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET//name.
+                      << " (sex: " << sexToString(Zoo::animals[Id]->get_sex()).
+                      << ", age: " << (int) round(Zoo::animals[Id]->get_age()).
+                      << ", id: " << Id << ")\n";.
+        */
+    }
+//displays the output for the user to determine which animal he wants to move 
+    int choice = optionSelector(animalsToMove, std::string("Which Animal would you like to move: "), true);
+//
+    int animalId = Zoo::animalIds[choice];
+    int oldEnclosureId = Zoo::animals.at(animalId)->enclosureID;
+
+    std::vector<int> suitableEnclosures;
+    std::vector<std::string> suitableEnclosuresNames;
+
+    for (int i = 0; i < Zoo::enclosureIds.size(); i++){
+        int id = Zoo::enclosureIds[i];
+        if (Zoo::enclosures[id]->enclosureType == Zoo::enclosures[oldEnclosureId]->enclosureType){
+            suitableEnclosuresNames.push_back(Zoo::enclosures[id]->get_name() + " | " + std::to_string(Zoo::enclosures[id]->get_id()));
+            //std::cout << INDENT << i << ": " << MAGENTA << Zoo::enclosures[id]->get_name() << RESET << " | " << Zoo::enclosures[id]->get_id() << "\n";
+            suitableEnclosures.push_back(i);
+        }
+    }
+
+    if (suitableEnclosures.size() <= 1) {
+        //std::cout << RED << "You have no other suitable enclosures!\n" << RESET;
+        return {0, true, std::string("You have no other suitable enclosures!"), RED};
+    }
+
+    int enclosureChoice = suitableEnclosures[optionSelector(suitableEnclosuresNames, std::string("Okay, which enclosure would you like to put it in: "), true)];
+
+    if(!Zoo::enclosures[Zoo::enclosureIds[enclosureChoice]]->addAnimal(animalId, Zoo::animals.at(animalId))){
+        //std::cout << RED << "Enclosure has no space!\n" << RESET;
+        //delete newAnimalPtr; //Free memory if can't make it
+        return {0, true, std::string("Enclosure has no space!"), RED};
+    }
+
+    Zoo::animals.at(animalId)->enclosureID = Zoo::enclosureIds[enclosureChoice];
+    Zoo::enclosures.at(oldEnclosureId)->removeAnimal(animalId);
+
+    return {0, true, std::string("Successfully moved animal!"), GREEN};
+}
+//function to breed animals 
+Changes Zoo::breadAnimals(int money){
+
+    int numAnimals = Zoo::animalIds.size();
+// if breeding requirements are not 
+// in terms of there not being two animals 
+    if (numAnimals < 2){ 
+        return {0, true, std::string("You have less than two animals!"), RED};
+    }
+// if breeding requirements are not 
+// in terms of there not being enough funding 
+    if (money < 10) {
+        //std::cout << RED << "Insufficient funds to breed!\n" << RESET;
+        return {0, true, std::string("Insufficient funds to breed!"), RED};
+    } 
+
+    std::vector<std::string> animalsToBreed;
+
+    for (int i = 0; i < numAnimals; i++){
+        int Id = Zoo::animalIds[i];
+
+        animalsToBreed.push_back(Zoo::animals[Id]->get_name() 
+                                + "(sex: " + sexToString(Zoo::animals[Id]->get_sex())
+                                + ", age: " + std::to_string(round(Zoo::animals[Id]->get_age()))                                
+                                + ", id: " + std::to_string(Id));
+        /*
+        std::cout << INDENT << i << ": " << BLUE << Zoo::animals[Id]->get_name() << RESET //name.
+                      << " (sex: " << sexToString(Zoo::animals[Id]->get_sex()).
+                      << ", age: " << (int) round(Zoo::animals[Id]->get_age()).
+                      << ", id: " << Id << ")\n";.
+
+        */
+    }
+//allows user to choose which animals are breesing 
+//user picks a choice 1 
+//user also picks a choice 2
+    int choice1 = optionSelector(animalsToBreed, std::string("Choice 1: "), true);
+    int choice2 = optionSelector(animalsToBreed, std::string("Choice 2: "), true);
+
+    int animal1Id = Zoo::animalIds[choice1];
+    int animal2Id = Zoo::animalIds[choice2];
+
+    if (Zoo::animals.at(animal1Id)->enclosureID != Zoo::animals.at(animal2Id)->enclosureID){
+        return {0, true, std::string("Animals must be from the same enclosure!"), RED};
+    }
+
+    int enclosureID = Zoo::animals.at(animal1Id)->enclosureID;
+
+    if (Zoo::animals.at(animal1Id)->get_name() != Zoo::animals.at(animal2Id)->get_name()){
+        return {0, true, std::string("Animals must be the same species!"), RED};
+    }
+
+    if ((Zoo::animals.at(animal1Id)->get_sex() != Zoo::animals.at(animal1Id)->get_sex())) {
+        return {0, true, std::string("Animals must be of different sexes!"), RED};
+    }
+
+    if (Zoo::enclosures.at(enclosureID)->get_currentAnimals() >= Zoo::enclosures.at(enclosureID)->get_maxAnimals()){
+        return {0, true, std::string("No room left in enclosure!"), RED};
+    }
+
+    if ((round(Zoo::animals.at(animal1Id)->get_age()) < 1.0) || (round(Zoo::animals.at(animal1Id)->get_age()) < 1.0)) {
+        return {0, true, std::string("Animals must be of sexual maturity!"), RED};
+    }
+
+
+    Animal * newAnimal;
+
+    int id = rand();
+
+    Animals type = mapStringToAnimal(Zoo::animals.at(animal1Id)->get_name());
+
+    switch (type){
+        #define XX(NAME) case CAPITALIZE_ANIMAL(NAME): \
+        newAnimal = new NAME(id); \
+        break; 
+        ANIMAL_LIST(XX)
+        #undef XX
+    }
+
+    std::shared_ptr<Animal> newAnimalPtr = std::shared_ptr<Animal>(std::move(newAnimal));
+
+    //Add pointer to Zoo object.
+    newAnimalPtr->enclosureID = enclosureID;
+    Zoo::enclosures[enclosureID]->addAnimal(id, newAnimalPtr);
+    newAnimalPtr->set_cost(animalToPrice(type));
+    Zoo::animals[id] = newAnimalPtr;
+    Zoo::animalIds.push_back(id);
+
+    return {10, true, std::string("Successfully bred animals!"), GREEN};
+}
+//allows user to build utilities such as toilet (not implemented)
+ Changes Zoo::buildUtilities(int money){
+    std::cout << "What Utility do you want to build: \n";
+    Zoo::displayOptions(Zoo::utilitiesInformation);
+    return {0, true, std::string("Successfully built utility!"), GREEN};
+ }
+//allows user to go to bank
+//here user can borrow and pay loans 
+Changes Zoo::goToBank(int money){
+
+    std::vector<std::string> bankingOptions = {"Pay loan", "Get load"};
+
+    int choice = optionSelector(bankingOptions, std::string("Welcome to the bank!"), true);
+
+    if (choice == 0){ // Pay Loan Option.
+        if (Zoo::bank.getNLoans() > 0){
+            int loanIndex = optionSelector(Zoo::bank.getLoanInfo(), std::string("Which loan would you like to pay off?"), true);
+            if (Zoo::bank.getLoan(loanIndex).amount > money){
+                return {0, true, std::string("Insufficient funds!"), RED};
+            }
+            Zoo::bank.payLoan(loanIndex, money);
+            return {money, true, std::string("Successfully paid off loan!"), GREEN};
+        } else {
+            return {0, true, std::string("You have no loans!"), GREEN};
+        }
+    } else { // Get Load Option.
+        if (!Zoo::bank.checkCredit(money)){
+            return {0, true, std::string("Your credit is too bad! You can't borrow more!"), RED};
+        }
+        int loanAmountChoice = optionSelector(Zoo::bank.loanAmounts, std::string("How much would you like to borrow? (Higher amount = higher interest)"), true);
+        int loanAmount = Zoo::bank.loanAmountFromOption(loanAmountChoice);
+        Zoo::bank.addLoan({loanAmount, Zoo::bank.interestRates[loanAmountChoice]});
+        return {-loanAmount, true, std::string("Successfully borrowed $" + std::to_string(loanAmount) + "!"), GREEN};
+    } 
+
+    return {0, true, std::string("Successfully went to the bank!"), GREEN};
+
+>>>>>>> main
 }
