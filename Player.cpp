@@ -111,3 +111,7 @@ std::string Player::chargeInterest(bool display){
 bool Player::checkBankruptcy(){
     return Player::money < 0;
 }
+
+bool Player::checkVictory(){
+    return Player::money >= 100000;
+}

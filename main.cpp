@@ -40,6 +40,10 @@ int main(void){
             std::cout << RED << "You have been bankrupted due to debt repayments!\n" << RESET;
             goto end;
         }
+        if (player.checkVictory()){
+            std::cout << GREEN << "You have won the game!\n" << RESET;
+            goto end;
+        }
     }
     end:
     std::cout << "\n\nThank you for playing!\n";

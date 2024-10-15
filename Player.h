@@ -21,6 +21,7 @@ class Player{
     int money;
     Zoo zoo;
     bool checkBankruptcy();
+    bool checkVictory();
 };
 
 
