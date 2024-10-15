@@ -58,7 +58,7 @@ void ZooTests::test_addEnclosure(){
 
     std::cout<<BOLD<<BLUE<<"testing addEnclosure function"<<RESET<<std::endl;
     int originalNum = enclosureIds.size();
-    std::cout<<BOLD<<BLUE<<"original number of enclosures: "<<RESET<<originalNum<<std::endl;
+    std::cout<<BOLD<<BLUE<<"original number of enclosures: "<<originalNum<<RESET<<std::endl;
     EnclosureInformation testEnclosure2("testenclosure2",0,LAND,10);
     Zoo::addEnclosure(testEnclosure2);
     int newNum = enclosureIds.size();
