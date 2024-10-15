@@ -14,7 +14,7 @@ int Enclosure::get_id(void){
 //sets the ID of the enclosure
 void Enclosure::set_id(int id){
      Enclosure::id=id;
-}
+}   
 //returns the name of the enclosure 
 
 std::string Enclosure::get_name(void){
