@@ -2,14 +2,6 @@
 
 //Testing macro:
 
-/*
-#ifndef TESTING
-// Code you don't wont to run in testing.
-//#else.
-// Code you do want to run only in testing.
-//#endif.
-*/
-
 Zoo::Zoo(){
     Zoo::enclosureInformation = Zoo::makeEnclosureInformation();
     Zoo::animalInformation = Zoo::makeAnimalInformation();
@@ -602,7 +594,7 @@ Changes Zoo::breadAnimals(int money){
 //here user can borrow and pay loans 
 Changes Zoo::goToBank(int money){
 
-    std::vector<std::string> bankingOptions = {"Pay loan", "Get load"};
+    std::vector<std::string> bankingOptions = {"Pay loan", "Get loan"};
 
     int choice = optionSelector(bankingOptions, std::string("Welcome to the bank!"), true);
 
