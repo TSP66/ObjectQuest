@@ -11,6 +11,7 @@ class Utilities {
     Utilities();
 };
 
+//utility supclasses 
 class Toilet : protected Utilities{
     private : 
     public :
