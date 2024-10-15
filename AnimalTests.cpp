@@ -174,8 +174,3 @@ void AnimalTests::test_set_cost(int cost){
         std::cout << "set_cost function is working" << std::endl;
     }
 }
-
-
-//
-//
-//
