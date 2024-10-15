@@ -9,6 +9,8 @@ void ZooTests::run_tests(){
 
     ZooTests::test_animal_functions();
 
+    // ZooTests::test_goToBank();
+
 }
 
 void ZooTests::test_enclosure_functions(){
@@ -193,14 +195,14 @@ void ZooTests::test_sellAnimal(){
     std::cout<<"testing with animals"<<std::endl;
     animalIds.clear();
 
-    Player _testPlayer(1000);
-    std::cout<<"Current player money: "<<_testPlayer.money<<std::endl;
+    // Player _testPlayer(1000);
+    // std::cout<<"Current player money: "<<_testPlayer.money<<std::endl;
     
     _test = buyAnimal(99999);
     _test = sellAnimal();
 
-    std::cout<<"New player money: "<<_testPlayer.money<<std::endl;
-    // money doesnt go to player for some reason
+    // std::cout<<"New player money: "<<_testPlayer.money<<std::endl;
+    // // money doesnt go to player for some reason
 
     if (animalIds.size()!=0){
         std::cout<<"sellAnimal function did not delete the animal and is not working"<<std::endl;
@@ -319,5 +321,13 @@ void ZooTests::test_breadAnimals(){
         std::cout<<"A new lion with age: "<<animal3->get_age()<<std::endl;
     }
 
-    
 }
+
+// void ZooTests::test_goToBank(){
+
+//     std::cout<<"testing goToBank function"<<std::endl;
+
+//     std::cout<<"testing pay loan"<<std::endl;
+
+
+// }
