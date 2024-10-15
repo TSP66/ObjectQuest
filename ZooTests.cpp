@@ -32,7 +32,9 @@ void ZooTests::test_EnclosureInformation(){
     EnclosureInformation testEnclosure("testenclosure",0,LAND,10);
 
     if (testEnclosure.type == LAND && testEnclosure.cost == 0 && testEnclosure.maxAnimals == 10 ){
-        std::cout<<BOLD<<BLUE<<"EnclosureInformation class working correctly"<<RESET<<std::endl;
+        std::cout<<BOLD<<GREEN<<"EnclosureInformation class working correctly"<<RESET<<std::endl;
+    } else {
+        std::cout<<BOLD<<RED<<"EnclosureInformation class not working correctly"<<RESET<<std::endl;
     }
     
 
@@ -62,9 +64,9 @@ void ZooTests::test_addEnclosure(){
     int newNum = enclosureIds.size();
     std::cout<<BOLD<<BLUE<<"new number of enclosures: "<<newNum<<RESET<<std::endl;
     if (newNum != originalNum + 1){
-        std::cout<<BOLD<<BLUE<<"addEnclosure function is not working"<<RESET<<std::endl;
+        std::cout<<BOLD<<RED<<"addEnclosure function is not working"<<RESET<<std::endl;
     } else {
-        std::cout<<BOLD<<BLUE<<"addEnclosure function is working"<<RESET<<std::endl;
+        std::cout<<BOLD<<GREEN<<"addEnclosure function is working"<<RESET<<std::endl;
     }
 }
 
@@ -98,9 +100,9 @@ void ZooTests::test_AnimalInformation(){
     AnimalInformation testAnimal("Lion",PRICE_ANIMAL(Lion),CAPITALIZE_ANIMAL(Lion),LAND);
 
     if (testAnimal.enclosureType == LAND && testAnimal.cost == 30 && testAnimal.type == LION ){
-        std::cout<<BOLD<<BLUE<<"AnimalInformation class working correctly"<<RESET<<std::endl;
+        std::cout<<BOLD<<GREEN<<"AnimalInformation class working correctly"<<RESET<<std::endl;
     } else {
-        std::cout<<BOLD<<BLUE<<"AnimalInformation class is not working correctly"<<RESET<<std::endl;
+        std::cout<<BOLD<<RED<<"AnimalInformation class is not working correctly"<<RESET<<std::endl;
     }
 }
 
@@ -145,9 +147,9 @@ void ZooTests::test_deleteAnimal(){
     int newNum = animalIds.size();
 
     if ((originalNum != 1) || (newNum != 0)){
-        std::cout<<BOLD<<BLUE<<"deleteAnimal function is not working"<<RESET<<std::endl;
+        std::cout<<BOLD<<RED<<"deleteAnimal function is not working"<<RESET<<std::endl;
     } else {
-        std::cout<<BOLD<<BLUE<<"deleteAnimal function is working"<<RESET<<std::endl;
+        std::cout<<BOLD<<GREEN<<"deleteAnimal function is working"<<RESET<<std::endl;
     }
 }
 
@@ -207,9 +209,9 @@ void ZooTests::test_sellAnimal(){
     // // money doesnt go to player for some reason
 
     if (animalIds.size()!=0){
-        std::cout<<BOLD<<BLUE<<"sellAnimal function did not delete the animal and is not working"<<RESET<<std::endl;
+        std::cout<<BOLD<<RED<<"sellAnimal function did not delete the animal and is not working"<<RESET<<std::endl;
     } else {
-        std::cout<<BOLD<<BLUE<<"sellAnimal function deleted the animal and is working"<<RESET<<std::endl;
+        std::cout<<BOLD<<GREEN<<"sellAnimal function deleted the animal and is working"<<RESET<<std::endl;
     }
 }
 
@@ -316,9 +318,9 @@ void ZooTests::test_breadAnimals(){
     std::cout<<BOLD<<BLUE<<"checking if animal was added to the enclosure"<<RESET<<std::endl;
 
     if (animalIds.size()!= 3){
-        std::cout<<BOLD<<BLUE<<"new animals id was not added to id vector"<<RESET<<std::endl;
+        std::cout<<BOLD<<RED<<"new animals id was not added to id vector"<<RESET<<std::endl;
     } else {
-        std::cout<<BOLD<<BLUE<<"new animals id was successfully added to id vector"<<RESET<<std::endl;
+        std::cout<<BOLD<<GREEN<<"new animals id was successfully added to id vector"<<RESET<<std::endl;
         Animal* animal3 = Zoo::animals[animalIds[2]].get();
         std::cout<<BOLD<<BLUE<<"a new lion with age: "<<animal3->get_age()<<RESET<<std::endl;
     }
