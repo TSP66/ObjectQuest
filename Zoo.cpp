@@ -453,7 +453,7 @@ Changes Zoo::moveAnimal(void){
 
     for (int i = 0; i < numAnimals; i++){
         int Id = Zoo::animalIds[i];
-
+//user choosing animal from determining its sex age and ID
         animalsToMove.push_back(Zoo::animals[Id]->get_name() 
                                 + "(sex: " + sexToString(Zoo::animals[Id]->get_sex())
                                 + ", age: " + std::to_string(round(Zoo::animals[Id]->get_age()))
@@ -464,11 +464,11 @@ Changes Zoo::moveAnimal(void){
                       << " (sex: " << sexToString(Zoo::animals[Id]->get_sex()).
                       << ", age: " << (int) round(Zoo::animals[Id]->get_age()).
                       << ", id: " << Id << ")\n";.
-        */.
+        */
     }
-
+//displays the output for the user to determine which animal he wants to move 
     int choice = optionSelector(animalsToMove, std::string("Which Animal would you like to move: "), true);
-
+//
     int animalId = Zoo::animalIds[choice];
     int oldEnclosureId = Zoo::animals.at(animalId)->enclosureID;
 
