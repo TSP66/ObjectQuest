@@ -19,3 +19,6 @@ int animalToPrice(Animals animal){
     }
 }
 
+//
+//
+//
