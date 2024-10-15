@@ -9,14 +9,14 @@ class LandAnimal: public Animal{
     Death timestep();
 };
 
-//Macro to make creating lots of animals easy
+//Macro to make creating lots of animals easy.
 #define LAND_ANIMAL(NAME) \
     class NAME: public LandAnimal{ \
         public: \
         NAME(int id) : LandAnimal(id, #NAME, LIFESPAN_ANIMAL(NAME)) {} \
     };
 
-//LANDANIMAL(Tiger)
-//LANDANIMAL(Elephant)
+//LANDANIMAL(Tiger).
+//LANDANIMAL(Elephant).
 
 #endif
